@@ -4,19 +4,19 @@ const Home = () => {
   return (
     <>
       <main className="w-[90%] max-w-[1440px] mx-auto">
-        <section className="mt-20">
+        <section className="mt-10 lg:mt-20">
           <div className="mx-auto text-center">
             <p className="text-sm">ACHIEVE YOUR FITNESS GOALS</p>
             <h1
               style={{
                 lineHeight: 1,
               }}
-              className="text-[7rem] font-bebas-neue"
+              className="text-7xl lg:text-[7rem] font-bebas-neue"
             >
               FIND YOUR STRENGTH
             </h1>
           </div>
-          <div className="mx-auto mt-10 max-w-[1024px] h-[512px] rounded-xl overflow-hidden">
+          <div className="mx-auto mt-5 lg:mt-10 max-w-[1024px] lg:h-[512px] rounded-xl overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Hero Image"
@@ -25,7 +25,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="mt-20 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6">
+        <section className="mt-10 lg:mt-20 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6">
           <img src="/logo/Star Logo.svg" className="h-20" />
           <div>
             <h3 className="text-6xl font-bebas-neue">Fitness should be </h3>
