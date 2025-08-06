@@ -6,7 +6,7 @@ const Nav = () => {
 
   return (
     <header className="w-[90%] max-w-[1440px] mx-auto relative">
-      <nav className="py-4 flex items-center justify-between mozilla-headline border-b border-gray-500">
+      <nav className="py-4 flex items-center justify-between border-b border-gray-500">
         <span className="font-black cursor-pointer">COREX</span>
         <ul className="max-lg:hidden max-lg:invisible flex items-center gap-6">
           <li className="cursor-pointer">Home</li>
