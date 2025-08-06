@@ -42,7 +42,7 @@ const Nav = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="absolute top-full left-0 w-full">
+          <div className="absolute top-full left-0 w-full bg-white">
             <ul className="flex flex-col py-4">
               <li className="py-2">Home</li>
               <li className="py-2">Trainers</li>
