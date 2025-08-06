@@ -15,8 +15,8 @@ const Nav = () => {
           <li className="cursor-pointer">Experiences</li>
           <li className="cursor-pointer">Pricing</li>
         </ul>
-        <button className="max-lg:hidden max-lg:invisible bg-black text-white py-2 px-12 rounded-full cursor-pointer">
-          Enter
+        <button className="max-lg:hidden max-lg:invisible bg-black text-white py-2 px-10 rounded-full cursor-pointer">
+          Get Started
         </button>
 
         {/* Toggle Mobile Navigation */}
@@ -51,7 +51,7 @@ const Nav = () => {
               <li className="py-2">Pricing</li>
             </ul>
             <button className="w-full bg-black text-white py-2 rounded-full cursor-pointer">
-              Enter
+              Get Started
             </button>
           </div>
         )}
