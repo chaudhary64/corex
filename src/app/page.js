@@ -35,7 +35,7 @@ const Home = () => {
           <p>
             CoreX is a modern fitness platform that connects you with top
             trainers, personalized programs, and a community of fitness
-            enthusiasts. Whether you're a beginner or an experienced athlete,
+            enthusiasts. Whether you&apos;re a beginner or an experienced athlete,
             CoreX has something for everyone.
           </p>
           <button className="py-2 px-10 rounded-full cursor-pointer border-2 border-black hover:bg-black hover:text-white transition-colors duration-700">
