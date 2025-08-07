@@ -1,4 +1,5 @@
 import React from "react";
+import { FiArrowUpRight } from "react-icons/fi";
 
 const Home = () => {
   return (
@@ -40,6 +41,33 @@ const Home = () => {
           <button className="py-2 px-10 rounded-full cursor-pointer border-2 border-black hover:bg-black hover:text-white transition-colors duration-700">
             Join Now
           </button>
+        </section>
+
+        {/* Our Classes */}
+        <section className="mt-10 lg:mt-20 flex max-lg:flex-wrap justify-between items-center gap-5 lg:gap-10">
+          {/* Left Part */}
+          <div className="lg:w-1/2">
+            <h5 className="font-bebas-neue text-4xl max-lg:text-center">
+              Our Classes
+            </h5>
+            <p className="mt-2">
+              Explore a variety of fitness classes designed for all levels, from
+              yoga and pilates to high-intensity interval training (HIIT). Our
+              expert trainers will guide you every step of the way.
+            </p>
+          </div>
+          {/* Right Part */}
+          <div className="w-full lg:w-1/2">
+            {["Men", "Women", "Kids"].map((category) => (
+              <div
+                key={category}
+                className="py-3 flex justify-between items-center font-bold border-b cursor-pointer"
+              >
+                <span>{category}</span>
+                <FiArrowUpRight />
+              </div>
+            ))}
+          </div>
         </section>
       </main>
     </>
