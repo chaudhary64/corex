@@ -78,22 +78,22 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
               <p className="italic">
-                "CoreX helped me transform my lifestyle. The trainers are
-                amazing and the community is so supportive!"
+                &quot;CoreX helped me transform my lifestyle. The trainers are
+                amazing and the community is so supportive!&quot;
               </p>
               <div className="font-bold">- Alex</div>
             </div>
             <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
               <p className="italic">
-                "I love the variety of classes. There’s something new to try
-                every week!"
+                &quot;I love the variety of classes. There’s something new to
+                try every week!&quot;
               </p>
               <div className="font-bold">- Priya</div>
             </div>
             <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
               <p className="italic">
-                "The personalized programs made it easy for me to stay motivated
-                and reach my goals."
+                &quot;The personalized programs made it easy for me to stay
+                motivated and reach my goals.&quot;
               </p>
               <div className="font-bold">- John</div>
             </div>
