@@ -40,7 +40,7 @@ const Home = () => {
             enthusiasts. Whether you&apos;re a beginner or an experienced
             athlete, CoreX has something for everyone.
           </p>
-          <button className="py-2 px-10 rounded-full cursor-pointer border-2 border-black hover:bg-black hover:text-white transition-colors duration-700">
+          <button className="py-2 px-10 rounded-full cursor-pointer font-bold border-2 border-black hover:bg-black hover:text-white transition-colors duration-700">
             Join Now
           </button>
         </section>
