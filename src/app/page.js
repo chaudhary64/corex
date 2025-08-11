@@ -5,6 +5,7 @@ const Home = () => {
   return (
     <>
       <main className="w-[90%] max-w-[1440px] mx-auto">
+        {/* Hero Section */}
         <section className="mt-10 lg:mt-28">
           <div className="mx-auto text-center">
             <p className="text-sm">ACHIEVE YOUR FITNESS GOALS</p>
@@ -26,6 +27,7 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Values Section */}
         <section className="mt-16 lg:mt-28 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6">
           <img src="/logo/Star Logo.svg" className="h-20" />
           <div>
