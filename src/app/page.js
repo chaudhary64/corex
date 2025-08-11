@@ -35,8 +35,8 @@ const Home = () => {
           <p>
             CoreX is a modern fitness platform that connects you with top
             trainers, personalized programs, and a community of fitness
-            enthusiasts. Whether you&apos;re a beginner or an experienced athlete,
-            CoreX has something for everyone.
+            enthusiasts. Whether you&apos;re a beginner or an experienced
+            athlete, CoreX has something for everyone.
           </p>
           <button className="py-2 px-10 rounded-full cursor-pointer border-2 border-black hover:bg-black hover:text-white transition-colors duration-700">
             Join Now
@@ -68,6 +68,49 @@ const Home = () => {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="mt-16 lg:mt-28">
+          <h2 className="text-4xl font-bebas-neue text-center mb-8">
+            What Our Members Say
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
+              <p className="italic">
+                "CoreX helped me transform my lifestyle. The trainers are
+                amazing and the community is so supportive!"
+              </p>
+              <div className="font-bold">- Alex</div>
+            </div>
+            <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
+              <p className="italic">
+                "I love the variety of classes. There’s something new to try
+                every week!"
+              </p>
+              <div className="font-bold">- Priya</div>
+            </div>
+            <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
+              <p className="italic">
+                "The personalized programs made it easy for me to stay motivated
+                and reach my goals."
+              </p>
+              <div className="font-bold">- John</div>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action Section */}
+        <section className="mt-16 lg:mt-28 text-center">
+          <h2 className="text-4xl font-bebas-neue mb-4">
+            Ready to Start Your Journey?
+          </h2>
+          <p className="mb-6">
+            Sign up today and unlock your full potential with CoreX!
+          </p>
+          <button className="py-3 px-12 rounded-full cursor-pointer bg-[#E7B2AA] text-black font-bold hover:bg-black hover:text-white transition-colors duration-700">
+            Get Started
+          </button>
         </section>
       </main>
     </>
