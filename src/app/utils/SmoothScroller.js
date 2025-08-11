@@ -16,7 +16,11 @@ const SmoothScroller = ({ children }) => {
     return () => gsap.ticker.remove(update);
   }, []);
   return (
-    <ReactLenis root options={{ autoRaf: false }} ref={lenisRef}>
+    <ReactLenis
+      root
+      options={{ autoRaf: false, wheelMultiplier: 0.5, touchMultiplier: 0.5 }}
+      ref={lenisRef}
+    >
       {children}
     </ReactLenis>
   );
