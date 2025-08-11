@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <main className="w-[90%] max-w-[1440px] mx-auto">
-        <section className="mt-10 lg:mt-20">
+        <section className="mt-10 lg:mt-28">
           <div className="mx-auto text-center">
             <p className="text-sm">ACHIEVE YOUR FITNESS GOALS</p>
             <h1
@@ -26,7 +26,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="mt-10 lg:mt-20 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6">
+        <section className="mt-16 lg:mt-28 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6">
           <img src="/logo/Star Logo.svg" className="h-20" />
           <div>
             <h3 className="text-6xl font-bebas-neue">Fitness should be </h3>
@@ -44,7 +44,7 @@ const Home = () => {
         </section>
 
         {/* Our Classes */}
-        <section className="mt-10 lg:mt-20 flex max-lg:flex-wrap justify-between items-center gap-5 lg:gap-10">
+        <section className="mt-16 lg:mt-28 flex max-lg:flex-wrap justify-between items-center gap-5 lg:gap-10">
           {/* Left Part */}
           <div className="lg:w-1/2">
             <h5 className="font-bebas-neue text-4xl max-lg:text-center">
