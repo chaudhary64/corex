@@ -78,21 +78,21 @@ const Home = () => {
             What Our Members Say
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
+            <div className="flex flex-col justify-between gap-3 bg-white shadow-lg rounded-xl p-6">
               <p className="italic">
                 &quot;CoreX helped me transform my lifestyle. The trainers are
                 amazing and the community is so supportive!&quot;
               </p>
               <div className="font-bold">- Alex</div>
             </div>
-            <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
+            <div className="flex flex-col justify-between gap-3 bg-white shadow-lg rounded-xl p-6">
               <p className="italic">
                 &quot;I love the variety of classes. There’s something new to
                 try every week!&quot;
               </p>
               <div className="font-bold">- Priya</div>
             </div>
-            <div className="flex flex-col justify-between bg-white shadow-lg rounded-xl p-6">
+            <div className="flex flex-col justify-between gap-3 bg-white shadow-lg rounded-xl p-6">
               <p className="italic">
                 &quot;The personalized programs made it easy for me to stay
                 motivated and reach my goals.&quot;
