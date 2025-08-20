@@ -1,6 +1,7 @@
 import React from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import Highlight from "@/app/components/Highlight";
+import Faq from "./components/Faq";
 
 const Home = () => {
   const highlightsData = [
@@ -27,6 +28,56 @@ const Home = () => {
       description:
         "Daily motivation, form cues, and member wins from the gym floor.",
       link: "Read the blog",
+    },
+  ];
+  const faqData = [
+    {
+      id: 1,
+      question: "Which plan includes weights and cardio?",
+      answer:
+        "Our all-access membership includes unlimited weight training, group cardio sessions, and open gym hours—perfect for a balanced routine.",
+    },
+    {
+      id: 2,
+      question: "How often should I train for muscle growth?",
+      answer:
+        "For most beginners and intermediates, 4–5 sessions per week with rest days in between is optimal for muscle growth and recovery.",
+    },
+    {
+      id: 3,
+      question: "Is a strict diet needed for results?",
+      answer:
+        "Not strict, but consistency matters—focus on balanced meals with adequate protein, whole carbs, and healthy fats for best results.",
+    },
+    {
+      id: 4,
+      question: "Can beginners get personal coaching?",
+      answer:
+        "Yes, beginners benefit most from one-on-one coaching since trainers create a custom plan, unlike group classes which are general.",
+    },
+    {
+      id: 5,
+      question: "What other facilities are available?",
+      answer:
+        "We provide a cardio zone, functional training area, yoga studio, steam room, and personal lockers for every member.",
+    },
+    {
+      id: 6,
+      question: "Is nutrition guidance included?",
+      answer:
+        "Yes, our certified nutritionists provide meal guidance and custom diet charts based on your fitness goals and body type.",
+    },
+    {
+      id: 7,
+      question: "Are there beginner-friendly classes?",
+      answer:
+        "Yes, we offer beginner classes and programs tailored for those new to fitness, with extra guidance from trainers.",
+    },
+    {
+      id: 8,
+      question: "Can I pause my membership if needed?",
+      answer:
+        "Absolutely! You can pause your membership for up to 3 months due to travel, health, or personal reasons.",
     },
   ];
 
@@ -144,6 +195,18 @@ const Home = () => {
               </p>
               <div className="font-bold">- John</div>
             </div>
+          </div>
+        </section>
+
+        {/* Faq */}
+        <section className="mt-16 lg:mt-28 md:flex justify-between">
+          <h2 className="text-4xl font-bebas-neue mb-4">
+            FAQ ({faqData.length})
+          </h2>
+          <div className="md:w-1/2 lg:ml-auto">
+            {faqData.map((item) => (
+              <Faq key={item.id} {...item} />
+            ))}
           </div>
         </section>
 
