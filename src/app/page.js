@@ -1,7 +1,35 @@
 import React from "react";
 import { FiArrowUpRight } from "react-icons/fi";
+import Highlight from "@/app/components/Highlight";
 
 const Home = () => {
+  const highlightsData = [
+    {
+      id: 1,
+      description:
+        "Our training journal where we share workouts, recovery tips, and science-backed advice.",
+      link: "Read the blog",
+    },
+    {
+      id: 2,
+      description:
+        "Interview with our Head Coach on strength, mobility, and sustainable fat loss today.",
+      link: "Read the interview",
+    },
+    {
+      id: 3,
+      description:
+        "We published a transformation case study: program, nutrition, and real results",
+      link: "Read the case study",
+    },
+    {
+      id: 4,
+      description:
+        "Daily motivation, form cues, and member wins from the gym floor.",
+      link: "Read the blog",
+    },
+  ];
+
   return (
     <>
       <main className="w-[90%] max-w-[1440px] mx-auto">
@@ -68,6 +96,23 @@ const Home = () => {
                 <span>{category}</span>
                 <FiArrowUpRight />
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Why Choose Us */}
+        <section className="mt-16 lg:mt-28">
+          <div className="font-bebas-neue text-4xl">
+            <h1>Transformation is an art,</h1>
+            <h1>and we are the artists</h1>
+          </div>
+          <div className="flex max-lg:flex-wrap justify-between gap-8 mt-8">
+            {highlightsData.map((highlight) => (
+              <Highlight
+                key={highlight.id}
+                description={highlight.description}
+                link={highlight.link}
+              />
             ))}
           </div>
         </section>
