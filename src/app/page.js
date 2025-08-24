@@ -2,6 +2,7 @@ import React from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import Highlight from "@/app/components/Highlight";
 import Faq from "./components/Faq";
+import WhyUs from "./components/WhyUs";
 
 const Home = () => {
   const highlightsData = [
@@ -80,6 +81,70 @@ const Home = () => {
         "Absolutely! You can pause your membership for up to 3 months due to travel, health, or personal reasons.",
     },
   ];
+  const whyChooseUsData = [
+    {
+      id: 1,
+      src: "https://images.unsplash.com/photo-1642267165393-951c20e0a8b8?q=80&w=1154&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      heading: "Why CoreX is Different",
+      description: `CoreX isn’t just a gym—it’s where real transformation begins.
+
+      <br />
+      <br />
+      <ul>
+        <li>💪 Personalized training made for you</li>
+        <li>🎯 Expert coaches who care</li>
+        <li>⚡ Next-gen equipment & facilities</li>
+        <li>🔥 A community that drives results</li>
+      </ul>
+      `,
+      btnTxt: "Get Your Membership Now",
+      layout: "l-r",
+    },
+    {
+      id: 2,
+      src: "https://images.unsplash.com/photo-1534368270820-9de3d8053204?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      heading: "Ready to Take the Plunge with CoreX?",
+      description: `Imagine having unlimited access to premium workouts, expert trainers, and top-class facilities—all in one membership. At CoreX, we make fitness simple, flexible, and designed around your lifestyle.
+      <br />
+      <br />
+      💪 Strength • 🏊 Cardio • 🧘 Flexibility • 🔥 Endurance 
+      `,
+      btnTxt: "Get Started Now",
+      layout: "r-l",
+    },
+    {
+      id: 3,
+      src: "https://sdmntpritalynorth.oaiusercontent.com/files/00000000-dec0-6246-9411-489da5727190/raw?se=2025-08-24T12%3A55%3A05Z&sp=r&sv=2024-08-04&sr=b&scid=18048498-02a3-5e14-a96f-57a240548128&skoid=03727f49-62d3-42ac-8350-1c0e6559d238&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-24T04%3A43%3A40Z&ske=2025-08-25T04%3A43%3A40Z&sks=b&skv=2024-08-04&sig=VwKFvK7eSa5IZSYRX9CeRDBdHaDBdD650gU6PvBSlMA%3D",
+      heading: "Experience Training Like Never Before with CoreX",
+      description: `At CoreX, our trainers don’t just guide you—they transform you. Each certified professional blends science, motivation, and personalization to craft a fitness plan that works for you.
+
+Unlike standard gyms, CoreX trainers go beyond reps and sets. They focus on your goals, your progress, and your lifestyle to ensure lasting results.
+<br />
+<br />
+🧠 Expertise • 🤝 Personal Guidance • 💡 Motivation • 📈 Real Results`,
+      btnTxt: "Get Started Now",
+      layout: "l-r",
+    },
+    {
+      id: 4,
+      src: "https://images.unsplash.com/photo-1685633224306-2a2b37050713?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      heading: "Train Smarter with CoreX Equipment",
+      description: `At CoreX, we’ve invested in the best so you can train at your best.
+      <br />
+      <br />
+      <ul>
+        <li>🏋️ Strength Zone</li>
+        <li>🏃 Cardio Hub</li>
+        <li>🧘 Flex & Mobility</li>
+        <li>⚡ Functional Training</li>
+      </ul>
+      <br />
+
+Every machine, every space—designed to help you push limits and see real results.`,
+      btnTxt: "Explore CoreX Memberships",
+      layout: "r-l",
+    },
+  ];
 
   return (
     <>
@@ -152,6 +217,18 @@ const Home = () => {
         </section>
 
         {/* Why Choose Us */}
+        <section className="mt-16 lg:mt-28">
+          <h1 className="mb-16 font-bebas-neue text-6xl text-center">
+            Why Choose Us?
+          </h1>
+          <div className="flex flex-col max-lg:gap-8">
+            {whyChooseUsData.map((item, index) => (
+              <WhyUs key={index} {...item} />
+            ))}
+          </div>
+        </section>
+
+        {/* Transformation is an Art */}
         <section className="mt-16 lg:mt-28">
           <div className="font-bebas-neue text-4xl">
             <h1>Transformation is an art,</h1>
