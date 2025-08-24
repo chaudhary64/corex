@@ -230,10 +230,11 @@ Every machine, every space—designed to help you push limits and see real resul
 
         {/* Transformation is an Art */}
         <section className="mt-16 lg:mt-28">
-          <div className="font-bebas-neue text-4xl">
-            <h1>Transformation is an art,</h1>
-            <h1>and we are the artists</h1>
-          </div>
+          <h1 className="font-bebas-neue text-4xl">
+            Transformation is an art,
+            <br />
+            and we are the artists
+          </h1>
           <div className="flex max-lg:flex-wrap justify-between gap-8 mt-8">
             {highlightsData.map((highlight) => (
               <Highlight
