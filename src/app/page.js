@@ -1,8 +1,12 @@
-import React from "react";
+"use client";
+import React, { useRef } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import Highlight from "@/app/components/Highlight";
 import Faq from "./components/Faq";
 import WhyUs from "./components/WhyUs";
+import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/all";
+import gsap from "gsap";
 
 const Home = () => {
   const highlightsData = [
@@ -146,12 +150,46 @@ Every machine, every space—designed to help you push limits and see real resul
     },
   ];
 
+  const heroTextRef = useRef(null);
+  const heroImgRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.registerPlugin(SplitText);
+
+    const heroTimeline = gsap.timeline();
+
+    const split = new SplitText(heroTextRef.current, {
+      type: "words, chars",
+      mask: "words",
+    });
+    console.log(split);
+
+    heroTimeline
+      .from(split.chars, {
+        opacity: 0,
+        y: 50,
+        stagger: 0.025,
+        duration: 1,
+        ease: "power2.out",
+      })
+      .from(
+        heroImgRef.current,
+        {
+          opacity: 0,
+          scale: 0.85,
+          duration: 1,
+          ease: "power2.out",
+        },
+        "<=0.75"
+      );
+  }, []);
+
   return (
     <>
       <main className="w-[90%] max-w-[1440px] mx-auto">
         {/* Hero Section */}
         <section className="mt-10 lg:mt-28">
-          <div className="mx-auto text-center">
+          <div ref={heroTextRef} className="mx-auto text-center">
             <p className="text-sm">ACHIEVE YOUR FITNESS GOALS</p>
             <h1
               style={{
@@ -162,7 +200,10 @@ Every machine, every space—designed to help you push limits and see real resul
               FIND YOUR STRENGTH
             </h1>
           </div>
-          <div className="mx-auto mt-5 lg:mt-10 max-w-[1024px] lg:h-[512px] rounded-xl overflow-hidden">
+          <div
+            ref={heroImgRef}
+            className="mx-auto mt-5 lg:mt-10 max-w-[1024px] lg:h-[512px] rounded-xl overflow-hidden"
+          >
             <img
               src="https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Hero Image"
