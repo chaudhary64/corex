@@ -4,7 +4,7 @@ import gsap from "gsap";
 import React, { useRef, useState } from "react";
 
 const Nav = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const logoRef = useRef(null);
   const btnDesktopRef = useRef(null);
   const desktopLinkRefs = useRef();
