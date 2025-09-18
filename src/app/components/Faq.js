@@ -8,9 +8,10 @@ const Faq = ({ id, question, answer }) => {
       <div className="flex justify-between items-center">
         <div>
           <span>{number + ")"}</span>
-          <span className="ml-4">{question}</span>
+          &ensp;
+          <span>{question}</span>
         </div>
-        <FiPlus />
+        <FiPlus className="text-lg" />
       </div>
       <p className="hidden invisible">{answer}</p>
     </div>
