@@ -162,7 +162,6 @@ Every machine, every space—designed to help you push limits and see real resul
       type: "words, chars",
       mask: "words",
     });
-    console.log(split);
 
     heroTimeline
       .from(split.chars, {
