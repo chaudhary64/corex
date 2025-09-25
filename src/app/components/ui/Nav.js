@@ -66,10 +66,15 @@ const Nav = () => {
           y: 20,
           stagger: 0.02,
         })
-        .from(btnMobileRef.current, {
-          opacity: 0,
-          duration: 0.75,
-        })
+        .from(
+          btnMobileRef.current,
+          {
+            opacity: 0,
+            duration: 1.25,
+            ease: "power2.out",
+          },
+          "<-0.0025"
+        )
         .from(
           mobileAsideRef.current,
           {
@@ -194,7 +199,7 @@ const Nav = () => {
         <div
           ref={mobileNavRef}
           style={{
-            clipPath: "polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%)",
+            clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
           }}
           className="px-[5%] fixed z-10 inset-0 w-full bg-black flex flex-col justify-around items-center"
         >
