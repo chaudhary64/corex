@@ -214,10 +214,11 @@ Every machine, every space—designed to help you push limits and see real resul
         {/* Values Section */}
         <section className="mt-16 lg:mt-28 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6">
           <img src="/logo/Star Logo.svg" className="h-20" />
-          <div>
-            <h3 className="text-6xl font-bebas-neue">Fitness should be </h3>
-            <h3 className="text-6xl font-bebas-neue">Accessible to Everyone</h3>
-          </div>
+          <h3 className="text-6xl font-bebas-neue">
+            Fitness should be
+            <br />
+            Accessible to Everyone
+          </h3>
           <p>
             CoreX is a modern fitness platform that connects you with top
             trainers, personalized programs, and a community of fitness
@@ -292,21 +293,21 @@ Every machine, every space—designed to help you push limits and see real resul
             What Our Members Say
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col justify-between gap-3 bg-white shadow-lg rounded-xl p-6">
+            <div className="flex flex-col justify-between gap-3 bg-white/75 shadow-lg rounded-xl p-6">
               <p className="italic">
                 &quot;CoreX helped me transform my lifestyle. The trainers are
                 amazing and the community is so supportive!&quot;
               </p>
               <div className="font-bold">- Alex</div>
             </div>
-            <div className="flex flex-col justify-between gap-3 bg-white shadow-lg rounded-xl p-6">
+            <div className="flex flex-col justify-between gap-3 bg-white/75 shadow-lg rounded-xl p-6">
               <p className="italic">
                 &quot;I love the variety of classes. There’s something new to
                 try every week!&quot;
               </p>
               <div className="font-bold">- Priya</div>
             </div>
-            <div className="flex flex-col justify-between gap-3 bg-white shadow-lg rounded-xl p-6">
+            <div className="flex flex-col justify-between gap-3 bg-white/75 shadow-lg rounded-xl p-6">
               <p className="italic">
                 &quot;The personalized programs made it easy for me to stay
                 motivated and reach my goals.&quot;
