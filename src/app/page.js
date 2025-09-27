@@ -7,6 +7,7 @@ import WhyUs from "./components/WhyUs";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Home = () => {
   const highlightsData = [
@@ -153,8 +154,14 @@ Every machine, every space—designed to help you push limits and see real resul
   const heroTextRef = useRef(null);
   const heroImgRef = useRef(null);
 
+  const valuesSectionRef = useRef(null);
+  const valuesImgRef = useRef(null);
+  const valuesHeadingRef = useRef(null);
+  const valuesDescRef = useRef(null);
+  const valuesBtnRef = useRef(null);
+
   useGSAP(() => {
-    gsap.registerPlugin(SplitText);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
 
     const heroTimeline = gsap.timeline();
 
@@ -181,6 +188,74 @@ Every machine, every space—designed to help you push limits and see real resul
         },
         "<=0.75"
       );
+
+    const valueHeadingSplit = new SplitText(valuesHeadingRef.current, {
+      type: "lines, chars",
+      mask: "lines",
+    });
+
+    const valueDescSplit = new SplitText(valuesDescRef.current, {
+      type: "lines, chars",
+      mask: "lines",
+    });
+
+    let mm = gsap.matchMedia();
+
+    mm.add("(width < 64rem)", () => {
+      // Add your responsive animations or adjustments here
+    });
+
+    mm.add("(width >= 64rem)", () => {
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: valuesSectionRef.current,
+          start: "center bottom",
+          end: "bottom 20%",
+          markers: true,
+        },
+      });
+
+      tl.from(
+        valuesImgRef.current,
+        {
+          opacity: 0,
+          scale: 0.5,
+          rotate: gsap.utils.random([-360, 360]),
+          duration: 1.75,
+          ease: "power2.out",
+        },
+        0
+      )
+        .from(
+          valueHeadingSplit.chars,
+          {
+            opacity: 0,
+            y: 50,
+            stagger: 0.02,
+            ease: "power2.out",
+          },
+          0
+        )
+        .from(
+          valueDescSplit.chars,
+          {
+            opacity: 0,
+            stagger: 0.01,
+            ease: "power2.out",
+          },
+          0
+        )
+        .from(
+          valuesBtnRef.current,
+          {
+            opacity: 0,
+            y: 50,
+            duration: 1.25,
+            ease: "power2.out",
+          },
+          0
+        );
+    });
   }, []);
 
   return (
@@ -212,20 +287,26 @@ Every machine, every space—designed to help you push limits and see real resul
         </section>
 
         {/* Values Section */}
-        <section className="mt-16 lg:mt-28 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6">
-          <img src="/logo/Star Logo.svg" className="h-20" />
-          <h3 className="text-6xl font-bebas-neue">
+        <section
+          ref={valuesSectionRef}
+          className="mt-16 lg:mt-28 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6"
+        >
+          <img ref={valuesImgRef} src="/logo/Star Logo.svg" className="h-20" />
+          <h3 ref={valuesHeadingRef} className="text-6xl font-bebas-neue">
             Fitness should be
             <br />
             Accessible to Everyone
           </h3>
-          <p>
+          <p ref={valuesDescRef}>
             CoreX is a modern fitness platform that connects you with top
             trainers, personalized programs, and a community of fitness
             enthusiasts. Whether you&apos;re a beginner or an experienced
             athlete, CoreX has something for everyone.
           </p>
-          <button className="py-2 px-10 rounded-full cursor-pointer font-bold border-2 border-black hover:bg-black hover:text-white transition-colors duration-700">
+          <button
+            ref={valuesBtnRef}
+            className="py-2 px-10 rounded-full cursor-pointer font-bold border-2 border-black hover:bg-black hover:text-white transition-colors duration-700"
+          >
             Join Now
           </button>
         </section>
