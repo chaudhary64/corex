@@ -202,7 +202,54 @@ Every machine, every space—designed to help you push limits and see real resul
     let mm = gsap.matchMedia();
 
     mm.add("(width < 64rem)", () => {
-      // Add your responsive animations or adjustments here
+      gsap.from(valuesImgRef.current, {
+        opacity: 0,
+        scale: 0.5,
+        rotate: gsap.utils.random([-360, 360]),
+        duration: 1.75,
+        delay: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: valuesImgRef.current,
+          start: "top bottom",
+          end: "bottom 20%",
+        },
+      });
+
+      gsap.from(valueHeadingSplit.chars, {
+        opacity: 0,
+        y: 50,
+        stagger: 0.02,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: valuesHeadingRef.current,
+          start: "top 82.5%",
+          end: "bottom 20%",
+        },
+      });
+
+      gsap.from(valueDescSplit.chars, {
+        opacity: 0,
+        stagger: 0.01,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: valuesDescRef.current,
+          start: "top 82.5%",
+          end: "bottom 20%",
+        },
+      });
+
+      gsap.from(valuesBtnRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 1.25,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: valuesBtnRef.current,
+          start: "top 95%",
+          end: "bottom 20%",
+        },
+      });
     });
 
     mm.add("(width >= 64rem)", () => {
@@ -211,7 +258,6 @@ Every machine, every space—designed to help you push limits and see real resul
           trigger: valuesSectionRef.current,
           start: "center bottom",
           end: "bottom 20%",
-          markers: true,
         },
       });
 
