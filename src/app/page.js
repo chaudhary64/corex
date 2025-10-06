@@ -189,19 +189,19 @@ Every machine, every space—designed to help you push limits and see real resul
         "<=0.75"
       );
 
-    const valueHeadingSplit = new SplitText(valuesHeadingRef.current, {
-      type: "lines, chars",
-      mask: "lines",
-    });
-
-    const valueDescSplit = new SplitText(valuesDescRef.current, {
-      type: "lines, chars",
-      mask: "lines",
-    });
-
     let mm = gsap.matchMedia();
 
     mm.add("(width < 64rem)", () => {
+      const valueHeadingSplit = new SplitText(valuesHeadingRef.current, {
+        type: "lines, chars",
+        mask: "lines",
+      });
+
+      const valueDescSplit = new SplitText(valuesDescRef.current, {
+        type: "lines, chars",
+        mask: "lines",
+      });
+
       gsap.from(valuesImgRef.current, {
         opacity: 0,
         scale: 0.5,
@@ -253,6 +253,16 @@ Every machine, every space—designed to help you push limits and see real resul
     });
 
     mm.add("(width >= 64rem)", () => {
+      const valueHeadingSplit = new SplitText(valuesHeadingRef.current, {
+        type: "lines, chars",
+        mask: "lines",
+      });
+
+      const valueDescSplit = new SplitText(valuesDescRef.current, {
+        type: "lines, chars",
+        mask: "lines",
+      });
+
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: valuesSectionRef.current,
