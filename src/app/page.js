@@ -430,12 +430,12 @@ Every machine, every space—designed to help you push limits and see real resul
           {/* Right Part */}
           <div ref={ourClassesRightRef} className="w-full lg:w-1/2">
             {["Men", "Women", "Kids"].map((category) => (
-              <div
-                key={category}
-                className="py-3 flex justify-between items-center font-bold border-b cursor-pointer"
-              >
-                <span>{category}</span>
-                <FiArrowUpRight />
+              <div key={category} className="pt-3 font-bold cursor-pointer">
+                <div className="flex justify-between items-center">
+                  <span>{category}</span>
+                  <FiArrowUpRight />
+                </div>
+                <div className="w-full mt-3 border-b"></div>
               </div>
             ))}
           </div>
