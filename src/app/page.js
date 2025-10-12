@@ -160,6 +160,9 @@ Every machine, every space—designed to help you push limits and see real resul
   const valuesDescRef = useRef(null);
   const valuesBtnRef = useRef(null);
 
+  const ourClassesLeftRef = useRef(null);
+  const ourClassesRightRef = useRef(null);
+
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -263,6 +266,22 @@ Every machine, every space—designed to help you push limits and see real resul
         mask: "lines",
       });
 
+      const ourClassesHeadingSplit = new SplitText(
+        ourClassesLeftRef.current.childNodes[0],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        }
+      );
+
+      const ourClassesDescSplit = new SplitText(
+        ourClassesLeftRef.current.childNodes[1],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        }
+      );
+
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: valuesSectionRef.current,
@@ -311,6 +330,34 @@ Every machine, every space—designed to help you push limits and see real resul
           },
           0
         );
+
+      const classesTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ourClassesLeftRef.current,
+          start: "top 85%",
+          end: "bottom 20%",
+          markers: true,
+        },
+      });
+
+      classesTl
+        .from(ourClassesHeadingSplit.chars, {
+          opacity: 0,
+          y: 50,
+          stagger: 0.05,
+          ease: "power2.out",
+        })
+        .from(
+          ourClassesDescSplit.chars,
+          {
+            opacity: 0,
+            stagger: 0.01,
+            ease: "power2.out",
+          },
+          "<"
+        );
+
+      console.dir(ourClassesRightRef.current.childNodes);
     });
   }, []);
 
@@ -370,7 +417,7 @@ Every machine, every space—designed to help you push limits and see real resul
         {/* Our Classes */}
         <section className="mt-16 lg:mt-28 flex max-lg:flex-wrap justify-between items-center gap-5 lg:gap-10">
           {/* Left Part */}
-          <div className="lg:w-1/2">
+          <div ref={ourClassesLeftRef} className="lg:w-1/2">
             <h5 className="font-bebas-neue text-4xl max-lg:text-center">
               Our Classes
             </h5>
@@ -381,7 +428,7 @@ Every machine, every space—designed to help you push limits and see real resul
             </p>
           </div>
           {/* Right Part */}
-          <div className="w-full lg:w-1/2">
+          <div ref={ourClassesRightRef} className="w-full lg:w-1/2">
             {["Men", "Women", "Kids"].map((category) => (
               <div
                 key={category}
