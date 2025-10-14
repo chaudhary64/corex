@@ -253,6 +253,73 @@ Every machine, every space—designed to help you push limits and see real resul
           end: "bottom 20%",
         },
       });
+
+      const ourClassesHeadingSplit = new SplitText(
+        ourClassesLeftRef.current.childNodes[0],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        }
+      );
+
+      const ourClassesDescSplit = new SplitText(
+        ourClassesLeftRef.current.childNodes[1],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        }
+      );
+
+      const classesTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ourClassesLeftRef.current,
+          start: "top 85%",
+          end: "bottom 20%",
+        },
+      });
+
+      classesTl
+        .from(ourClassesHeadingSplit.chars, {
+          opacity: 0,
+          y: 50,
+          stagger: 0.05,
+          ease: "power2.out",
+        })
+        .from(
+          ourClassesDescSplit.chars,
+          {
+            opacity: 0,
+            stagger: 0.01,
+            ease: "power2.out",
+          },
+          "<"
+        );
+
+      console.dir(ourClassesRightRef.current.childNodes);
+
+      [...ourClassesRightRef.current.childNodes].map((child) => {
+        const upperPart = child.childNodes[0];
+        const lowerPart = child.childNodes[1];
+
+        console.dir(upperPart);
+        const tl = gsap.timeline();
+
+        tl.from(upperPart.childNodes, {
+          opacity: 0,
+          x: (index) => (index === 0 ? -50 : 50),
+          stagger: 0.1,
+        }).from(
+          lowerPart,
+          {
+            width: 0,
+            duration: 1,
+            ease: "power2.out",
+          },
+          "<+=0.5"
+        );
+
+        classesTl.add(tl, "<+=0.25");
+      });
     });
 
     mm.add("(width >= 64rem)", () => {
