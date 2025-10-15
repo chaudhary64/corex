@@ -295,13 +295,10 @@ Every machine, every space—designed to help you push limits and see real resul
           "<"
         );
 
-      console.dir(ourClassesRightRef.current.childNodes);
-
       [...ourClassesRightRef.current.childNodes].map((child) => {
         const upperPart = child.childNodes[0];
         const lowerPart = child.childNodes[1];
 
-        console.dir(upperPart);
         const tl = gsap.timeline();
 
         tl.from(upperPart.childNodes, {
@@ -423,13 +420,10 @@ Every machine, every space—designed to help you push limits and see real resul
           "<"
         );
 
-      console.dir(ourClassesRightRef.current.childNodes);
-
       [...ourClassesRightRef.current.childNodes].map((child) => {
         const upperPart = child.childNodes[0];
         const lowerPart = child.childNodes[1];
 
-        console.dir(upperPart);
         const tl = gsap.timeline();
 
         tl.from(upperPart.childNodes, {
