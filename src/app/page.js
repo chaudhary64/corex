@@ -163,6 +163,8 @@ Every machine, every space—designed to help you push limits and see real resul
   const ourClassesLeftRef = useRef(null);
   const ourClassesRightRef = useRef(null);
 
+  const whyChooseUsHeadingRef = useRef(null);
+
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -317,6 +319,23 @@ Every machine, every space—designed to help you push limits and see real resul
 
         classesTl.add(tl, "<+=0.25");
       });
+
+      const whyUsHeadingSplit = new SplitText(whyChooseUsHeadingRef.current, {
+        type: "lines, chars",
+        mask: "lines",
+      });
+
+      gsap.from(whyUsHeadingSplit.chars, {
+        opacity: 0,
+        y: 50,
+        stagger: 0.05,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: whyChooseUsHeadingRef.current,
+          start: "top 85%",
+          end: "bottom 20%",
+        },
+      });
     });
 
     mm.add("(width >= 64rem)", () => {
@@ -442,6 +461,23 @@ Every machine, every space—designed to help you push limits and see real resul
 
         classesTl.add(tl, "<+=0.25");
       });
+
+      const whyUsHeadingSplit = new SplitText(whyChooseUsHeadingRef.current, {
+        type: "lines, chars",
+        mask: "lines",
+      });
+
+      gsap.from(whyUsHeadingSplit.chars, {
+        opacity: 0,
+        y: 50,
+        stagger: 0.05,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: whyChooseUsHeadingRef.current,
+          start: "top 85%",
+          end: "bottom 20%",
+        },
+      });
     });
   }, []);
 
@@ -527,7 +563,10 @@ Every machine, every space—designed to help you push limits and see real resul
 
         {/* Why Choose Us */}
         <section className="mt-16 lg:mt-28">
-          <h1 className="mb-16 font-bebas-neue text-6xl text-center">
+          <h1
+            ref={whyChooseUsHeadingRef}
+            className="mb-16 font-bebas-neue text-6xl text-center"
+          >
             Why Choose Us?
           </h1>
           <div className="flex flex-col max-lg:gap-8">
