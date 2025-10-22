@@ -91,17 +91,7 @@ const Home = () => {
       id: 1,
       src: "https://images.unsplash.com/photo-1642267165393-951c20e0a8b8?q=80&w=1154&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       heading: "Why CoreX is Different",
-      description: `CoreX isn’t just a gym—it’s where real transformation begins.
-
-      <br />
-      <br />
-      <ul>
-        <li>💪 Personalized training made for you</li>
-        <li>🎯 Expert coaches who care</li>
-        <li>⚡ Next-gen equipment & facilities</li>
-        <li>🔥 A community that drives results</li>
-      </ul>
-      `,
+      description: `CoreX is more than a gym — it's the place where lasting change starts. We build mental resilience, sustainable habits, and a supportive community that keeps you motivated. Our approach combines cutting-edge training methods with personalized attention to help you become your strongest self.`,
       btnTxt: "[ Get Your Membership Now ]",
       layout: "l-r",
     },
@@ -109,10 +99,7 @@ const Home = () => {
       id: 2,
       src: "https://images.unsplash.com/photo-1534368270820-9de3d8053204?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       heading: "Ready to Take the Plunge with CoreX?",
-      description: `Imagine having unlimited access to premium workouts, expert trainers, and top-class facilities—all in one membership. At CoreX, we make fitness simple, flexible, and designed around your lifestyle.
-      <br />
-      <br />
-      💪 Strength • 🏊 Cardio • 🧘 Flexibility • 🔥 Endurance 
+      description: `Imagine having unlimited access to premium workouts, expert trainers, and top - class facilities — all in one membership. At CoreX, we make fitness simple, flexible, and designed around your lifestyle.
       `,
       btnTxt: "[ Get Started Now ]",
       layout: "r-l",
@@ -121,12 +108,9 @@ const Home = () => {
       id: 3,
       src: "https://images.unsplash.com/photo-1585892478726-d26363dbf9e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       heading: "Experience Training Like Never Before with CoreX",
-      description: `At CoreX, our trainers don’t just guide you—they transform you. Each certified professional blends science, motivation, and personalization to craft a fitness plan that works for you.
+      description: `At CoreX, our trainers don’t just guide you — they transform you. Each certified professional blends science, motivation, and personalization to craft a fitness plan that works for you.
 
-Unlike standard gyms, CoreX trainers go beyond reps and sets. They focus on your goals, your progress, and your lifestyle to ensure lasting results.
-<br />
-<br />
-🧠 Expertise • 🤝 Personal Guidance • 💡 Motivation • 📈 Real Results`,
+      Unlike standard gyms, CoreX trainers go beyond reps and sets. They focus on your goals, your progress, and your lifestyle to ensure lasting results.`,
       btnTxt: "[ Get Started Now ]",
       layout: "l-r",
     },
@@ -135,17 +119,7 @@ Unlike standard gyms, CoreX trainers go beyond reps and sets. They focus on your
       src: "https://images.unsplash.com/photo-1685633224306-2a2b37050713?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       heading: "Train Smarter with CoreX Equipment",
       description: `At CoreX, we’ve invested in the best so you can train at your best.
-      <br />
-      <br />
-      <ul>
-        <li>🏋️ Strength Zone</li>
-        <li>🏃 Cardio Hub</li>
-        <li>🧘 Flex & Mobility</li>
-        <li>⚡ Functional Training</li>
-      </ul>
-      <br />
-
-Every machine, every space—designed to help you push limits and see real results.`,
+      Every machine, every space — designed to help you push limits and see real results.`,
       btnTxt: "[ Explore CoreX Memberships ]",
       layout: "r-l",
     },
