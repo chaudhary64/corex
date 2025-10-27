@@ -14,9 +14,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
 
     let mm = gsap.matchMedia();
 
-    mm.add("(width < 64rem)", () => {});
-
-    mm.add("(width >= 64rem)", () => {
+    mm.add("(width < 64rem)", () => {
       if (leftToRightRef.current) {
         const image = leftToRightRef.current.children[0]?.children[0];
         const heading = leftToRightRef.current.children[1]?.children[0];
@@ -75,7 +73,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
             .from(
               button,
               {
-                x: 100,
+                y: 25,
                 autoAlpha: 0,
                 duration: 0.75,
                 ease: "power2.out",
@@ -142,7 +140,144 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
             .from(
               button,
               {
-                x: 100,
+                y: 25,
+                autoAlpha: 0,
+                duration: 0.75,
+                ease: "power2.out",
+              },
+              "<=0.5"
+            );
+        }
+      }
+    });
+
+    mm.add("(width >= 64rem)", () => {
+      if (leftToRightRef.current) {
+        const image = leftToRightRef.current.children[0]?.children[0];
+        const heading = leftToRightRef.current.children[1]?.children[0];
+        const description = leftToRightRef.current.children[1]?.children[1];
+        const button = leftToRightRef.current.children[1]?.children[2];
+
+        const headingSplit = new SplitText(heading, {
+          type: "words,chars",
+          mask: "chars",
+        });
+
+        const descriptionSplit = new SplitText(description, {
+          type: "lines",
+          mask: "lines",
+        });
+
+        if (image) {
+          let leftToRightSectionTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: leftToRightRef.current,
+              start: "top 75%",
+              end: "bottom 20%",
+            },
+          });
+
+          leftToRightSectionTimeline
+            .to(image, {
+              autoAlpha: 1,
+              scaleX: 0,
+              transformOrigin: "right center",
+              duration: 1.75,
+              ease: "power2.out",
+            })
+            .from(
+              headingSplit.chars,
+              {
+                y: 50,
+                autoAlpha: 0,
+                stagger: 0.025,
+                duration: 0.4,
+                ease: "power2.out",
+              },
+              "<=0.05"
+            )
+            .from(
+              descriptionSplit.lines,
+              {
+                y: 50,
+                autoAlpha: 0,
+                stagger: 0.1,
+                duration: 0.75,
+                ease: "power2.out",
+              },
+              "<=0.3"
+            )
+            .from(
+              button,
+              {
+                y: 25,
+                autoAlpha: 0,
+                duration: 0.75,
+                ease: "power2.out",
+              },
+              "<=0.5"
+            );
+        }
+      }
+
+      if (rightToLeftRef.current) {
+        const image = rightToLeftRef.current.children[0].children[0];
+        const heading = rightToLeftRef.current.children[1]?.children[0];
+        const description = rightToLeftRef.current.children[1]?.children[1];
+        const button = rightToLeftRef.current.children[1]?.children[2];
+
+        const headingSplit = new SplitText(heading, {
+          type: "words,chars",
+          mask: "chars",
+        });
+
+        const descriptionSplit = new SplitText(description, {
+          type: "lines",
+          mask: "lines",
+        });
+
+        if (image) {
+          let rightToLeftSectionTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: rightToLeftRef.current,
+              start: "top 75%",
+              end: "bottom 20%",
+            },
+          });
+
+          rightToLeftSectionTimeline
+            .to(image, {
+              scaleX: 0,
+              transformOrigin: "left center",
+              duration: 1.75,
+              ease: "power2.out",
+            })
+            .from(
+              headingSplit.chars,
+              {
+                y: 50,
+                autoAlpha: 0,
+                stagger: 0.025,
+                duration: 0.4,
+                ease: "power2.out",
+              },
+              "<=0.05"
+            )
+            .from(
+              descriptionSplit.lines,
+              {
+                y: 50,
+                autoAlpha: 0,
+                stagger: 0.1,
+                duration: 0.75,
+                ease: "power2.out",
+              },
+              "<=0.3"
+            )
+            .from(
+              button,
+              {
+                y: 25,
                 autoAlpha: 0,
                 duration: 0.75,
                 ease: "power2.out",
