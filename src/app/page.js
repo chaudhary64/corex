@@ -505,7 +505,7 @@ const Home = () => {
           </div>
           <div
             ref={heroImgRef}
-            className="mx-auto mt-5 lg:mt-10 max-w-[1024px] lg:h-[512px] rounded-xl overflow-hidden"
+            className="mx-auto mt-5 lg:mt-10 max-w-5xl lg:h-[512px] rounded-xl overflow-hidden"
           >
             <img
               src="https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
