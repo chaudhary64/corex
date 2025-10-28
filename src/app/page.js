@@ -139,6 +139,8 @@ const Home = () => {
 
   const whyChooseUsHeadingRef = useRef(null);
 
+  const faqHeadingRef = useRef(null);
+
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -310,6 +312,21 @@ const Home = () => {
           end: "bottom 20%",
         },
       });
+
+      const faqHeadingSplit = new SplitText(faqHeadingRef.current, {
+        type: "lines, chars",
+        mask: "lines",
+      });
+
+      gsap.from(faqHeadingSplit.chars, {
+        y: 50,
+        opacity: 0,
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: faqHeadingRef.current,
+          start: "top 85%",
+        },
+      });
     });
 
     mm.add("(width >= 64rem)", () => {
@@ -450,6 +467,21 @@ const Home = () => {
           trigger: whyChooseUsHeadingRef.current,
           start: "top 85%",
           end: "bottom 20%",
+        },
+      });
+
+      const faqHeadingSplit = new SplitText(faqHeadingRef.current, {
+        type: "lines, chars",
+        mask: "lines",
+      });
+
+      gsap.from(faqHeadingSplit.chars, {
+        y: 50,
+        opacity: 0,
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: faqHeadingRef.current,
+          start: "top 85%",
         },
       });
     });
@@ -600,7 +632,10 @@ const Home = () => {
 
         {/* Faq */}
         <section className="mt-16 lg:mt-28 md:flex justify-between">
-          <h2 className="text-4xl font-bebas-neue mb-4">
+          <h2
+            ref={faqHeadingRef}
+            className="h-fit text-4xl font-bebas-neue mb-4"
+          >
             FAQ ({faqData.length})
           </h2>
           <div className="md:w-1/2 lg:ml-auto">
