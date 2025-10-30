@@ -104,7 +104,10 @@ const Faq = ({ id, question, answer }) => {
   return (
     <>
       <div className="py-4">
-        <div ref={containerRef} className="flex justify-between items-center">
+        <div
+          ref={containerRef}
+          className="flex justify-between items-center gap-2"
+        >
           <div>
             <span>{number + ")"}</span>
             &ensp;
