@@ -23,14 +23,14 @@ const Faq = ({ id, question, answer }) => {
         height: "auto",
         opacity: 1,
         duration: 0.5,
-        ease: "power2.out",
+        ease: "power1.out",
       });
     } else {
       gsap.to(paraRef.current, {
         height: 0,
         opacity: 0,
         duration: 0.5,
-        ease: "power2.in",
+        ease: "power1.out",
         onComplete: () => {
           gsap.set(paraRef.current, { display: "none" });
         },
@@ -119,9 +119,12 @@ const Faq = ({ id, question, answer }) => {
             className="text-lg cursor-pointer"
           />
         </div>
-        <p ref={paraRef} className="mt-2 h-0 overflow-hidden hidden opacity-0">
-          {answer}
-        </p>
+        <div
+          ref={paraRef}
+          className="h-0 overflow-hidden hidden opacity-0 borders-2"
+        >
+          <div className="pt-2">{answer}</div>
+        </div>
       </div>
       <aside
         ref={borderRef}
