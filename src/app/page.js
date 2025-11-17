@@ -141,6 +141,8 @@ const Home = () => {
 
   const faqHeadingRef = useRef(null);
 
+  const ctaSectionRef = useRef(null);
+
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -484,6 +486,58 @@ const Home = () => {
           start: "top 85%",
         },
       });
+
+      const ctaSectionHeadingSplit = new SplitText(
+        ctaSectionRef.current.childNodes[0],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        }
+      );
+
+      const ctaSectionParaSplit = new SplitText(
+        ctaSectionRef.current.childNodes[1],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        }
+      );
+
+      const ctaTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctaSectionRef.current,
+          start: "top 90%",
+          end: "bottom 20%",
+        },
+      });
+
+      ctaTl
+        .from(ctaSectionHeadingSplit.chars, {
+          y: 50,
+          opacity: 0,
+          stagger: 0.025,
+          ease: "power2.out",
+        })
+        .from(
+          ctaSectionParaSplit.chars,
+          {
+            y: 50,
+            opacity: 0,
+            stagger: 0.01,
+            ease: "power2.out",
+          },
+          "<"
+        )
+        .from(
+          ctaSectionRef.current.childNodes[2],
+          {
+            y: 25,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+          },
+          "<+=0.5"
+        );
     });
   }, []);
 
@@ -646,7 +700,7 @@ const Home = () => {
         </section>
 
         {/* Call to Action Section */}
-        <section className="mt-16 lg:mt-28 text-center">
+        <section ref={ctaSectionRef} className="mt-16 lg:mt-28 text-center">
           <h2 className="text-4xl font-bebas-neue mb-4">
             Ready to Start Your Journey?
           </h2>
