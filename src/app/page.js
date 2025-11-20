@@ -329,6 +329,58 @@ const Home = () => {
           start: "top 85%",
         },
       });
+
+      const ctaSectionHeadingSplit = new SplitText(
+        ctaSectionRef.current.childNodes[0],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        }
+      );
+
+      const ctaSectionParaSplit = new SplitText(
+        ctaSectionRef.current.childNodes[1],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        }
+      );
+
+      const ctaTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctaSectionRef.current,
+          start: "top 90%",
+          end: "bottom 20%",
+        },
+      });
+
+      ctaTl
+        .from(ctaSectionHeadingSplit.chars, {
+          y: 50,
+          opacity: 0,
+          stagger: 0.025,
+          ease: "power2.out",
+        })
+        .from(
+          ctaSectionParaSplit.chars,
+          {
+            y: 50,
+            opacity: 0,
+            stagger: 0.01,
+            ease: "power2.out",
+          },
+          "<"
+        )
+        .from(
+          ctaSectionRef.current.childNodes[2],
+          {
+            y: 25,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+          },
+          "<+=0.5"
+        );
     });
 
     mm.add("(width >= 64rem)", () => {
