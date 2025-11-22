@@ -1,16 +1,82 @@
-import React from "react";
+"use client";
+
+import React, { useRef } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FiFacebook, FiTwitter } from "react-icons/fi";
 import { LuLinkedin } from "react-icons/lu";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 
 const Footer = () => {
+  const upperLeftRef = useRef(null);
+  const upperCenterRef = useRef(null);
+  const upperRightRef = useRef(null);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(width < 64rem)", () => {});
+    mm.add("(width >= 64rem)", () => {
+      const upperLeftText = upperLeftRef.current.children[0];
+      const upperLeftArrow = upperLeftRef.current.children[1].children[0];
+
+      const upperCenterText = upperCenterRef.current;
+
+      const upperLeftTextSplit = new SplitText(upperLeftText, {
+        type: "lines,words,chars",
+        mask: "lines",
+      });
+
+      // const upperCenterTextSplit = new SplitText(upperCenterText, {
+      //   type: "chars",
+      //   mask: "chars",
+      // })
+
+      const upperTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: upperLeftRef.current,
+          start: "top 80%",
+          end: "bottom 60%",
+          markers: true,
+        },
+      });
+
+      upperTl
+        .from(upperLeftTextSplit.lines, {
+          xPercent: -100,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out",
+        })
+        .from(
+          upperLeftArrow,
+          {
+            xPercent: 100,
+            ease: "power2.out",
+          },
+          0
+        )
+        .from(
+          upperRightRef.current,
+          {
+            scale: 0,
+            ease: "back.out(1.7)",
+          },
+          0
+        );
+    });
+  });
+
   return (
     <footer className="mt-16 lg:mt-28">
       <div>
         {/* Upper Part */}
         <div className="max-lg:hidden max-lg:invisible w-[90%] max-w-[1440px] mx-auto pb-16 flex justify-between items-center">
           <div
+            ref={upperLeftRef}
             style={{
               lineHeight: 1,
             }}
@@ -19,10 +85,13 @@ const Footer = () => {
             <span>
               HEARD <br /> Enough
             </span>
-            <FaArrowRightLong />
+            <div className="overflow-clip">
+              <FaArrowRightLong />
+            </div>
           </div>
           <div>
             <h2
+              ref={upperCenterRef}
               style={{
                 textDecoration: "#FFB900 wavy underline 3px",
                 textUnderlineOffset: "0.2rem",
@@ -32,7 +101,7 @@ const Footer = () => {
               Contact Us
             </h2>
           </div>
-          <span className="bg-amber-400 rounded-full p-8">
+          <span ref={upperRightRef} className="bg-amber-400 rounded-full p-8">
             <FaArrowRightLong />
           </span>
         </div>
