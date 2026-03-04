@@ -14,25 +14,25 @@ const Home = () => {
     {
       id: 1,
       description:
-        "Our training journal where we share workouts, recovery tips, and science-backed advice.",
+        "Our training journal where we share intense workouts, recovery protocols, and science-backed nutritional advice.",
       link: "Read the blog",
     },
     {
       id: 2,
       description:
-        "Interview with our Head Coach on strength, mobility, and sustainable fat loss today.",
-      link: "Read the interview",
+        "Insights from our Head Coach on building strength, improving mobility, and achieving sustainable fat loss.",
+      link: "Read the blog",
     },
     {
       id: 3,
       description:
-        "We published a transformation case study: program, nutrition, and real results",
-      link: "Read the case study",
+        "Read a detailed transformation case study covering the entire training program, nutrition plan, and real results.",
+      link: "Read the blog",
     },
     {
       id: 4,
       description:
-        "Daily motivation, form cues, and member wins from the gym floor.",
+        "Daily motivation, essential form cues, and inspiring member wins straight from the gym floor.",
       link: "Read the blog",
     },
   ];
@@ -169,7 +169,7 @@ const Home = () => {
           duration: 1,
           ease: "power2.out",
         },
-        "<=0.75"
+        "<=0.75",
       );
 
     let mm = gsap.matchMedia();
@@ -239,7 +239,7 @@ const Home = () => {
         {
           type: "lines, chars",
           mask: "lines",
-        }
+        },
       );
 
       const ourClassesDescSplit = new SplitText(
@@ -247,7 +247,7 @@ const Home = () => {
         {
           type: "lines, chars",
           mask: "lines",
-        }
+        },
       );
 
       const classesTl = gsap.timeline({
@@ -272,7 +272,7 @@ const Home = () => {
             stagger: 0.01,
             ease: "power2.out",
           },
-          "<"
+          "<",
         );
 
       [...ourClassesRightRef.current.childNodes].map((child) => {
@@ -292,7 +292,7 @@ const Home = () => {
             duration: 1,
             ease: "power2.out",
           },
-          "<+=0.5"
+          "<+=0.5",
         );
 
         classesTl.add(tl, "<+=0.25");
@@ -335,7 +335,7 @@ const Home = () => {
         {
           type: "lines, chars",
           mask: "lines",
-        }
+        },
       );
 
       const ctaSectionParaSplit = new SplitText(
@@ -343,7 +343,7 @@ const Home = () => {
         {
           type: "lines, chars",
           mask: "lines",
-        }
+        },
       );
 
       const ctaTl = gsap.timeline({
@@ -369,7 +369,7 @@ const Home = () => {
             stagger: 0.01,
             ease: "power2.out",
           },
-          "<"
+          "<",
         )
         .from(
           ctaSectionRef.current.childNodes[2],
@@ -379,7 +379,7 @@ const Home = () => {
             duration: 1,
             ease: "power2.out",
           },
-          "<+=0.5"
+          "<+=0.5",
         );
     });
 
@@ -399,7 +399,7 @@ const Home = () => {
         {
           type: "lines, chars",
           mask: "lines",
-        }
+        },
       );
 
       const ourClassesDescSplit = new SplitText(
@@ -407,7 +407,7 @@ const Home = () => {
         {
           type: "lines, chars",
           mask: "lines",
-        }
+        },
       );
 
       let tl = gsap.timeline({
@@ -427,7 +427,7 @@ const Home = () => {
           duration: 1.75,
           ease: "power2.out",
         },
-        0
+        0,
       )
         .from(
           valueHeadingSplit.chars,
@@ -437,7 +437,7 @@ const Home = () => {
             stagger: 0.02,
             ease: "power2.out",
           },
-          0
+          0,
         )
         .from(
           valueDescSplit.chars,
@@ -446,7 +446,7 @@ const Home = () => {
             stagger: 0.01,
             ease: "power2.out",
           },
-          0
+          0,
         )
         .from(
           valuesBtnRef.current,
@@ -456,7 +456,7 @@ const Home = () => {
             duration: 1.25,
             ease: "power2.out",
           },
-          0
+          0,
         );
 
       const classesTl = gsap.timeline({
@@ -481,7 +481,7 @@ const Home = () => {
             stagger: 0.01,
             ease: "power2.out",
           },
-          "<"
+          "<",
         );
 
       [...ourClassesRightRef.current.childNodes].map((child) => {
@@ -501,7 +501,7 @@ const Home = () => {
             duration: 1,
             ease: "power2.out",
           },
-          "<+=0.5"
+          "<+=0.5",
         );
 
         classesTl.add(tl, "<+=0.25");
@@ -544,7 +544,7 @@ const Home = () => {
         {
           type: "lines, chars",
           mask: "lines",
-        }
+        },
       );
 
       const ctaSectionParaSplit = new SplitText(
@@ -552,7 +552,7 @@ const Home = () => {
         {
           type: "lines, chars",
           mask: "lines",
-        }
+        },
       );
 
       const ctaTl = gsap.timeline({
@@ -578,7 +578,7 @@ const Home = () => {
             stagger: 0.01,
             ease: "power2.out",
           },
-          "<"
+          "<",
         )
         .from(
           ctaSectionRef.current.childNodes[2],
@@ -588,7 +588,7 @@ const Home = () => {
             duration: 1,
             ease: "power2.out",
           },
-          "<+=0.5"
+          "<+=0.5",
         );
     });
   }, []);
@@ -691,9 +691,9 @@ const Home = () => {
         {/* Transformation is an Art */}
         <section className="mt-16 lg:mt-28">
           <h1 className="font-bebas-neue text-4xl max-lg:text-center">
-            Transformation is an art,
+            Stories, tips & insights
             <br className="hidden lg:block" />
-            and we are the artists
+            straight from the gym floor.
           </h1>
           <div className="flex max-lg:flex-wrap justify-between gap-8 mt-8">
             {highlightsData.map((highlight) => (
@@ -708,9 +708,12 @@ const Home = () => {
 
         {/* Testimonials Section */}
         <section className="mt-16 lg:mt-28">
-          <h2 className="text-4xl font-bebas-neue text-center mb-8">
+          <h2 className="text-4xl font-bebas-neue text-center">
             What Our Members Say
           </h2>
+          <p className="mb-8 text-center text-gray-800">
+            We dont just transform bodies, we transform lives.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col justify-between gap-3 bg-white/75 shadow-lg rounded-xl p-6">
               <p className="italic">
