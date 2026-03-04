@@ -8,7 +8,7 @@ import { LuLinkedin } from "react-icons/lu";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { DrawSVGPlugin } from "gsap/all";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 
 const Footer = () => {
   const upperLeftRef = useRef(null);
@@ -21,7 +21,7 @@ const Footer = () => {
 
     gsap.registerPlugin(SplitText, DrawSVGPlugin);
 
-    mm.add("(width < 64rem)", () => {});
+    // Mobile breakpoint(width < 64rem) intentionally skipped — the upper section (the only animated region) is hidden on small screens, so no animation is needed there.
     mm.add("(width >= 64rem)", () => {
       const upperLeftText = upperLeftRef.current.children[0];
       const upperLeftArrow = upperLeftRef.current.children[1].children[0];
