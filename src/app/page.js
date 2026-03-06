@@ -4,6 +4,7 @@ import { FiArrowUpRight } from "react-icons/fi";
 import Highlight from "@/app/components/Highlight";
 import Faq from "./components/Faq";
 import WhyUs from "./components/WhyUs";
+import Testimonial from "./components/Testimonial";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
@@ -122,6 +123,65 @@ const Home = () => {
       Every machine, every space — designed to help you push limits and see real results.`,
       btnTxt: "[ Explore CoreX Memberships ]",
       layout: "r-l",
+    },
+  ];
+
+  const testimonialsData = [
+    {
+      id: 1,
+      quote:
+        "CoreX helped me transform my lifestyle. The trainers are amazing and the community is so supportive!",
+      name: "Alex",
+      imgSrc:
+        "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?q=80&w=1240&auto=format&fit=crop",
+    },
+    {
+      id: 2,
+      quote:
+        "I love the variety of classes. There’s something new to try every week!",
+      name: "Priya",
+      imgSrc:
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=60",
+    },
+    {
+      id: 3,
+      quote:
+        "The personalized programs made it easy for me to stay motivated and reach my goals.",
+      name: "John",
+      imgSrc:
+        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1287&auto=format&fit=crop",
+    },
+    {
+      id: 4,
+      quote:
+        "I've never felt stronger. The community here pushes you to be your absolute best.",
+      name: "Sarah",
+      imgSrc:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop",
+    },
+    {
+      id: 5,
+      quote:
+        "Top-tier equipment, expert trainers, and an atmosphere that just breeds success.",
+      name: "Marcus",
+      imgSrc:
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1287&auto=format&fit=crop",
+    },
+    {
+      id: 6,
+      quote:
+        "Joining CoreX was the best decision I made for my fitness journey. The results say it all.",
+      name: "Elena",
+      imgSrc:
+        "https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=1240&auto=format&fit=crop",
+    },
+    {
+      id: 7,
+      quote:
+        "The energy is infectious. Working out here isn't a chore, it's the best part of my day.",
+      name: "Angel",
+      imgSrc:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1240&auto=format&fit=crop",
     },
   ];
 
@@ -714,27 +774,26 @@ const Home = () => {
           <p className="mb-8 text-center text-gray-800">
             We dont just transform bodies, we transform lives.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col justify-between gap-3 bg-white/75 shadow-lg rounded-xl p-6">
-              <p className="italic">
-                &quot;CoreX helped me transform my lifestyle. The trainers are
-                amazing and the community is so supportive!&quot;
-              </p>
-              <div className="font-bold">- Alex</div>
-            </div>
-            <div className="flex flex-col justify-between gap-3 bg-white/75 shadow-lg rounded-xl p-6">
-              <p className="italic">
-                &quot;I love the variety of classes. There’s something new to
-                try every week!&quot;
-              </p>
-              <div className="font-bold">- Priya</div>
-            </div>
-            <div className="flex flex-col justify-between gap-3 bg-white/75 shadow-lg rounded-xl p-6">
-              <p className="italic">
-                &quot;The personalized programs made it easy for me to stay
-                motivated and reach my goals.&quot;
-              </p>
-              <div className="font-bold">- John</div>
+          <div
+            className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden py-4 -mt-4"
+            style={{
+              maskImage:
+                "radial-gradient(ellipse 50% 150% at 50% 50%, black 75%, transparent 100%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 50% 150% at 50% 50%, black 75%, transparent 100%)",
+            }}
+          >
+            <div className="flex w-max gap-8 animate-marquee pl-8 pt-4 pb-12">
+              {[...testimonialsData, ...testimonialsData].map(
+                (testimonial, idx) => (
+                  <Testimonial
+                    key={idx}
+                    quote={testimonial.quote}
+                    name={testimonial.name}
+                    imgSrc={testimonial.imgSrc}
+                  />
+                ),
+              )}
             </div>
           </div>
         </section>
