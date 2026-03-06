@@ -67,7 +67,7 @@ const Faq = ({ id, question, answer }) => {
           duration: 1.75,
           ease: "power2.out",
         },
-        `<=${id * 0.1}`
+        `<=${id * 0.1}`,
       );
     });
     mm.add("(width >= 64rem)", () => {
@@ -96,7 +96,7 @@ const Faq = ({ id, question, answer }) => {
           duration: 1.75,
           ease: "power2.out",
         },
-        `<=${id * 0.1}`
+        `<=${id * 0.1}`,
       );
     });
   }, []);
@@ -108,7 +108,7 @@ const Faq = ({ id, question, answer }) => {
           ref={containerRef}
           className="flex justify-between items-center gap-2"
         >
-          <div>
+          <div className="text-lg font-medium">
             <span>{number + ")"}</span>
             &ensp;
             <span>{question}</span>
