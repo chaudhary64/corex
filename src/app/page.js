@@ -5,8 +5,8 @@ import Home from "./components/Home";
 import Loader from "./components/Loader";
 
 const Page = () => {
-  const [isloading, setIsloading] = useState(false);
-  return <>{isloading ? <Loader /> : <Home />}</>;
+  const [isloading, setIsloading] = useState(true);
+  return <>{isloading ? <Loader setIsloading={setIsloading} /> : <Home />}</>;
 };
 
 export default Page;

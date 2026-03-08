@@ -17,8 +17,10 @@ const Nav = () => {
 
   useGSAP(() => {
     let mm = gsap.matchMedia();
+    let ctx;
 
     mm.add("(width < 64rem)", (context) => {
+      ctx = context;
       // Mobile-specific animations
 
       const mobileSpans = [...mobileNavRef.current.children].slice(1, 6);
@@ -47,7 +49,7 @@ const Nav = () => {
           duration: 1.25,
           ease: "power2.out",
         },
-        0
+        0,
       );
 
       let showMobileNav = gsap.timeline({ paused: true });
@@ -73,7 +75,7 @@ const Nav = () => {
             duration: 1.25,
             ease: "power2.out",
           },
-          "<-0.0025"
+          "<-0.0025",
         )
         .from(
           mobileAsideRef.current,
@@ -81,7 +83,7 @@ const Nav = () => {
             scaleX: 0,
             transformOrigin: "left center",
           },
-          "<"
+          "<",
         )
         .from(
           splitedMobileDesc.chars,
@@ -89,7 +91,7 @@ const Nav = () => {
             opacity: 0,
             stagger: 0.01,
           },
-          "<"
+          "<",
         );
 
       context.add("open", () => {
@@ -121,7 +123,7 @@ const Nav = () => {
             duration: 1.25,
             ease: "power2.out",
           },
-          0
+          0,
         )
         .from(
           desktopLinkRefs.current.children,
@@ -143,14 +145,14 @@ const Nav = () => {
               from: "edges",
             },
           },
-          "<=0.25"
+          "<=0.25",
         );
     });
 
     return () => {
       mm.revert();
-      hamburgerRef.current?.removeEventListener("click", context.open);
-      crossRef.current?.removeEventListener("click", context.close);
+      hamburgerRef.current?.removeEventListener("click", ctx?.open);
+      crossRef.current?.removeEventListener("click", ctx?.close);
     };
   }, []);
 
