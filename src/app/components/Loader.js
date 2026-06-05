@@ -3,34 +3,40 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
+import { useLoading } from "../context/LoadingProvider";
+import { useEffect } from "react";
 
-const Loader = ({ setIsloading }) => {
+const Loader = () => {
   const counterRef = useRef(null);
   const progressBarRef = useRef(null);
   const containerRef = useRef(null);
+  const { loading, setLoading } = useLoading();
 
   useGSAP(() => {
     let tl = gsap.timeline({
       ease: "expoScale(0.5,7,power1.out)",
-      onComplete: () => setIsloading(false),
+      paused: !loading.state,
+      onComplete: () => {
+        setLoading((prev) => ({ ...prev, animated: true }));
+      },
     });
 
-    let duration = gsap.utils.random(3, 5);
+    let DURATION = 3;
 
     tl.to(counterRef.current, {
       innerText: 100,
-      duration: duration,
+      duration: DURATION,
       snap: { innerText: 1 },
     }).to(
       progressBarRef.current,
       {
         scaleX: 1,
-        duration: duration,
+        duration: DURATION,
         transformOrigin: "0% 50%",
       },
       "<",
     );
-  }, []);
+  }, [loading]);
 
   return (
     <div

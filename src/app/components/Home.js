@@ -11,6 +11,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Nav from "./ui/Nav";
 import Footer from "./ui/Footer";
+import Image from "./Image";
 
 const Home = () => {
   const highlightsData = [
@@ -658,7 +659,7 @@ const Home = () => {
   return (
     <>
       <Nav />
-      <main className="w-[90%] max-w-[1440px] mx-auto">
+      <main className="w-[90%] max-w-360 mx-auto">
         {/* Hero Section */}
         <section className="mt-10 lg:mt-28">
           <div ref={heroTextRef} className="mx-auto text-center">
@@ -674,9 +675,9 @@ const Home = () => {
           </div>
           <div
             ref={heroImgRef}
-            className="mx-auto mt-5 lg:mt-10 max-w-5xl lg:h-[512px] rounded-xl overflow-hidden"
+            className="mx-auto mt-5 lg:mt-10 max-w-5xl lg:h-128 rounded-xl overflow-hidden"
           >
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Hero Image"
               className="object-cover object-center h-full w-full"
@@ -689,7 +690,11 @@ const Home = () => {
           ref={valuesSectionRef}
           className="mt-16 lg:mt-28 lg:w-1/2 mx-auto flex flex-col items-center text-center gap-6"
         >
-          <img ref={valuesImgRef} src="/logo/Star Logo.svg" className="h-20" />
+          <Image
+            ref={valuesImgRef}
+            src="/logo/Star Logo.svg"
+            className="h-20"
+          />
           <h3 ref={valuesHeadingRef} className="text-6xl font-bebas-neue">
             Fitness should be
             <br />

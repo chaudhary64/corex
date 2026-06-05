@@ -1,6 +1,7 @@
 import { Bebas_Neue } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
+import { LoadingProvider } from "./context/LoadingProvider";
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -29,8 +30,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${bebasNeue.variable} bg-[#EEEEEE]`}>
-        {children}
-        <SpeedInsights />
+        <LoadingProvider>
+          {children}
+          <SpeedInsights />
+        </LoadingProvider>
       </body>
     </html>
   );

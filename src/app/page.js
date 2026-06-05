@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Home from "./components/Home";
 import Loader from "./components/Loader";
+import { useLoading } from "./context/LoadingProvider";
 
 const Page = () => {
-  const [isloading, setIsloading] = useState(true);
-  return <>{isloading ? <Loader setIsloading={setIsloading} /> : <Home />}</>;
+  const { loading } = useLoading();
+
+  return <>{!loading.animated ? <Loader /> : <Home />}</>;
 };
 
 export default Page;

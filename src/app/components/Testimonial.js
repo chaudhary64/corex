@@ -2,7 +2,7 @@ import React from "react";
 
 const Testimonial = ({ quote, name, imgSrc }) => {
   return (
-    <div className="group w-[400px] md:w-[450px] shrink-0 flex flex-col justify-between bg-white/75 hover:bg-white/90 backdrop-blur-sm shadow-md hover:shadow-xl border border-gray-100 transition-all duration-500 rounded-2xl p-8 cursor-pointer relative overflow-hidden">
+    <div className="group w-100 md:w-112.5 shrink-0 flex flex-col justify-between bg-white/75 hover:bg-white/90 backdrop-blur-sm shadow-md hover:shadow-xl border border-gray-100 transition-all duration-500 rounded-2xl p-8 cursor-pointer relative overflow-hidden">
       {/* Decorative Quote Mark */}
       <div className="absolute top-4 right-6 w-24 h-24 text-black/5 group-hover:text-[#E7B2AA]/20 transition-colors duration-500 fill-current">
         <svg
@@ -71,6 +71,7 @@ const Testimonial = ({ quote, name, imgSrc }) => {
               src={imgSrc}
               alt={name}
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
           <div className="flex flex-col">

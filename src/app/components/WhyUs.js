@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import React, { useRef } from "react";
+import Image from "./Image";
 
 const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
   const leftToRightRef = useRef(null);
@@ -57,7 +58,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.4,
                 ease: "power2.out",
               },
-              "<=0.05"
+              "<=0.05",
             )
             .from(
               descriptionSplit.lines,
@@ -68,7 +69,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.75,
                 ease: "power2.out",
               },
-              "<=0.3"
+              "<=0.3",
             )
             .from(
               button,
@@ -78,7 +79,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.75,
                 ease: "power2.out",
               },
-              "<=0.5"
+              "<=0.5",
             );
         }
       }
@@ -124,7 +125,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.4,
                 ease: "power2.out",
               },
-              "<=0.05"
+              "<=0.05",
             )
             .from(
               descriptionSplit.lines,
@@ -135,7 +136,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.75,
                 ease: "power2.out",
               },
-              "<=0.3"
+              "<=0.3",
             )
             .from(
               button,
@@ -145,7 +146,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.75,
                 ease: "power2.out",
               },
-              "<=0.5"
+              "<=0.5",
             );
         }
       }
@@ -194,7 +195,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.4,
                 ease: "power2.out",
               },
-              "<=0.05"
+              "<=0.05",
             )
             .from(
               descriptionSplit.lines,
@@ -205,7 +206,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.75,
                 ease: "power2.out",
               },
-              "<=0.3"
+              "<=0.3",
             )
             .from(
               button,
@@ -215,7 +216,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.75,
                 ease: "power2.out",
               },
-              "<=0.5"
+              "<=0.5",
             );
         }
       }
@@ -261,7 +262,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.4,
                 ease: "power2.out",
               },
-              "<=0.05"
+              "<=0.05",
             )
             .from(
               descriptionSplit.lines,
@@ -272,7 +273,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.75,
                 ease: "power2.out",
               },
-              "<=0.3"
+              "<=0.3",
             )
             .from(
               button,
@@ -282,7 +283,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
                 duration: 0.75,
                 ease: "power2.out",
               },
-              "<=0.5"
+              "<=0.5",
             );
         }
       }
@@ -300,7 +301,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
         }`}
       >
         <aside className="absolute inset-0 bg-[#EEEEEE]"></aside>
-        <img
+        <Image
           src={src}
           alt={heading}
           className="h-full w-full object-cover object-center"
