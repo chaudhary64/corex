@@ -13,7 +13,7 @@ import Nav from "./ui/Nav";
 import Footer from "./ui/Footer";
 import Image from "./Image";
 
-const Home = () => {
+const Home = ({ loading }) => {
   const highlightsData = [
     {
       id: 1,
@@ -657,7 +657,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <div className={`${loading ? "block opacity-100" : "none opacity-0"}`}>
       <Nav />
       <main className="w-[90%] max-w-360 mx-auto">
         {/* Hero Section */}
@@ -835,7 +835,7 @@ const Home = () => {
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

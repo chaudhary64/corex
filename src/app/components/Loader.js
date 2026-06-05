@@ -2,7 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useLoading } from "../context/LoadingProvider";
 import { useEffect } from "react";
 
@@ -11,32 +11,56 @@ const Loader = () => {
   const progressBarRef = useRef(null);
   const containerRef = useRef(null);
   const { loading, setLoading } = useLoading();
+  const [isAnimating, setIsAnimating] = useState(false);
+  const tl = useRef(null);
+
+  const GSAP_EASE = "power1.inOut";
+  const DURATION = 3;
 
   useGSAP(() => {
-    let tl = gsap.timeline({
-      ease: "expoScale(0.5,7,power1.out)",
-      paused: !loading.state,
+    tl.current = gsap.timeline({
+      defaults: { ease: GSAP_EASE },
+      paused: true,
       onComplete: () => {
         setLoading((prev) => ({ ...prev, animated: true }));
       },
     });
 
-    let DURATION = 3;
-
-    tl.to(counterRef.current, {
-      innerText: 100,
-      duration: DURATION,
-      snap: { innerText: 1 },
-    }).to(
-      progressBarRef.current,
-      {
-        scaleX: 1,
+    tl.current
+      .to(counterRef.current, {
+        innerText: 100,
         duration: DURATION,
-        transformOrigin: "0% 50%",
-      },
-      "<",
-    );
-  }, [loading]);
+        snap: { innerText: 1 },
+      })
+      .to(
+        progressBarRef.current,
+        {
+          scaleX: 1,
+          duration: DURATION,
+          transformOrigin: "0% 50%",
+        },
+        "<",
+      );
+
+    !isAnimating &&
+      gsap.to(tl.current, {
+        progress: 0.35,
+        delay: 0.5,
+        ease: GSAP_EASE,
+        duration: DURATION * 0.35,
+        onComplete: () => setIsAnimating(true),
+      });
+  }, []);
+
+  useGSAP(() => {
+    if (loading.state || !isAnimating) return;
+
+    gsap.to(tl.current, {
+      ease: GSAP_EASE,
+      progress: 1,
+      duration: DURATION * 0.65,
+    });
+  }, [loading.state]);
 
   return (
     <div

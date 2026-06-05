@@ -13,6 +13,7 @@ export function LoadingProvider({ children }) {
 
   useEffect(() => {
     const maxTimeout = setTimeout(() => {
+      console.warn("Loading taking too long, forcing completion.");
       setLoading((prev) => ({ ...prev, state: false }));
     }, 5000);
 
@@ -29,7 +30,7 @@ export function LoadingProvider({ children }) {
       document.fonts.ready,
       new Promise((resolve) => setTimeout(resolve, 1000)),
     ]).then(() => {
-      setLoading((prev) => ({ ...prev, animated: true }));
+      setLoading((prev) => ({ ...prev, state: false }));
     });
   }, [assetsCounted, loading]);
 
