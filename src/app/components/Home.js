@@ -13,7 +13,7 @@ import Nav from "./ui/Nav";
 import Footer from "./ui/Footer";
 import Image from "./Image";
 
-const Home = ({ loading }) => {
+const Home = () => {
   const highlightsData = [
     {
       id: 1,
@@ -657,7 +657,7 @@ const Home = ({ loading }) => {
   }, []);
 
   return (
-    <div className={`${loading ? "block opacity-100" : "none opacity-0"}`}>
+    <>
       <Nav />
       <main className="w-[90%] max-w-360 mx-auto">
         {/* Hero Section */}
@@ -692,7 +692,7 @@ const Home = ({ loading }) => {
         >
           <Image
             ref={valuesImgRef}
-            src="/logo/Star Logo.svg"
+            src="/logo/Star_Logo.svg"
             className="h-20"
           />
           <h3 ref={valuesHeadingRef} className="text-6xl font-bebas-neue">
@@ -835,7 +835,7 @@ const Home = ({ loading }) => {
         </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 };
 

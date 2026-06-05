@@ -1,25 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { useLoading } from "../context/LoadingProvider";
+import React, { useRef } from "react";
 
-const Image = ({ ref, ...props }) => {
-  const { setAssetsCounted } = useLoading();
+const Image = ({ ref, src, ...props }) => {
   const imgRef = useRef(null);
-  const [hasLoaded, setHasLoaded] = useState(false);
-
-  const handleLoad = () => {
-    if (!hasLoaded) {
-      setHasLoaded(true);
-      setAssetsCounted((prev) => prev + 1);
-    }
-  };
-
-  useEffect(() => {
-    if (imgRef.current && imgRef.current.complete) {
-      handleLoad();
-    }
-  }, []);
 
   return (
     <img
@@ -33,14 +17,9 @@ const Image = ({ ref, ...props }) => {
           }
         }
       }}
+      src={src}
       loading="eager"
       {...props}
-      onLoad={(e) => {
-        handleLoad();
-        if (props.onLoad) {
-          props.onLoad(e);
-        }
-      }}
     />
   );
 };
