@@ -38,6 +38,24 @@ const Footer = () => {
         mask: "chars",
       });
 
+      gsap.set(upperLeftTextSplit.lines, {
+        xPercent: -100,
+        opacity: 0,
+      });
+
+      gsap.set(upperLeftArrow, {
+        xPercent: 100,
+      });
+
+      gsap.set(upperCenterTextSplit.chars, {
+        yPercent: 100,
+        opacity: 0,
+      });
+
+      gsap.set(pathRef.current, {
+        drawSVG: 0,
+      });
+
       const upperTl = gsap.timeline({
         scrollTrigger: {
           trigger: upperLeftRef.current,
@@ -48,45 +66,45 @@ const Footer = () => {
       });
 
       upperTl
-        .from(upperLeftTextSplit.lines, {
-          xPercent: -100,
-          opacity: 0,
+        .to(upperLeftTextSplit.lines, {
+          xPercent: 0,
+          opacity: 1,
           stagger: 0.1,
           duration: 0.8,
           ease: "power2.out",
         })
-        .from(
+        .to(
           upperLeftArrow,
           {
-            xPercent: 100,
+            xPercent: 0,
             ease: "power2.out",
           },
           0,
         )
-        .from(
+        .to(
           upperCenterTextSplit.chars,
           {
-            yPercent: 100,
-            opacity: 0,
+            yPercent: 0,
+            opacity: 1,
             stagger: 0.05,
             duration: 0.8,
             ease: "power2.out",
           },
           0,
         )
-        .from(
+        .to(
           pathRef.current,
           {
-            drawSVG: 0,
+            drawSVG: "100%",
             duration: 2.5,
             ease: "power2.out",
           },
           "-=0.5",
         )
-        .from(
+        .to(
           upperRightRef.current,
           {
-            scale: 0,
+            scale: 1,
             ease: "back.out(1.7)",
           },
           0,
@@ -136,7 +154,7 @@ const Footer = () => {
               />
             </svg>
           </div>
-          <span ref={upperRightRef} className="bg-amber-400 rounded-full p-8">
+          <span ref={upperRightRef} className="bg-amber-400 rounded-full p-8 scale-0">
             <FaArrowRightLong />
           </span>
         </div>

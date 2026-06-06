@@ -31,6 +31,18 @@ const createSectionAnimation = (sectionRef, transformOrigin) => {
     mask: "lines",
   });
 
+  gsap.set([heading, description], { opacity: 1 });
+
+  gsap.set(headingSplit.lines, {
+    y: 100,
+    autoAlpha: 0,
+  });
+
+  gsap.set(descriptionSplit.lines, {
+    y: 50,
+    autoAlpha: 0,
+  });
+
   const tl = gsap.timeline({
     defaults: { ease: "power2.out" },
     scrollTrigger: {
@@ -46,30 +58,30 @@ const createSectionAnimation = (sectionRef, transformOrigin) => {
     transformOrigin,
     duration: 1.75,
   })
-    .from(
+    .to(
       headingSplit.lines,
       {
-        y: 100,
-        autoAlpha: 0,
+        y: 0,
+        autoAlpha: 1,
         duration: 1,
       },
       "<=0.05",
     )
-    .from(
+    .to(
       descriptionSplit.lines,
       {
-        y: 50,
-        autoAlpha: 0,
+        y: 0,
+        autoAlpha: 1,
         stagger: 0.1,
         duration: 0.75,
       },
       "<=0.3",
     )
-    .from(
+    .to(
       button,
       {
-        y: 25,
-        autoAlpha: 0,
+        y: 0,
+        autoAlpha: 1,
         duration: 0.75,
       },
       "<=0.5",
@@ -115,13 +127,13 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
           layout === "r-l" ? "lg:order-1" : ""
         }`}
       >
-        <h2 className="text-3xl font-bold font-bebas-neue">{heading}</h2>
+        <h2 className="text-3xl font-bold font-bebas-neue opacity-0">{heading}</h2>
 
         <div className="my-6 text-gray-900">
-          <p>{description}</p>
+          <p className="opacity-0">{description}</p>
         </div>
 
-        <button className="font-mozilla-headline">{btnTxt}</button>
+        <button className="font-mozilla-headline opacity-0 translate-y-6">{btnTxt}</button>
       </div>
     </div>
   );

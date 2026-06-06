@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Home from "./components/Home";
 import Loader from "./components/Loader";
 import { useLoading } from "./context/LoadingProvider";
@@ -8,7 +7,10 @@ import { useLoading } from "./context/LoadingProvider";
 const Page = () => {
   const { loading } = useLoading();
 
-  return <>{!loading.animated ? <Loader /> : <Home />}</>;
+  return <>
+  {/* {!loading.animated ? <Loader /> : <Home />} */}
+  <Home />
+  </>;
 };
 
 export default Page;

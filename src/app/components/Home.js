@@ -219,18 +219,24 @@ const Home = () => {
         mask: "words",
       });
 
+      gsap.set(heroTextRef.current, { opacity: 1 });
+      gsap.set(split.chars, {
+        opacity: 0,
+        y: 50,
+      });
+
       heroTimeline
-        .from(split.chars, {
-          opacity: 0,
-          y: 50,
+        .to(split.chars, {
+          opacity: 1,
+          y: 0,
           stagger: 0.025,
           duration: 1,
         })
-        .from(
+        .to(
           heroImgRef.current,
           {
-            opacity: 0,
-            scale: 0.85,
+            opacity: 1,
+            scale: 1,
             duration: 1.25,
           },
           "<=0.75",
@@ -240,19 +246,30 @@ const Home = () => {
     const animateValues = (isMobile) => {
       const valueHeadingSplit = new SplitText(valuesHeadingRef.current, {
         type: "lines, chars",
-        mask: "lines",
       });
 
       const valueDescSplit = new SplitText(valuesDescRef.current, {
         type: "lines, chars",
-        mask: "lines",
+      });
+
+      gsap.set(valuesHeadingRef.current, { opacity: 1 });
+      gsap.set(valuesDescRef.current, { opacity: 1 });
+
+      gsap.set(valueHeadingSplit.chars, {
+        opacity: 0,
+        y: 50,
+      });
+
+      gsap.set(valueDescSplit.chars, {
+        opacity: 0,
       });
 
       if (isMobile) {
-        gsap.from(valuesImgRef.current, {
-          opacity: 0,
-          scale: 0.5,
-          rotate: gsap.utils.random([-360, 360]),
+        gsap.to(valuesImgRef.current, {
+          opacity: 1,
+          scale: 1,
+          rotate: 0,
+          startAt: { rotate: gsap.utils.random([-360, 360]) },
           duration: 1.75,
           delay: 0.5,
           ease: "power2.out",
@@ -263,9 +280,9 @@ const Home = () => {
           },
         });
 
-        gsap.from(valueHeadingSplit.chars, {
-          opacity: 0,
-          y: 50,
+        gsap.to(valueHeadingSplit.chars, {
+          opacity: 1,
+          y: 0,
           stagger: 0.02,
           ease: "power2.out",
           scrollTrigger: {
@@ -275,8 +292,8 @@ const Home = () => {
           },
         });
 
-        gsap.from(valueDescSplit.chars, {
-          opacity: 0,
+        gsap.to(valueDescSplit.chars, {
+          opacity: 1,
           stagger: 0.01,
           ease: "power2.out",
           scrollTrigger: {
@@ -286,9 +303,9 @@ const Home = () => {
           },
         });
 
-        gsap.from(valuesBtnRef.current, {
-          opacity: 0,
-          y: 50,
+        gsap.to(valuesBtnRef.current, {
+          opacity: 1,
+          y: 0,
           duration: 1.25,
           ease: "power2.out",
           scrollTrigger: {
@@ -307,38 +324,39 @@ const Home = () => {
           },
         });
 
-        tl.from(
+        tl.to(
           valuesImgRef.current,
           {
-            opacity: 0,
-            scale: 0.5,
-            rotate: gsap.utils.random([-360, 360]),
+            opacity: 1,
+            scale: 1,
+            rotate: 0,
+            startAt: { rotate: gsap.utils.random([-360, 360]) },
             duration: 1.75,
           },
           0,
         )
-          .from(
+          .to(
             valueHeadingSplit.chars,
             {
-              opacity: 0,
-              y: 50,
+              opacity: 1,
+              y: 0,
               stagger: 0.02,
             },
             0,
           )
-          .from(
+          .to(
             valueDescSplit.chars,
             {
-              opacity: 0,
+              opacity: 1,
               stagger: 0.01,
             },
             0,
           )
-          .from(
+          .to(
             valuesBtnRef.current,
             {
-              opacity: 0,
-              y: 50,
+              opacity: 1,
+              y: 0,
               duration: 1.25,
             },
             0,
@@ -363,6 +381,15 @@ const Home = () => {
         },
       );
 
+      gsap.set(ourClassesLeftRef.current, { opacity: 1 });
+      gsap.set(ourClassesHeadingSplit.chars, {
+        opacity: 0,
+        y: 50,
+      });
+      gsap.set(ourClassesDescSplit.chars, {
+        opacity: 0,
+      });
+
       const classesTl = gsap.timeline({
         scrollTrigger: {
           trigger: ourClassesLeftRef.current,
@@ -372,16 +399,16 @@ const Home = () => {
       });
 
       classesTl
-        .from(ourClassesHeadingSplit.chars, {
-          opacity: 0,
-          y: 50,
+        .to(ourClassesHeadingSplit.chars, {
+          opacity: 1,
+          y: 0,
           stagger: 0.05,
           ease: "power2.out",
         })
-        .from(
+        .to(
           ourClassesDescSplit.chars,
           {
-            opacity: 0,
+            opacity: 1,
             stagger: 0.01,
             ease: "power2.out",
           },
@@ -392,16 +419,21 @@ const Home = () => {
         const upperPart = child.childNodes[0];
         const lowerPart = child.childNodes[1];
 
-        const tl = gsap.timeline();
-
-        tl.from(upperPart.childNodes, {
+        gsap.set(upperPart.childNodes, {
           opacity: 0,
           x: (index) => (index === 0 ? -50 : 50),
+        });
+
+        const tl = gsap.timeline();
+
+        tl.to(upperPart.childNodes, {
+          opacity: 1,
+          x: 0,
           stagger: 0.1,
-        }).from(
+        }).to(
           lowerPart,
           {
-            width: 0,
+            width: "100%",
             duration: 1,
             ease: "power2.out",
           },
@@ -418,9 +450,15 @@ const Home = () => {
         mask: "lines",
       });
 
-      gsap.from(whyUsHeadingSplit.chars, {
+      gsap.set(whyChooseUsHeadingRef.current, { opacity: 1 });
+      gsap.set(whyUsHeadingSplit.chars, {
         opacity: 0,
         y: 50,
+      });
+
+      gsap.to(whyUsHeadingSplit.chars, {
+        opacity: 1,
+        y: 0,
         stagger: 0.05,
         ease: "power2.out",
         scrollTrigger: {
@@ -437,9 +475,15 @@ const Home = () => {
         mask: "lines",
       });
 
-      gsap.from(faqHeadingSplit.chars, {
-        y: 50,
+      gsap.set(faqHeadingRef.current, { opacity: 1 });
+      gsap.set(faqHeadingSplit.chars, {
         opacity: 0,
+        y: 50,
+      });
+
+      gsap.to(faqHeadingSplit.chars, {
+        y: 0,
+        opacity: 1,
         stagger: 0.05,
         scrollTrigger: {
           trigger: faqHeadingRef.current,
@@ -465,6 +509,20 @@ const Home = () => {
         },
       );
 
+      gsap.set(ctaSectionRef.current, { opacity: 1 });
+      gsap.set(ctaSectionHeadingSplit.chars, {
+        opacity: 0,
+        y: 50,
+      });
+      gsap.set(ctaSectionParaSplit.chars, {
+        opacity: 0,
+        y: 50,
+      });
+      gsap.set(ctaSectionRef.current.childNodes[2], {
+        opacity: 0,
+        y: 25,
+      });
+
       const ctaTl = gsap.timeline({
         scrollTrigger: {
           trigger: ctaSectionRef.current,
@@ -474,27 +532,27 @@ const Home = () => {
       });
 
       ctaTl
-        .from(ctaSectionHeadingSplit.chars, {
-          y: 50,
-          opacity: 0,
+        .to(ctaSectionHeadingSplit.chars, {
+          y: 0,
+          opacity: 1,
           stagger: 0.025,
           ease: "power2.out",
         })
-        .from(
+        .to(
           ctaSectionParaSplit.chars,
           {
-            y: 50,
-            opacity: 0,
+            y: 0,
+            opacity: 1,
             stagger: 0.01,
             ease: "power2.out",
           },
           "<",
         )
-        .from(
+        .to(
           ctaSectionRef.current.childNodes[2],
           {
-            y: 25,
-            opacity: 0,
+            y: 0,
+            opacity: 1,
             duration: 1,
             ease: "power2.out",
           },
@@ -529,7 +587,7 @@ const Home = () => {
       <main className="w-[90%] max-w-360 mx-auto">
         {/* Hero Section */}
         <section className="mt-10 lg:mt-28">
-          <div ref={heroTextRef} className="mx-auto text-center">
+          <div ref={heroTextRef} className="mx-auto text-center opacity-0">
             <p className="text-sm">ACHIEVE YOUR FITNESS GOALS</p>
             <h1
               style={{
@@ -542,7 +600,7 @@ const Home = () => {
           </div>
           <div
             ref={heroImgRef}
-            className="mx-auto mt-5 lg:mt-10 max-w-5xl lg:h-128 rounded-xl overflow-hidden"
+            className="mx-auto mt-5 lg:mt-10 max-w-5xl lg:h-128 rounded-xl overflow-hidden opacity-0 scale-[0.85]"
           >
             <Image
               src="https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -560,14 +618,14 @@ const Home = () => {
           <Image
             ref={valuesImgRef}
             src="/logo/Star_Logo.svg"
-            className="h-20"
+            className="h-20 opacity-0 scale-50"
           />
-          <h3 ref={valuesHeadingRef} className="text-6xl font-bebas-neue">
+          <h3 ref={valuesHeadingRef} className="text-6xl font-bebas-neue opacity-0">
             Fitness should be
             <br />
             Accessible to Everyone
           </h3>
-          <p ref={valuesDescRef}>
+          <p ref={valuesDescRef} className="opacity-0">
             CoreX is a modern fitness platform that connects you with top
             trainers, personalized programs, and a community of fitness
             enthusiasts. Whether you&apos;re a beginner or an experienced
@@ -575,7 +633,7 @@ const Home = () => {
           </p>
           <button
             ref={valuesBtnRef}
-            className="py-2 px-10 rounded-full cursor-pointer font-bold border-2 border-black hover:bg-black hover:text-white transition-colors duration-700"
+            className="py-2 px-10 rounded-full cursor-pointer font-bold border-2 border-black hover:bg-black hover:text-white transition-colors duration-700 opacity-0 translate-y-12"
           >
             Join Now
           </button>
@@ -584,7 +642,7 @@ const Home = () => {
         {/* Our Classes */}
         <section className="mt-16 lg:mt-28 flex max-lg:flex-wrap justify-between items-center gap-5 lg:gap-10">
           {/* Left Part */}
-          <div ref={ourClassesLeftRef} className="lg:w-1/2">
+          <div ref={ourClassesLeftRef} className="lg:w-1/2 opacity-0">
             <h5 className="font-bebas-neue text-4xl max-lg:text-center">
               Our Classes
             </h5>
@@ -602,7 +660,7 @@ const Home = () => {
                   <span>{category}</span>
                   <FiArrowUpRight />
                 </div>
-                <div className="w-full mt-3 border-b"></div>
+                <div className="w-0 mt-3 border-b"></div>
               </div>
             ))}
           </div>
@@ -612,7 +670,7 @@ const Home = () => {
         <section className="mt-16 lg:mt-28">
           <h1
             ref={whyChooseUsHeadingRef}
-            className="mb-16 font-bebas-neue text-6xl text-center"
+            className="mb-16 font-bebas-neue text-6xl text-center opacity-0"
           >
             Why Choose Us?
           </h1>
@@ -677,7 +735,7 @@ const Home = () => {
         <section className="mt-16 lg:mt-28 md:flex justify-between">
           <h2
             ref={faqHeadingRef}
-            className="h-fit text-4xl font-bebas-neue mb-4"
+            className="h-fit text-4xl font-bebas-neue mb-4 opacity-0"
           >
             FAQ ({faqData.length})
           </h2>
@@ -689,7 +747,7 @@ const Home = () => {
         </section>
 
         {/* Call to Action Section */}
-        <section ref={ctaSectionRef} className="mt-16 lg:mt-28 text-center">
+        <section ref={ctaSectionRef} className="mt-16 lg:mt-28 text-center opacity-0">
           <h2 className="text-4xl font-bebas-neue mb-4">
             Ready to Start Your Journey?
           </h2>

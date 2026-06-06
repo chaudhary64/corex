@@ -32,6 +32,10 @@ const Nav = () => {
         mask: "lines",
       });
 
+      gsap.set(crossRef.current, { opacity: 0 });
+      gsap.set(splitedMobileSpans.chars, { opacity: 0, y: 20 });
+      gsap.set(splitedMobileDesc.chars, { opacity: 0 });
+
       let showMobileNav = gsap.timeline({ paused: true });
 
       showMobileNav
@@ -40,35 +44,34 @@ const Nav = () => {
           ease: "power2.InOut",
           transformOrigin: "center center",
         })
-        .from(crossRef.current, {
-          opacity: 0,
+        .to(crossRef.current, {
+          opacity: 1,
         })
-        .from(splitedMobileSpans.chars, {
-          opacity: 0,
-          y: 20,
+        .to(splitedMobileSpans.chars, {
+          opacity: 1,
+          y: 0,
           stagger: 0.02,
         })
-        .from(
+        .to(
           btnMobileRef.current,
           {
-            opacity: 0,
+            opacity: 1,
             duration: 1.25,
             ease: "power2.out",
           },
           "<-0.0025",
         )
-        .from(
+        .to(
           mobileAsideRef.current,
           {
-            scaleX: 0,
-            transformOrigin: "left center",
+            scaleX: 1,
           },
           "<",
         )
-        .from(
+        .to(
           splitedMobileDesc.chars,
           {
-            opacity: 0,
+            opacity: 1,
             stagger: 0.01,
           },
           "<",
@@ -136,7 +139,7 @@ const Nav = () => {
         >
           <button
             ref={crossRef}
-            className="self-end cursor-pointer lg:hidden flex items-center gap-2"
+            className="self-end cursor-pointer lg:hidden flex items-center gap-2 opacity-0"
           >
             <span className="font-semibold text-slate-200">close</span>
             <svg
@@ -168,13 +171,13 @@ const Nav = () => {
           </span>
           <button
             ref={btnMobileRef}
-            className="w-full bg-white py-2 rounded-full uppercase cursor-not-allowed"
+            className="w-full bg-white py-2 rounded-full uppercase cursor-not-allowed opacity-0"
           >
             Begin Your Journey
           </button>
           <aside
             ref={mobileAsideRef}
-            className="w-full border-b border-slate-200"
+            className="w-full border-b border-slate-200 scale-x-0 origin-left"
           ></aside>
           <p ref={mobileDescRef} className="text-slate-200 text-xs text-center">
             We create transformative fitness journeys that celebrate the human

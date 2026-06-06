@@ -46,11 +46,10 @@ const Faq = ({ id, question, answer }) => {
       },
     });
 
-    tl.from(
+    tl.to(
       borderRef.current,
       {
-        scaleX: 0,
-        transformOrigin: "left center",
+        scaleX: 1,
         duration: 1.75,
       },
       `<=${id * 0.1}`,
@@ -80,7 +79,7 @@ const Faq = ({ id, question, answer }) => {
       </div>
       <aside
         ref={borderRef}
-        className="border-b border-gray-500 w-full"
+        className="border-b border-gray-500 w-full scale-x-0 origin-left"
       ></aside>
     </>
   );
