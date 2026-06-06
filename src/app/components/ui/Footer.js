@@ -98,7 +98,7 @@ const Footer = () => {
     <footer className="mt-16 lg:mt-28">
       <div>
         {/* Upper Part */}
-        <div className="max-lg:hidden max-lg:invisible w-[90%] max-w-[1440px] mx-auto pb-16 flex justify-between items-center">
+        <div className="hidden lg:flex w-[90%] max-w-[1440px] mx-auto pb-16 justify-between items-center">
           <div
             ref={upperLeftRef}
             style={{

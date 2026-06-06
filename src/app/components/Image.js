@@ -19,6 +19,7 @@ const Image = ({ ref, src, ...props }) => {
       }}
       src={src}
       loading="eager"
+      // fetchpriority="high"
       {...props}
     />
   );

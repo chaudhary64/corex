@@ -97,14 +97,14 @@ const Nav = () => {
     <header className="w-[90%] max-w-360 mx-auto relative">
       <nav className="py-4 flex items-center justify-between border-b border-gray-500">
         <span className="font-black cursor-pointer">COREX</span>
-        <ul className="max-lg:hidden max-lg:invisible flex items-center gap-6">
+        <ul className="hidden lg:flex items-center gap-6">
           <li className="cursor-pointer">Home</li>
           <li className="cursor-pointer">Trainers</li>
           <li className="cursor-pointer">Programs</li>
           <li className="cursor-pointer">Experiences</li>
           <li className="cursor-pointer">Pricing</li>
         </ul>
-        <button className="max-lg:hidden max-lg:invisible bg-black text-white py-2 px-10 rounded-full cursor-pointer">
+        <button className="hidden lg:block bg-black text-white py-2 px-10 rounded-full cursor-pointer">
           Get Started
         </button>
 
