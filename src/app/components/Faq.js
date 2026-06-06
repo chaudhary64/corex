@@ -1,7 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
-import React, { use, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 
 const Faq = ({ id, question, answer }) => {
@@ -10,7 +9,6 @@ const Faq = ({ id, question, answer }) => {
   const [isToggle, setIsToggle] = useState(false);
 
   const containerRef = useRef(null);
-  const toggleBtnRef = useRef(null);
   const paraRef = useRef(null);
   const borderRef = useRef(null);
 
@@ -39,66 +37,24 @@ const Faq = ({ id, question, answer }) => {
   }, [isToggle]);
 
   useGSAP(() => {
-    let mm = gsap.matchMedia();
-
-    mm.add("(width < 64rem)", () => {
-      const split = new SplitText(containerRef.current, {
-        type: "words,chars",
-        mask: "chars",
-      });
-
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 95%",
-          end: "bottom 60%",
-        },
-      });
-
-      tl.from(split.chars, {
-        yPercent: 100,
-        stagger: 0.02,
-        ease: "power2.out",
-      }).from(
-        borderRef.current,
-        {
-          scaleX: 0,
-          transformOrigin: "left center",
-          duration: 1.75,
-          ease: "power2.out",
-        },
-        `<=${id * 0.1}`,
-      );
+    let tl = gsap.timeline({
+      defaults: { ease: "power2.out" },
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 95%",
+        end: "bottom 60%",
+      },
     });
-    mm.add("(width >= 64rem)", () => {
-      const split = new SplitText(containerRef.current, {
-        type: "words,chars",
-        mask: "chars",
-      });
 
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 95%",
-          end: "bottom 60%",
-        },
-      });
-
-      tl.from(split.chars, {
-        yPercent: 100,
-        stagger: 0.02,
-        ease: "power2.out",
-      }).from(
-        borderRef.current,
-        {
-          scaleX: 0,
-          transformOrigin: "left center",
-          duration: 1.75,
-          ease: "power2.out",
-        },
-        `<=${id * 0.1}`,
-      );
-    });
+    tl.from(
+      borderRef.current,
+      {
+        scaleX: 0,
+        transformOrigin: "left center",
+        duration: 1.75,
+      },
+      `<=${id * 0.1}`,
+    );
   }, []);
 
   return (
@@ -113,11 +69,7 @@ const Faq = ({ id, question, answer }) => {
             &ensp;
             <span>{question}</span>
           </div>
-          <FiPlus
-            ref={toggleBtnRef}
-            onClick={toggle}
-            className="text-lg cursor-pointer"
-          />
+          <FiPlus onClick={toggle} className="text-lg cursor-pointer" />
         </div>
         <div
           ref={paraRef}
