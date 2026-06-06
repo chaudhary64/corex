@@ -109,9 +109,8 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
   return (
     <div ref={sectionRef} className="flex max-lg:flex-wrap max-lg:gap-4">
       <div
-        className={`max-lg:w-full lg:w-1/2 relative ${
-          layout === "r-l" ? "lg:order-2" : ""
-        }`}
+        className={`max-lg:w-full lg:w-1/2 relative ${layout === "r-l" ? "lg:order-2" : ""
+          }`}
       >
         <aside className="absolute inset-0 bg-[#EEEEEE]" />
 
@@ -123,14 +122,13 @@ const WhyUs = ({ src, heading, description, btnTxt, layout }) => {
       </div>
 
       <div
-        className={`max-lg:w-full lg:w-1/2 px-8 flex flex-col justify-center text-center ${
-          layout === "r-l" ? "lg:order-1" : ""
-        }`}
+        className={`max-lg:w-full lg:w-1/2 px-8 flex flex-col justify-center text-center ${layout === "r-l" ? "lg:order-1" : ""
+          }`}
       >
         <h2 className="text-3xl font-bold font-bebas-neue opacity-0">{heading}</h2>
 
-        <div className="my-6 text-gray-900">
-          <p className="opacity-0">{description}</p>
+        <div className="my-6 text-gray-900 opacity-0">
+          <p>{description}</p>
         </div>
 
         <button className="font-mozilla-headline opacity-0 translate-y-6">{btnTxt}</button>
