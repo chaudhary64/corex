@@ -2,13 +2,10 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 const Nav = () => {
-  const logoRef = useRef(null);
-  const btnDesktopRef = useRef(null);
   const btnMobileRef = useRef(null);
-  const desktopLinkRefs = useRef();
   const hamburgerRef = useRef(null);
   const crossRef = useRef(null);
   const mobileNavRef = useRef(null);
@@ -34,23 +31,6 @@ const Nav = () => {
         linesClass: "overflow-hidden block",
         mask: "lines",
       });
-
-      let tl = gsap.timeline();
-      tl.from(logoRef.current, {
-        opacity: 0,
-        x: -20,
-        duration: 1.25,
-        ease: "power2.out",
-      }).from(
-        hamburgerRef.current,
-        {
-          opacity: 0,
-          x: 20,
-          duration: 1.25,
-          ease: "power2.out",
-        },
-        0,
-      );
 
       let showMobileNav = gsap.timeline({ paused: true });
 
@@ -106,49 +86,6 @@ const Nav = () => {
       crossRef.current?.addEventListener("click", context.close);
     });
 
-    mm.add("(width >= 64rem)", () => {
-      // Desktop-specific animations
-      let tl = gsap.timeline();
-      tl.from(logoRef.current, {
-        opacity: 0,
-        x: -20,
-        duration: 1.25,
-        ease: "power2.out",
-      })
-        .from(
-          btnDesktopRef.current,
-          {
-            opacity: 0,
-            x: 20,
-            duration: 1.25,
-            ease: "power2.out",
-          },
-          0,
-        )
-        .from(
-          desktopLinkRefs.current.children,
-          {
-            opacity: 0,
-            x: (index, target, targets) => {
-              if (index == 0) return -20;
-              else if (index == targets.length - 1) return 20;
-              else return 0;
-            },
-            y: (index, target, targets) => {
-              if (index == 0 || index == targets.length - 1) return 0;
-              return index % 2 === 0 ? -20 : 20;
-            },
-            duration: 0.75,
-            ease: "power2.out",
-            stagger: {
-              each: 0.1,
-              from: "edges",
-            },
-          },
-          "<=0.25",
-        );
-    });
-
     return () => {
       mm.revert();
       hamburgerRef.current?.removeEventListener("click", ctx?.open);
@@ -159,23 +96,15 @@ const Nav = () => {
   return (
     <header className="w-[90%] max-w-360 mx-auto relative">
       <nav className="py-4 flex items-center justify-between border-b border-gray-500">
-        <span ref={logoRef} className="font-black cursor-pointer">
-          COREX
-        </span>
-        <ul
-          ref={desktopLinkRefs}
-          className="max-lg:hidden max-lg:invisible flex items-center gap-6"
-        >
+        <span className="font-black cursor-pointer">COREX</span>
+        <ul className="max-lg:hidden max-lg:invisible flex items-center gap-6">
           <li className="cursor-pointer">Home</li>
           <li className="cursor-pointer">Trainers</li>
           <li className="cursor-pointer">Programs</li>
           <li className="cursor-pointer">Experiences</li>
           <li className="cursor-pointer">Pricing</li>
         </ul>
-        <button
-          ref={btnDesktopRef}
-          className="max-lg:hidden max-lg:invisible bg-black text-white py-2 px-10 rounded-full cursor-pointer"
-        >
+        <button className="max-lg:hidden max-lg:invisible bg-black text-white py-2 px-10 rounded-full cursor-pointer">
           Get Started
         </button>
 
