@@ -157,7 +157,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <header className="w-[90%] max-w-[1440px] mx-auto relative">
+    <header className="w-[90%] max-w-360 mx-auto relative">
       <nav className="py-4 flex items-center justify-between border-b border-gray-500">
         <span ref={logoRef} className="font-black cursor-pointer">
           COREX

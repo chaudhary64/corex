@@ -209,244 +209,35 @@ const Home = () => {
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
-    const heroTimeline = gsap.timeline();
-
-    const split = new SplitText(heroTextRef.current, {
-      type: "words, chars",
-      mask: "words",
-    });
-
-    heroTimeline
-      .from(split.chars, {
-        opacity: 0,
-        y: 50,
-        stagger: 0.025,
-        duration: 1,
-        ease: "power2.out",
-      })
-      .from(
-        heroImgRef.current,
-        {
-          opacity: 0,
-          scale: 0.85,
-          duration: 1,
-          ease: "power2.out",
-        },
-        "<=0.75",
-      );
-
-    let mm = gsap.matchMedia();
-
-    mm.add("(width < 64rem)", () => {
-      const valueHeadingSplit = new SplitText(valuesHeadingRef.current, {
-        type: "lines, chars",
-        mask: "lines",
+    const animateHero = () => {
+      const heroTimeline = gsap.timeline({
+        defaults: { ease: "power2.out" },
       });
 
-      const valueDescSplit = new SplitText(valuesDescRef.current, {
-        type: "lines, chars",
-        mask: "lines",
+      const split = new SplitText(heroTextRef.current, {
+        type: "words, chars",
+        mask: "words",
       });
 
-      gsap.from(valuesImgRef.current, {
-        opacity: 0,
-        scale: 0.5,
-        rotate: gsap.utils.random([-360, 360]),
-        duration: 1.75,
-        delay: 0.5,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: valuesImgRef.current,
-          start: "top bottom",
-          end: "bottom 20%",
-        },
-      });
-
-      gsap.from(valueHeadingSplit.chars, {
-        opacity: 0,
-        y: 50,
-        stagger: 0.02,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: valuesHeadingRef.current,
-          start: "top 82.5%",
-          end: "bottom 20%",
-        },
-      });
-
-      gsap.from(valueDescSplit.chars, {
-        opacity: 0,
-        stagger: 0.01,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: valuesDescRef.current,
-          start: "top 82.5%",
-          end: "bottom 20%",
-        },
-      });
-
-      gsap.from(valuesBtnRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 1.25,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: valuesBtnRef.current,
-          start: "top 95%",
-          end: "bottom 20%",
-        },
-      });
-
-      const ourClassesHeadingSplit = new SplitText(
-        ourClassesLeftRef.current.childNodes[0],
-        {
-          type: "lines, chars",
-          mask: "lines",
-        },
-      );
-
-      const ourClassesDescSplit = new SplitText(
-        ourClassesLeftRef.current.childNodes[1],
-        {
-          type: "lines, chars",
-          mask: "lines",
-        },
-      );
-
-      const classesTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ourClassesLeftRef.current,
-          start: "top 85%",
-          end: "bottom 20%",
-        },
-      });
-
-      classesTl
-        .from(ourClassesHeadingSplit.chars, {
+      heroTimeline
+        .from(split.chars, {
           opacity: 0,
           y: 50,
-          stagger: 0.05,
-          ease: "power2.out",
-        })
-        .from(
-          ourClassesDescSplit.chars,
-          {
-            opacity: 0,
-            stagger: 0.01,
-            ease: "power2.out",
-          },
-          "<",
-        );
-
-      [...ourClassesRightRef.current.childNodes].map((child) => {
-        const upperPart = child.childNodes[0];
-        const lowerPart = child.childNodes[1];
-
-        const tl = gsap.timeline();
-
-        tl.from(upperPart.childNodes, {
-          opacity: 0,
-          x: (index) => (index === 0 ? -50 : 50),
-          stagger: 0.1,
-        }).from(
-          lowerPart,
-          {
-            width: 0,
-            duration: 1,
-            ease: "power2.out",
-          },
-          "<+=0.5",
-        );
-
-        classesTl.add(tl, "<+=0.25");
-      });
-
-      const whyUsHeadingSplit = new SplitText(whyChooseUsHeadingRef.current, {
-        type: "lines, chars",
-        mask: "lines",
-      });
-
-      gsap.from(whyUsHeadingSplit.chars, {
-        opacity: 0,
-        y: 50,
-        stagger: 0.05,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: whyChooseUsHeadingRef.current,
-          start: "top 85%",
-          end: "bottom 20%",
-        },
-      });
-
-      const faqHeadingSplit = new SplitText(faqHeadingRef.current, {
-        type: "lines, chars",
-        mask: "lines",
-      });
-
-      gsap.from(faqHeadingSplit.chars, {
-        y: 50,
-        opacity: 0,
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: faqHeadingRef.current,
-          start: "top 85%",
-        },
-      });
-
-      const ctaSectionHeadingSplit = new SplitText(
-        ctaSectionRef.current.childNodes[0],
-        {
-          type: "lines, chars",
-          mask: "lines",
-        },
-      );
-
-      const ctaSectionParaSplit = new SplitText(
-        ctaSectionRef.current.childNodes[1],
-        {
-          type: "lines, chars",
-          mask: "lines",
-        },
-      );
-
-      const ctaTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ctaSectionRef.current,
-          start: "top 90%",
-          end: "bottom 20%",
-        },
-      });
-
-      ctaTl
-        .from(ctaSectionHeadingSplit.chars, {
-          y: 50,
-          opacity: 0,
           stagger: 0.025,
-          ease: "power2.out",
+          duration: 1,
         })
         .from(
-          ctaSectionParaSplit.chars,
+          heroImgRef.current,
           {
-            y: 50,
             opacity: 0,
-            stagger: 0.01,
-            ease: "power2.out",
+            scale: 0.85,
+            duration: 1.25,
           },
-          "<",
-        )
-        .from(
-          ctaSectionRef.current.childNodes[2],
-          {
-            y: 25,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out",
-          },
-          "<+=0.5",
+          "<=0.75",
         );
-    });
+    };
 
-    mm.add("(width >= 64rem)", () => {
+    const animateValues = (isMobile) => {
       const valueHeadingSplit = new SplitText(valuesHeadingRef.current, {
         type: "lines, chars",
         mask: "lines",
@@ -457,70 +248,120 @@ const Home = () => {
         mask: "lines",
       });
 
-      const ourClassesHeadingSplit = new SplitText(
-        ourClassesLeftRef.current.childNodes[0],
-        {
-          type: "lines, chars",
-          mask: "lines",
-        },
-      );
-
-      const ourClassesDescSplit = new SplitText(
-        ourClassesLeftRef.current.childNodes[1],
-        {
-          type: "lines, chars",
-          mask: "lines",
-        },
-      );
-
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: valuesSectionRef.current,
-          start: "center bottom",
-          end: "bottom 20%",
-        },
-      });
-
-      tl.from(
-        valuesImgRef.current,
-        {
+      if (isMobile) {
+        gsap.from(valuesImgRef.current, {
           opacity: 0,
           scale: 0.5,
           rotate: gsap.utils.random([-360, 360]),
           duration: 1.75,
+          delay: 0.5,
           ease: "power2.out",
+          scrollTrigger: {
+            trigger: valuesImgRef.current,
+            start: "top bottom",
+            end: "bottom 20%",
+          },
+        });
+
+        gsap.from(valueHeadingSplit.chars, {
+          opacity: 0,
+          y: 50,
+          stagger: 0.02,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: valuesHeadingRef.current,
+            start: "top 82.5%",
+            end: "bottom 20%",
+          },
+        });
+
+        gsap.from(valueDescSplit.chars, {
+          opacity: 0,
+          stagger: 0.01,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: valuesDescRef.current,
+            start: "top 82.5%",
+            end: "bottom 20%",
+          },
+        });
+
+        gsap.from(valuesBtnRef.current, {
+          opacity: 0,
+          y: 50,
+          duration: 1.25,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: valuesBtnRef.current,
+            start: "top 95%",
+            end: "bottom 20%",
+          },
+        });
+      } else {
+        let tl = gsap.timeline({
+          defaults: { ease: "power2.out" },
+          scrollTrigger: {
+            trigger: valuesSectionRef.current,
+            start: "center bottom",
+            end: "bottom 20%",
+          },
+        });
+
+        tl.from(
+          valuesImgRef.current,
+          {
+            opacity: 0,
+            scale: 0.5,
+            rotate: gsap.utils.random([-360, 360]),
+            duration: 1.75,
+          },
+          0,
+        )
+          .from(
+            valueHeadingSplit.chars,
+            {
+              opacity: 0,
+              y: 50,
+              stagger: 0.02,
+            },
+            0,
+          )
+          .from(
+            valueDescSplit.chars,
+            {
+              opacity: 0,
+              stagger: 0.01,
+            },
+            0,
+          )
+          .from(
+            valuesBtnRef.current,
+            {
+              opacity: 0,
+              y: 50,
+              duration: 1.25,
+            },
+            0,
+          );
+      }
+    };
+
+    const animateClasses = () => {
+      const ourClassesHeadingSplit = new SplitText(
+        ourClassesLeftRef.current.childNodes[0],
+        {
+          type: "lines, chars",
+          mask: "lines",
         },
-        0,
-      )
-        .from(
-          valueHeadingSplit.chars,
-          {
-            opacity: 0,
-            y: 50,
-            stagger: 0.02,
-            ease: "power2.out",
-          },
-          0,
-        )
-        .from(
-          valueDescSplit.chars,
-          {
-            opacity: 0,
-            stagger: 0.01,
-            ease: "power2.out",
-          },
-          0,
-        )
-        .from(
-          valuesBtnRef.current,
-          {
-            opacity: 0,
-            y: 50,
-            duration: 1.25,
-            ease: "power2.out",
-          },
-          0,
-        );
+      );
+
+      const ourClassesDescSplit = new SplitText(
+        ourClassesLeftRef.current.childNodes[1],
+        {
+          type: "lines, chars",
+          mask: "lines",
+        },
+      );
 
       const classesTl = gsap.timeline({
         scrollTrigger: {
@@ -569,7 +410,9 @@ const Home = () => {
 
         classesTl.add(tl, "<+=0.25");
       });
+    };
 
+    const animateWhyChooseUs = () => {
       const whyUsHeadingSplit = new SplitText(whyChooseUsHeadingRef.current, {
         type: "lines, chars",
         mask: "lines",
@@ -586,7 +429,9 @@ const Home = () => {
           end: "bottom 20%",
         },
       });
+    };
 
+    const animateFaq = () => {
       const faqHeadingSplit = new SplitText(faqHeadingRef.current, {
         type: "lines, chars",
         mask: "lines",
@@ -601,7 +446,9 @@ const Home = () => {
           start: "top 85%",
         },
       });
+    };
 
+    const animateCta = () => {
       const ctaSectionHeadingSplit = new SplitText(
         ctaSectionRef.current.childNodes[0],
         {
@@ -653,6 +500,26 @@ const Home = () => {
           },
           "<+=0.5",
         );
+    };
+
+    animateHero();
+
+    let mm = gsap.matchMedia();
+
+    mm.add("(width < 64rem)", () => {
+      animateValues(true);
+      animateClasses();
+      animateWhyChooseUs();
+      animateFaq();
+      animateCta();
+    });
+
+    mm.add("(width >= 64rem)", () => {
+      animateValues(false);
+      animateClasses();
+      animateWhyChooseUs();
+      animateFaq();
+      animateCta();
     });
   }, []);
 
