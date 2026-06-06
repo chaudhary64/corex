@@ -2,9 +2,9 @@ import React from "react";
 
 const Testimonial = ({ quote, name, imgSrc }) => {
   return (
-    <div className="group w-100 md:w-112.5 shrink-0 flex flex-col justify-between bg-white/75 hover:bg-white/90 backdrop-blur-sm shadow-md hover:shadow-xl border border-gray-100 transition-all duration-500 rounded-2xl p-8 cursor-pointer relative overflow-hidden">
+    <div className="group w-[85vw] max-w-100 md:w-112.5 shrink-0 flex flex-col justify-between bg-white/75 hover:bg-white/90 backdrop-blur-sm shadow-md hover:shadow-xl border border-gray-100 transition-all duration-500 rounded-2xl p-6 md:p-8 cursor-pointer relative overflow-hidden">
       {/* Decorative Quote Mark */}
-      <div className="absolute top-4 right-6 w-24 h-24 text-black/5 group-hover:text-[#E7B2AA]/20 transition-colors duration-500 fill-current">
+      <div className="absolute top-2 right-4 md:top-4 md:right-6 w-16 h-16 md:w-24 md:h-24 text-black/5 group-hover:text-[#E7B2AA]/20 transition-colors duration-500 fill-current">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 256 256"
@@ -60,13 +60,13 @@ const Testimonial = ({ quote, name, imgSrc }) => {
         </svg>
       </div>
 
-      <p className="italic leading-relaxed text-gray-700 relative z-10">
+      <p className="text-sm md:text-base italic leading-relaxed text-gray-700 relative z-10">
         &quot;{quote}&quot;
       </p>
 
-      <div className="mt-8 flex items-center justify-between border-t border-gray-200/60 pt-5 relative z-10">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 shrink-0 rounded-full overflow-hidden border-2 border-transparent group-hover:border-[#E7B2AA] transition-colors duration-300 shadow-sm group-hover:shadow-md">
+      <div className="mt-6 md:mt-8 flex items-center justify-between border-t border-gray-200/60 pt-4 md:pt-5 relative z-10">
+        <div className="flex items-center gap-3 md:gap-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full overflow-hidden border-2 border-transparent group-hover:border-[#E7B2AA] transition-colors duration-300 shadow-sm group-hover:shadow-md">
             <img
               src={imgSrc}
               alt={name}
@@ -75,10 +75,10 @@ const Testimonial = ({ quote, name, imgSrc }) => {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-bebas-neue text-lg tracking-wide text-black uppercase">
+            <span className="font-bebas-neue text-base md:text-lg tracking-wide text-black uppercase">
               {name}
             </span>
-            <span className="text-xs text-gray-500 font-bold tracking-widest uppercase">
+            <span className="text-[10px] md:text-xs text-gray-500 font-bold tracking-widest uppercase">
               CoreX Member
             </span>
           </div>
