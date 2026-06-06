@@ -7,10 +7,7 @@ import { useLoading } from "./context/LoadingProvider";
 const Page = () => {
   const { loading } = useLoading();
 
-  return <>
-  {/* {!loading.animated ? <Loader /> : <Home />} */}
-  <Home />
-  </>;
+  return <>{!loading.animated ? <Loader /> : <Home />}</>;
 };
 
 export default Page;
