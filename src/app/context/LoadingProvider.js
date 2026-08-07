@@ -23,53 +23,67 @@ export function LoadingProvider({ children }) {
 
   // Preload images programmatically on mount
   useEffect(() => {
-    const activeImages = [];
-    IMAGE_URLS.forEach((src) => {
-      const img = new window.Image();
-      img.src = src;
-      img.onload = () => {
-        setAssetsCounted((prev) => prev + 1);
-      };
-      img.onerror = () => {
-        setAssetsCounted((prev) => prev + 1);
-      };
-      activeImages.push(img);
-    });
+    let isCancelled = false;
+    let loadedCount = 0;
 
-    return () => {
-      activeImages.forEach((img) => {
-        img.onload = null;
-        img.onerror = null;
+    const loadAssets = async () => {
+      const imagePromises = IMAGE_URLS.map((src) => {
+        return new Promise((resolve) => {
+          const img = new window.Image();
+
+          const handleComplete = () => {
+            if (!isCancelled) {
+              loadedCount++;
+              setAssetsCounted(loadedCount);
+            }
+            resolve();
+          };
+
+          img.onload = handleComplete;
+          img.onerror = handleComplete;
+          img.src = src;
+
+          // If the image is already complete (e.g. cached), resolve immediately
+          if (img.complete) {
+            img.onload = null;
+            img.onerror = null;
+            handleComplete();
+          }
+        });
       });
-    };
-  }, []);
 
-  useEffect(() => {
-    const maxTimeout = setTimeout(() => {
-      console.warn("Loading taking too long, forcing completion.");
+      await Promise.all(imagePromises);
+      if (isCancelled) return;
+
+      completionStarted.current = true;
+
+      const fontsPromise = document.fonts ? document.fonts.ready : Promise.resolve();
+
+      await Promise.all([
+        fontsPromise,
+        new Promise((resolve) => setTimeout(resolve, 1000)),
+      ]);
+
+      if (isCancelled) return;
+
       setLoading((prev) => ({ ...prev, state: false }));
+    };
+
+    loadAssets();
+
+    const maxTimeout = setTimeout(() => {
+      if (!isCancelled) {
+        console.warn("Loading taking too long, forcing completion.");
+        isCancelled = true;
+        setLoading((prev) => ({ ...prev, state: false }));
+      }
     }, 5000);
 
-    return () => clearTimeout(maxTimeout);
+    return () => {
+      isCancelled = true;
+      clearTimeout(maxTimeout);
+    };
   }, []);
-
-  useEffect(() => {
-    if (!loading.state || completionStarted.current) return;
-
-    // Total Images in this app: 6
-    if (assetsCounted < IMAGE_URLS.length) return;
-
-    completionStarted.current = true;
-
-    const fontsPromise = document.fonts ? document.fonts.ready : Promise.resolve();
-
-    Promise.all([
-      fontsPromise,
-      new Promise((resolve) => setTimeout(resolve, 1000)),
-    ]).then(() => {
-      setLoading((prev) => ({ ...prev, state: false }));
-    });
-  }, [assetsCounted, loading.state]);
 
   return (
     <LoadingContext.Provider
