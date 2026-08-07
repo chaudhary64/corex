@@ -8,17 +8,16 @@ import { useLoading } from "../context/LoadingProvider";
 const Loader = () => {
   const counterRef = useRef(null);
   const progressBarRef = useRef(null);
-  const containerRef = useRef(null);
   const { loading, setLoading } = useLoading();
   const [isAnimating, setIsAnimating] = useState(false);
 
   const tl = useRef(null);
   const GSAP_EASE = "power1.inOut";
   const DURATION = 3;
-  // Random Portion bw 0.3 - 0.5 of the animation duration where the percentage will pause to create a more dynamic feel
-  const animationPortion = useRef(Math.random() * (0.5 - 0.3) + 0.3);
+  const animationPortion = useRef(0.4);
 
   useGSAP(() => {
+    animationPortion.current = Math.random() * (0.5 - 0.3) + 0.3;
     tl.current = gsap.timeline({
       defaults: { ease: GSAP_EASE },
       onComplete: () => {
@@ -51,18 +50,23 @@ const Loader = () => {
   }, [isAnimating, loading.state]);
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 bg-gray-950 flex flex-col justify-end"
-    >
-      <p className="ml-auto text-7xl md:text-9xl text-white/90 leading-none">
-        <span ref={counterRef}>0</span>
-        <span className="text-violet-500">%</span>
-      </p>
+    <div className="fixed inset-0 bg-ink flex flex-col justify-end px-[5%] pb-10">
+      <div className="flex items-end justify-between gap-6">
+        <div>
+          <p className="font-bebas-neue text-3xl tracking-widest text-paper">
+            COREX<span className="text-lime">.</span>
+          </p>
+          <p className="eyebrow text-paper/40 mt-3">Preparing the floor</p>
+        </div>
+        <p className="font-bebas-neue text-7xl md:text-9xl text-paper leading-none">
+          <span ref={counterRef}>0</span>
+          <span className="text-lime">%</span>
+        </p>
+      </div>
       {/* Progress Bar */}
       <div
         ref={progressBarRef}
-        className="h-1 scale-x-0 w-full bg-violet-500"
+        className="h-[3px] scale-x-0 w-full bg-lime mt-10"
       ></div>
     </div>
   );

@@ -37,7 +37,7 @@ const Faq = ({ id, question, answer }) => {
   }, [isToggle]);
 
   useGSAP(() => {
-    let tl = gsap.timeline({
+    const tl = gsap.timeline({
       defaults: { ease: "power2.out" },
       scrollTrigger: {
         trigger: containerRef.current,
@@ -57,31 +57,37 @@ const Faq = ({ id, question, answer }) => {
   }, []);
 
   return (
-    <>
-      <div className="py-4">
-        <div
-          ref={containerRef}
-          className="flex justify-between items-center gap-2"
+    <div className="py-5">
+      <button
+        ref={containerRef}
+        onClick={toggle}
+        aria-expanded={isToggle}
+        className="w-full flex justify-between items-center gap-4 text-left cursor-pointer group"
+      >
+        <span className="font-bebas-neue text-2xl lg:text-3xl leading-tight">
+          <span className="text-lime mr-3">{number}</span>
+          {question}
+        </span>
+        <span
+          className={`shrink-0 w-9 h-9 rounded-full border border-ink flex items-center justify-center transition-all duration-500 ${
+            isToggle
+              ? "bg-lime rotate-45 border-lime"
+              : "group-hover:bg-ink group-hover:text-lime"
+          }`}
         >
-          <div className="text-lg font-medium">
-            <span>{number + ")"}</span>
-            &ensp;
-            <span>{question}</span>
-          </div>
-          <FiPlus onClick={toggle} className="text-lg cursor-pointer" />
-        </div>
-        <div
-          ref={paraRef}
-          className="h-0 overflow-hidden hidden opacity-0 borders-2"
-        >
-          <div className="pt-2">{answer}</div>
+          <FiPlus className="text-base" />
+        </span>
+      </button>
+      <div ref={paraRef} className="h-0 overflow-hidden hidden opacity-0">
+        <div className="pt-3 pb-2 max-w-2xl leading-relaxed text-ink/70">
+          {answer}
         </div>
       </div>
       <aside
         ref={borderRef}
-        className="border-b border-gray-500 w-full scale-x-0 origin-left"
+        className="border-b border-hairline w-full scale-x-0 origin-left"
       ></aside>
-    </>
+    </div>
   );
 };
 

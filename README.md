@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CoreX — Premium Training Club
+
+A modern, animation-rich landing page for a premium training club, built with Next.js, React, GSAP (ScrollTrigger + SplitText), Lenis smooth scrolling, and Tailwind CSS v4.
+
+## Tech Stack
+
+- **Next.js 16** (App Router, Turbopack)
+- **React 19**
+- **GSAP** — ScrollTrigger, SplitText, DrawSVGPlugin
+- **Lenis** — buttery smooth scrolling, synced with GSAP ticker
+- **Tailwind CSS v4** — custom design tokens (ink, paper, lime, smoke)
+- **next/font** — Bebas Neue, Inter, JetBrains Mono
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev     # start the dev server (Turbopack)
+pnpm build   # production build
+pnpm start   # serve the production build
+pnpm lint    # run ESLint
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/app/
+├── components/       # Home, Loader, Faq, Highlight, Testimonial, WhyUs, Image, ui/
+├── context/          # LoadingProvider (asset-aware preloader)
+├── data/             # homeData.js — all static site content
+├── utils/            # SmoothScroller (Lenis + GSAP integration)
+├── globals.css       # Tailwind v4 theme + custom tokens/animations
+├── layout.js         # fonts, metadata, providers
+├── page.js           # Loader → Home transition
+└── template.js       # wraps routes with SmoothScroller
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Asset-aware preloader with counter animation and progress bar
+- Scroll-triggered reveals across every section (hero, stats, ticker, values, classes, why-us, journal, testimonials, FAQ, CTA)
+- Infinite marquee testimonials and hero ticker ribbon
+- Full-screen mobile nav with clip-path reveal
+- DrawSVG sine-wave footer animation
+- Reduced-motion support for marquee/ticker animations
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The easiest way to deploy is the [Vercel Platform](https://vercel.com/new) — it auto-detects this Next.js project. See the [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for details.

@@ -1,4 +1,4 @@
-import { Bebas_Neue } from "next/font/google";
+import { Bebas_Neue, Inter, JetBrains_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { LoadingProvider } from "./context/LoadingProvider";
@@ -9,27 +9,28 @@ const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+});
+
 export const metadata = {
-  title: "CoreX",
-  description: "A modern fitness platform",
+  title: "CoreX — Premium Training Club",
+  description:
+    "Elite coaching, world-class equipment, and a community built on discipline. Train at the standard.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mozilla+Headline:wdth,wght@75..125,200..700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={`${bebasNeue.variable} bg-[#EEEEEE]`}>
+      <body
+        className={`${bebasNeue.variable} ${inter.variable} ${jetbrainsMono.variable} bg-paper text-ink`}
+      >
         <LoadingProvider>
           {children}
           <SpeedInsights />

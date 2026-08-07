@@ -6,7 +6,6 @@ const LoadingContext = createContext();
 
 const IMAGE_URLS = [
   "https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "/logo/Star_Logo.svg",
   "https://images.unsplash.com/photo-1642267165393-951c20e0a8b8?q=80&w=1154&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   "https://images.unsplash.com/photo-1534368270820-9de3d8053204?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   "https://images.unsplash.com/photo-1585892478726-d26363dbf9e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -21,7 +20,6 @@ export function LoadingProvider({ children }) {
   const [assetsCounted, setAssetsCounted] = useState(0);
   const completionStarted = useRef(false);
 
-  // Preload images programmatically on mount
   useEffect(() => {
     let isCancelled = false;
     let loadedCount = 0;
@@ -43,7 +41,6 @@ export function LoadingProvider({ children }) {
           img.onerror = handleComplete;
           img.src = src;
 
-          // If the image is already complete (e.g. cached), resolve immediately
           if (img.complete) {
             img.onload = null;
             img.onerror = null;
@@ -73,7 +70,6 @@ export function LoadingProvider({ children }) {
 
     const maxTimeout = setTimeout(() => {
       if (!isCancelled) {
-        console.warn("Loading taking too long, forcing completion.");
         isCancelled = true;
         setLoading((prev) => ({ ...prev, state: false }));
       }

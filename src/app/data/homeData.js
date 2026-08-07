@@ -1,27 +1,64 @@
+export const heroStats = [
+  {
+    value: "12+",
+    label: "Years of Coaching",
+  },
+  {
+    value: "2,500+",
+    label: "Active Members",
+  },
+  {
+    value: "40+",
+    label: "Elite Trainers",
+  },
+  {
+    value: "15,000",
+    label: "Sq Ft of Iron",
+  },
+];
+
+export const tickerItems = [
+  "Strength",
+  "Discipline",
+  "Community",
+  "Results",
+  "Consistency",
+  "Recovery",
+  "Progress",
+];
+
 export const highlightsData = [
   {
     id: 1,
+    imgSrc:
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=800&auto=format&fit=crop",
     description:
-      "Our training journal where we share intense workouts, recovery protocols, and science-backed nutritional advice.",
-    link: "Read the blog",
+      "Our training journal: intense workouts, recovery protocols, and science-backed nutrition — written by the coaches who live it.",
+    link: "Read the Journal",
   },
   {
     id: 2,
+    imgSrc:
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
     description:
-      "Insights from our Head Coach on building strength, improving mobility, and achieving sustainable fat loss.",
-    link: "Read the blog",
+      "Head Coach insights on building strength, improving mobility, and sustainable fat loss that actually lasts.",
+    link: "Coach Insights",
   },
   {
     id: 3,
+    imgSrc:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
     description:
-      "Read a detailed transformation case study covering the entire training program, nutrition plan, and real results.",
-    link: "Read the blog",
+      "A full transformation case study: the training program, the nutrition plan, and the real results — start to finish.",
+    link: "Read the Case Study",
   },
   {
     id: 4,
+    imgSrc:
+      "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=800&auto=format&fit=crop",
     description:
-      "Daily motivation, essential form cues, and inspiring member wins straight from the gym floor.",
-    link: "Read the blog",
+      "Daily motivation, essential form cues, and member wins straight from the gym floor.",
+    link: "Floor Notes",
   },
 ];
 
@@ -30,7 +67,7 @@ export const faqData = [
     id: 1,
     question: "Which plan includes weights and cardio?",
     answer:
-      "Our all-access membership includes unlimited weight training, group cardio sessions, and open gym hours—perfect for a balanced routine.",
+      "Our all-access membership includes unlimited weight training, group cardio sessions, and open gym hours — perfect for a balanced routine.",
   },
   {
     id: 2,
@@ -42,7 +79,7 @@ export const faqData = [
     id: 3,
     question: "Is a strict diet needed for results?",
     answer:
-      "Not strict, but consistency matters—focus on balanced meals with adequate protein, whole carbs, and healthy fats for best results.",
+      "Not strict, but consistency matters — focus on balanced meals with adequate protein, whole carbs, and healthy fats for best results.",
   },
   {
     id: 4,
@@ -80,34 +117,41 @@ export const whyChooseUsData = [
   {
     id: 1,
     src: "https://images.unsplash.com/photo-1642267165393-951c20e0a8b8?q=80&w=1154&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    label: "The CoreX Standard",
     heading: "Why CoreX is Different",
-    description: `CoreX is more than a gym—it's where transformation begins. Build strength, resilience, and lasting habits through expert coaching, proven training, and a community that keeps you moving forward.`,
-    btnTxt: "[ Get Your Membership Now ]",
+    description:
+      "CoreX is more than a gym — it's a training standard. Expert coaches, proven programming, and a floor full of people who show up. This is where transformation stops being a goal and becomes a habit.",
+    btnTxt: "Get Your Membership",
     layout: "l-r",
   },
   {
     id: 2,
     src: "https://images.unsplash.com/photo-1534368270820-9de3d8053204?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    heading: "Ready to Take the Plunge with CoreX?",
-    description: `Imagine having unlimited access to premium workouts, expert trainers, and top - class facilities — all in one membership. At CoreX, we make fitness simple, flexible, and designed around your lifestyle.
-    `,
-    btnTxt: "[ Get Started Now ]",
+    label: "One Membership",
+    heading: "Unlimited Training. Zero Limits.",
+    description:
+      "One membership unlocks it all: unlimited strength and conditioning, group cardio, open gym hours, and recovery spaces — designed around your lifestyle, not the other way around.",
+    btnTxt: "Start Training Today",
     layout: "r-l",
   },
   {
     id: 3,
     src: "https://images.unsplash.com/photo-1585892478726-d26363dbf9e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    heading: "Experience Training Like Never Before with CoreX",
-    description: `CoreX trainers go beyond reps and sets. With expert coaching, tailored plans, and a focus on your goals, they help you build results that last. Whether you want to lose fat, build muscle, or just feel stronger, our trainers are with you every step of the way.`,
-    btnTxt: "[ Get Started Now ]",
+    label: "Expert Coaching",
+    heading: "Coaching That Actually Cares",
+    description:
+      "Our trainers go beyond reps and sets. Tailored plans, honest feedback, and programming built around your goals — whether you want to lose fat, build muscle, or simply feel stronger every single week.",
+    btnTxt: "Meet the Trainers",
     layout: "l-r",
   },
   {
     id: 4,
     src: "https://images.unsplash.com/photo-1685633224306-2a2b37050713?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    heading: "Train Smarter with CoreX Equipment",
-    description: `At CoreX, we’ve invested in the best so you can train at your best. Every machine, every space — designed to help you push limits and see real results.`,
-    btnTxt: "[ Explore CoreX Memberships ]",
+    label: "The Facilities",
+    heading: "Equipment That Performs",
+    description:
+      "We invested in the best so you can train at your best. Competition-grade racks, calibrated plates, dedicated turf, and recovery suites — every space engineered to help you push further.",
+    btnTxt: "Explore the Facility",
     layout: "r-l",
   },
 ];
@@ -124,7 +168,7 @@ export const testimonialsData = [
   {
     id: 2,
     quote:
-      "I love the variety of classes. There’s something new to try every week!",
+      "I love the variety of classes. There's something new to try every week!",
     name: "Priya",
     imgSrc:
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=60",

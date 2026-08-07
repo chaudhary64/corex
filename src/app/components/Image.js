@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 
-const Image = ({ ref, src, ...props }) => {
-  const imgRef = useRef(null);
-
+const Image = ({ ref, src, alt = "", ...props }) => {
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       ref={(el) => {
-        imgRef.current = el;
         if (ref) {
           if (typeof ref === "function") {
             ref(el);
@@ -18,8 +16,8 @@ const Image = ({ ref, src, ...props }) => {
         }
       }}
       src={src}
+      alt={alt}
       loading="eager"
-      // fetchpriority="high"
       {...props}
     />
   );

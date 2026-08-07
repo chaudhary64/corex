@@ -1,22 +1,36 @@
 import React from "react";
 import { FiArrowUpRight } from "react-icons/fi";
+import Image from "./Image";
 
-const Highlight = ({ description, link }) => {
+const Highlight = ({ index, imgSrc, description, link }) => {
   return (
-    <div className="group w-full flex-1 flex flex-col justify-between bg-white/75 hover:bg-white/90 backdrop-blur-sm shadow-md hover:shadow-xl border border-gray-100 transition-all duration-500 rounded-2xl p-6 cursor-pointer">
-      <p className="leading-relaxed text-gray-700">{description}</p>
-      <div className="mt-10 flex items-center justify-between border-t border-gray-200/60 pt-4">
-        <span className="font-bebas-neue text-xl tracking-wide uppercase text-black">
-          {link}
+    <article className="group w-full flex-1 flex flex-col bg-white border border-hairline hover:border-ink/40 transition-colors duration-500 cursor-pointer overflow-hidden rounded-xl">
+      <div className="relative h-44 lg:h-52 overflow-hidden">
+        <Image
+          src={imgSrc}
+          alt={link}
+          loading="lazy"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+        />
+        <span className="absolute top-4 left-4 bg-lime px-2.5 py-1 eyebrow text-ink">
+          J—{String(index).padStart(2, "0")}
         </span>
-        <div className="p-2 bg-white text-black shadow-sm group-hover:shadow-md group-hover:bg-black group-hover:text-white rounded-full transition-all duration-500">
-          <FiArrowUpRight
-            size={20}
-            className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
-          />
+      </div>
+      <div className="p-6 lg:p-7 flex flex-col flex-1 justify-between gap-8">
+        <p className="text-sm leading-relaxed text-ink/70">{description}</p>
+        <div className="flex items-center justify-between border-t border-hairline pt-4">
+          <span className="text-xs font-bold uppercase tracking-[0.2em]">
+            {link}
+          </span>
+          <span className="w-9 h-9 rounded-full bg-paper border border-hairline flex items-center justify-center group-hover:bg-ink group-hover:border-ink group-hover:text-lime transition-colors duration-500">
+            <FiArrowUpRight
+              size={16}
+              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+            />
+          </span>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
