@@ -1,5 +1,4 @@
-"use client";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import Highlight from "@/app/components/Highlight";
 import Faq from "./Faq";

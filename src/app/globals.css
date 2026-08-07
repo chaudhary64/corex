@@ -7,12 +7,12 @@
   --color-smoke: #6f6f66;
   --color-hairline: rgba(13, 13, 11, 0.16);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 .font-bebas-neue {
-  font-family: var(--font-bebas-neue), "Oswald", "Arial Narrow", sans-serif;
+  font-family: "Bebas Neue", "Oswald", "Arial Narrow", sans-serif;
   font-weight: 400;
   font-style: normal;
 }

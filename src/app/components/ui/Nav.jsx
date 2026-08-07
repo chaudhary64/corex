@@ -1,8 +1,7 @@
-"use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 const NAV_LINKS = ["Home", "Trainers", "Programs", "Experiences", "Pricing"];
 

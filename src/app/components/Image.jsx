@@ -1,10 +1,5 @@
-"use client";
-
-import React from "react";
-
 const Image = ({ ref, src, alt = "", ...props }) => {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       ref={(el) => {
         if (ref) {

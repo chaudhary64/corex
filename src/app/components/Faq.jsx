@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 
 const Faq = ({ id, question, answer }) => {

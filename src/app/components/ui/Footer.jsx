@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { FiFacebook, FiTwitter } from "react-icons/fi";

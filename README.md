@@ -1,15 +1,15 @@
 # CoreX — Premium Training Club
 
-A modern, animation-rich landing page for a premium training club, built with Next.js, React, GSAP (ScrollTrigger + SplitText), Lenis smooth scrolling, and Tailwind CSS v4.
+A modern, animation-rich landing page for a premium training club, built with Vite, React, GSAP (ScrollTrigger + SplitText), Lenis smooth scrolling, and Tailwind CSS v4.
 
 ## Tech Stack
 
-- **Next.js 16** (App Router, Turbopack)
+- **Vite 8**
 - **React 19**
 - **GSAP** — ScrollTrigger, SplitText, DrawSVGPlugin
 - **Lenis** — buttery smooth scrolling, synced with GSAP ticker
 - **Tailwind CSS v4** — custom design tokens (ink, paper, lime, smoke)
-- **next/font** — Bebas Neue, Inter, JetBrains Mono
+- **Google Fonts** — Bebas Neue, Inter, JetBrains Mono
 
 ## Getting Started
 
@@ -18,29 +18,29 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
 
 ## Scripts
 
 ```bash
-pnpm dev     # start the dev server (Turbopack)
-pnpm build   # production build
-pnpm start   # serve the production build
-pnpm lint    # run ESLint
+pnpm dev      # start the Vite dev server
+pnpm build    # production build
+pnpm preview  # preview the production build
+pnpm lint     # run ESLint
 ```
 
 ## Project Structure
 
 ```
-src/app/
-├── components/       # Home, Loader, Faq, Highlight, Testimonial, WhyUs, Image, ui/
-├── context/          # LoadingProvider (asset-aware preloader)
-├── data/             # homeData.js — all static site content
-├── utils/            # SmoothScroller (Lenis + GSAP integration)
-├── globals.css       # Tailwind v4 theme + custom tokens/animations
-├── layout.js         # fonts, metadata, providers
-├── page.js           # Loader → Home transition
-└── template.js       # wraps routes with SmoothScroller
+src/
+├── main.jsx           # Vite entry point
+├── App.jsx            # providers + Loader/Home switch
+└── app/
+    ├── components/    # Home, Loader, Faq, Highlight, Testimonial, WhyUs, Image, ui/
+    ├── context/       # LoadingProvider (asset-aware preloader)
+    ├── data/          # homeData.js — all static site content
+    ├── utils/         # SmoothScroller (Lenis + GSAP integration)
+    └── globals.css    # Tailwind v4 theme + custom tokens/animations
 ```
 
 ## Features
@@ -52,6 +52,6 @@ src/app/
 - DrawSVG sine-wave footer animation
 - Reduced-motion support for marquee/ticker animations
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy is the [Vercel Platform](https://vercel.com/new) — it auto-detects this Next.js project. See the [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for details.
+Build a static production bundle with `pnpm build`, then serve the `dist/` directory from any static host or CDN.
