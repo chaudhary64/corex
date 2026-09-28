@@ -12,7 +12,11 @@ const IMAGE_URLS = [
 
 export function LoadingProvider({ children }) {
   const [loading, setLoading] = useState({
+    /** Assets are still arriving. */
     state: true,
+    /** The preloader curtain has started to lift; the page mounts behind it. */
+    revealed: false,
+    /** The preloader has finished and can be removed from the DOM. */
     animated: false,
   });
   const [assetsCounted, setAssetsCounted] = useState(0);
@@ -66,12 +70,15 @@ export function LoadingProvider({ children }) {
 
     loadAssets();
 
+    // Failsafe only. The normal path hands over at roughly assets + 1.8s, and
+    // assets are capped at 5s above, so this sits clear of it — a backstop for
+    // a broken preloader, not a second way to release the page.
     const maxTimeout = setTimeout(() => {
       if (!isCancelled) {
         isCancelled = true;
-        setLoading((prev) => ({ ...prev, state: false }));
+        setLoading((prev) => ({ ...prev, state: false, revealed: true }));
       }
-    }, 5000);
+    }, 8000);
 
     return () => {
       isCancelled = true;

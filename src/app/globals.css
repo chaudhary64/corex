@@ -17,11 +17,22 @@
   font-style: normal;
 }
 
+/*
+ * The two full-bleed ribbons use `w-screen`, and 100vw counts the scrollbar, so
+ * they overhang the viewport by its width. `clip` rather than `hidden` removes
+ * the sideways scroll offset completely and, unlike `hidden`, leaves both
+ * elements plain blocks rather than making either a scroll container. Setting it
+ * on the root also wins over the precedence `html` gives to `body`.
+ */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--color-paper);
   color: var(--color-ink);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -82,6 +93,37 @@ body {
 
 .animate-ticker {
   animation: ticker 26s linear infinite;
+}
+
+/*
+ * Decorative loops stop once they scroll out of view or the tab is hidden.
+ * The attribute is toggled by useOffscreenPause, and animation-play-state
+ * inherits, so the wrapper controls the row inside it.
+ */
+[data-loop-paused="true"] .animate-marquee,
+[data-loop-paused="true"] .animate-ticker {
+  animation-play-state: paused;
+}
+
+/*
+ * Collapsed FAQ panels. Gated on `.js` (set before React renders) so a failed
+ * script leaves the answers readable instead of hidden behind a zero height.
+ */
+.js .accordion-panel {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+/*
+ * Keyboard focus, in the palette rather than the browser default. The ink ring
+ * carries on light surfaces, the lime halo on the ink ones.
+ */
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--color-lime);
 }
 
 @media (prefers-reduced-motion: reduce) {

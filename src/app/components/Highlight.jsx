@@ -9,7 +9,7 @@ const Highlight = ({ index, imgSrc, description, link }) => {
           src={imgSrc}
           alt={link}
           loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
         />
         <span className="absolute top-4 left-4 bg-lime px-2.5 py-1 eyebrow text-ink">
           J—{String(index).padStart(2, "0")}

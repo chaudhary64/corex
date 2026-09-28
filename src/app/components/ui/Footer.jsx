@@ -7,106 +7,163 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  DUR,
+  EASE,
+  RISE,
+  SHOWN,
+  START,
+  prefersReduced,
+  staggerFor,
+} from "@/app/utils/motion";
+
+gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin);
 
 const Footer = () => {
   const upperLeftRef = useRef(null);
   const upperCenterRef = useRef(null);
   const upperRightRef = useRef(null);
   const pathRef = useRef(null);
+  const lowerContentRef = useRef(null);
+  const footerBarRef = useRef(null);
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    gsap.registerPlugin(SplitText, DrawSVGPlugin);
+    mm.add(
+      {
+        isDesktop: "(width >= 64rem)",
+        reduce: "(prefers-reduced-motion: reduce)",
+      },
+      (context) => {
+        const { isDesktop, reduce } = context.conditions;
+        if (!isDesktop) return;
 
-    mm.add("(width >= 64rem)", () => {
-      const upperLeftText = upperLeftRef.current.children[0];
-      const upperLeftArrow = upperLeftRef.current.children[1].children[0];
+        const reduced = reduce || prefersReduced();
 
-      const upperCenterText = upperCenterRef.current;
+        const upperLeftText = upperLeftRef.current.children[0];
+        const upperLeftArrow = upperLeftRef.current.children[1].children[0];
 
-      const upperLeftTextSplit = new SplitText(upperLeftText, {
-        type: "lines,words,chars",
-        mask: "lines",
-      });
+        const upperLeftTextSplit = new SplitText(upperLeftText, {
+          type: "lines,words,chars",
+          mask: "lines",
+        });
 
-      const upperCenterTextSplit = new SplitText(upperCenterText, {
-        type: "chars",
-        mask: "chars",
-      });
+        const upperCenterTextSplit = new SplitText(upperCenterRef.current, {
+          type: "chars",
+          mask: "chars",
+        });
 
-      gsap.set(upperLeftTextSplit.lines, {
-        xPercent: -100,
-        opacity: 0,
-      });
+        if (reduced) {
+          // Everything simply arrives: the sine wave is drawn, the circle sits
+          // at rest, and the type is already in place.
+          gsap.set(
+            [
+              ...upperLeftTextSplit.lines,
+              ...upperCenterTextSplit.chars,
+              upperLeftArrow,
+              upperRightRef.current,
+            ],
+            SHOWN,
+          );
+          gsap.set(pathRef.current, { drawSVG: "100%" });
+          return;
+        }
 
-      gsap.set(upperLeftArrow, {
-        xPercent: 100,
-      });
+        gsap.set(upperLeftTextSplit.lines, {
+          xPercent: -100,
+          autoAlpha: 0,
+        });
 
-      gsap.set(upperCenterTextSplit.chars, {
-        yPercent: 100,
-        opacity: 0,
-      });
+        gsap.set(upperLeftArrow, {
+          xPercent: 100,
+        });
 
-      gsap.set(pathRef.current, {
-        drawSVG: 0,
-      });
+        gsap.set(upperCenterTextSplit.chars, {
+          yPercent: 100,
+          autoAlpha: 0,
+        });
 
-      const upperTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: upperLeftRef.current,
-          start: "top 80%",
-          end: "bottom 60%",
-        },
-      });
+        gsap.set(pathRef.current, {
+          drawSVG: 0,
+        });
 
-      upperTl
-        .to(upperLeftTextSplit.lines, {
-          xPercent: 0,
-          opacity: 1,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power2.out",
-        })
-        .to(
-          upperLeftArrow,
-          {
-            xPercent: 0,
-            ease: "power2.out",
+        gsap.set(upperRightRef.current, {
+          scale: 0,
+        });
+
+        const upperTl = gsap.timeline({
+          defaults: { ease: EASE.out },
+          scrollTrigger: {
+            trigger: upperLeftRef.current,
+            start: START.block,
           },
-          0,
-        )
-        .to(
-          upperCenterTextSplit.chars,
-          {
-            yPercent: 0,
-            opacity: 1,
-            stagger: 0.05,
-            duration: 0.8,
-            ease: "power2.out",
-          },
-          0,
-        )
-        .to(
-          pathRef.current,
-          {
-            drawSVG: "100%",
-            duration: 2.5,
-            ease: "power2.out",
-          },
-          "-=0.5",
-        )
-        .to(
-          upperRightRef.current,
-          {
-            scale: 1,
-            ease: "back.out(1.7)",
-          },
-          0,
-        );
+        });
+
+        upperTl
+          .to(
+            upperLeftTextSplit.lines,
+            {
+              xPercent: 0,
+              autoAlpha: 1,
+              stagger: 0.1,
+              duration: DUR.reveal,
+            },
+            0,
+          )
+          .to(upperLeftArrow, { xPercent: 0, duration: DUR.reveal }, 0)
+          .to(
+            upperCenterTextSplit.chars,
+            {
+              yPercent: 0,
+              autoAlpha: 1,
+              stagger: staggerFor(upperCenterTextSplit.chars.length, 0.05, 0.5),
+              duration: DUR.reveal,
+            },
+            0,
+          )
+          // The wave is drawn last, trailing the type that labels it.
+          .to(
+            pathRef.current,
+            { drawSVG: "100%", duration: DUR.wipe, ease: EASE.out },
+            0.5,
+          )
+          .to(
+            upperRightRef.current,
+            { scale: 1, duration: DUR.state, ease: "back.out(1.4)" },
+            0.5,
+          );
+      },
+    );
+  }, []);
+
+  // The lower half used to arrive all at once with no motion at all; the
+  // columns now settle in together, batched so they only run when seen.
+  useGSAP(() => {
+    const items = [...lowerContentRef.current.children, footerBarRef.current];
+
+    if (prefersReduced()) {
+      gsap.set(items, SHOWN);
+      return;
+    }
+
+    gsap.set(items, { autoAlpha: 0, y: RISE });
+
+    ScrollTrigger.batch(items, {
+      start: START.item,
+      once: true,
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          autoAlpha: 1,
+          y: 0,
+          duration: DUR.state,
+          ease: EASE.out,
+          stagger: 0.08,
+          overwrite: true,
+        }),
     });
-  });
+  }, []);
 
   return (
     <footer className="mt-24 lg:mt-40">
@@ -150,14 +207,17 @@ const Footer = () => {
               />
             </svg>
           </div>
-          <span ref={upperRightRef} className="bg-lime text-ink rounded-full p-8 scale-0">
+          <span ref={upperRightRef} className="bg-lime text-ink rounded-full p-8">
             <FaArrowRightLong />
           </span>
         </div>
 
         {/* Lower Part */}
         <div className="py-16 lg:py-20 bg-ink text-paper">
-          <div className="w-[90%] max-w-360 mx-auto flex max-lg:flex-wrap justify-between max-lg:gap-12">
+          <div
+            ref={lowerContentRef}
+            className="w-[90%] max-w-360 mx-auto flex max-lg:flex-wrap justify-between max-lg:gap-12"
+          >
             <div className="max-lg:w-full">
               <p className="eyebrow text-paper/40">CoreX Training Club</p>
               <h2 className="font-bebas-neue text-3xl mt-3">
@@ -233,7 +293,10 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="w-[90%] max-w-360 mx-auto mt-16 pt-6 border-t border-paper/10 flex max-lg:flex-col max-lg:gap-2 justify-between items-center">
+          <div
+            ref={footerBarRef}
+            className="w-[90%] max-w-360 mx-auto mt-16 pt-6 border-t border-paper/10 flex max-lg:flex-col max-lg:gap-2 justify-between items-center"
+          >
             <p className="eyebrow text-paper/30">
               © 2026 CoreX Training Club. All rights reserved.
             </p>
