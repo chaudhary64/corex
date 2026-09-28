@@ -95,7 +95,13 @@ const WhyUs = ({ src, heading, description, btnTxt, layout, label }) => {
       <div
         className={`max-lg:w-full lg:w-1/2 relative overflow-hidden rounded-2xl ${layout === "r-l" ? "lg:order-2" : ""}`}
       >
-        <aside ref={asideRef} className="absolute inset-0 bg-paper" />
+        {/*
+          The panel deliberately outranks the badge below it. Left the other way
+          round the badge is painted above the wipe and spends the whole 1.2s
+          floating on the blank panel with no reveal of its own, because the
+          panel retracts on its own layer.
+        */}
+        <aside ref={asideRef} className="absolute inset-0 z-10 bg-paper" />
 
         <Image
           src={src}
@@ -103,7 +109,7 @@ const WhyUs = ({ src, heading, description, btnTxt, layout, label }) => {
           className="h-full w-full object-cover object-center"
         />
 
-        <span className="absolute bottom-4 left-4 bg-lime px-3 py-1.5 eyebrow text-ink z-10">
+        <span className="absolute bottom-4 left-4 bg-lime px-3 py-1.5 eyebrow text-ink">
           CoreX Facility
         </span>
       </div>
