@@ -582,7 +582,6 @@ const Home = () => {
               ref={heroEyebrowRef}
               className="eyebrow text-smoke flex items-center justify-center gap-3"
             >
-              <span className="inline-block w-2 h-2 bg-lime"></span>
               Premium Training Club — Est. 2012
             </p>
             <h1 className="font-bebas-neue leading-[0.92] mt-6">
