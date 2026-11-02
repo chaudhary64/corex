@@ -576,7 +576,7 @@ const Home = () => {
       <Nav />
       <main className="w-[90%] max-w-360 mx-auto">
         {/* Hero Section */}
-        <section className="mt-10 lg:mt-16">
+        <section id="home" className="mt-10 lg:mt-16">
           <div className="mx-auto max-w-6xl text-center">
             <p
               ref={heroEyebrowRef}
@@ -703,7 +703,10 @@ const Home = () => {
         </section>
 
         {/* Our Classes */}
-        <section className="mt-24 lg:mt-40 flex max-lg:flex-wrap justify-between items-start gap-10 lg:gap-16">
+        <section
+          id="programs"
+          className="mt-24 lg:mt-40 flex max-lg:flex-wrap justify-between items-start gap-10 lg:gap-16"
+        >
           {/* Left Part */}
           <div ref={ourClassesLeftRef} className="lg:w-1/2">
             <p className="eyebrow text-smoke">02 / Training Programs</p>
@@ -745,7 +748,7 @@ const Home = () => {
         </section>
 
         {/* Why Choose Us */}
-        <section className="mt-24 lg:mt-40">
+        <section id="trainers" className="mt-24 lg:mt-40">
           <p className="eyebrow text-smoke text-center">03 / Why CoreX</p>
           <h1
             ref={whyChooseUsHeadingRef}
@@ -792,7 +795,7 @@ const Home = () => {
         </section>
 
         {/* Testimonials Section */}
-        <section className="mt-24 lg:mt-40">
+        <section id="experiences" className="mt-24 lg:mt-40">
           <div className="text-center mb-10">
             <p className="eyebrow text-smoke">05 / Member Stories</p>
             <h2
@@ -831,7 +834,7 @@ const Home = () => {
         </section>
 
         {/* Pricing */}
-        <section className="mt-24 lg:mt-40">
+        <section id="pricing" className="mt-24 lg:mt-40">
           <div className="text-center mb-10 lg:mb-14">
             <p className="eyebrow text-smoke">06 / Membership</p>
             <h2
@@ -853,7 +856,10 @@ const Home = () => {
         </section>
 
         {/* Faq */}
-        <section className="mt-24 lg:mt-40 md:flex justify-between gap-12">
+        <section
+          id="faq"
+          className="mt-24 lg:mt-40 md:flex justify-between gap-12"
+        >
           <div className="md:w-1/3 h-fit">
             <p className="eyebrow text-smoke">07 / FAQ</p>
             <h2

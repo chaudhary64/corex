@@ -17,8 +17,17 @@ import {
   prefersReduced,
   staggerFor,
 } from "@/app/utils/motion";
+import { useSectionScroll } from "@/app/utils/useSectionScroll";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin);
+
+const EXPLORE_LINKS = [
+  { label: "Home", id: "home" },
+  { label: "Trainers", id: "trainers" },
+  { label: "Programs", id: "programs" },
+  { label: "Experience", id: "experiences" },
+  { label: "Pricing", id: "pricing" },
+];
 
 const Footer = () => {
   const upperLeftRef = useRef(null);
@@ -27,6 +36,8 @@ const Footer = () => {
   const pathRef = useRef(null);
   const lowerContentRef = useRef(null);
   const footerBarRef = useRef(null);
+
+  const scrollToSection = useSectionScroll();
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
@@ -234,21 +245,15 @@ const Footer = () => {
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <span className="eyebrow text-lime mb-2">Explore</span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
-                Home
-              </span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
-                Trainers
-              </span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
-                Programs
-              </span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
-                Experience
-              </span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
-                Pricing
-              </span>
+              {EXPLORE_LINKS.map((link) => (
+                <span
+                  key={link.id}
+                  onClick={() => scrollToSection(link.id)}
+                  className="cursor-pointer hover:text-lime transition-colors duration-300"
+                >
+                  {link.label}
+                </span>
+              ))}
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <span className="eyebrow text-lime mb-2">Legal</span>
@@ -261,7 +266,10 @@ const Footer = () => {
               <span className="cursor-pointer hover:text-lime transition-colors duration-300">
                 Cookie Policy
               </span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
+              <span
+                onClick={() => scrollToSection("faq")}
+                className="cursor-pointer hover:text-lime transition-colors duration-300"
+              >
                 FAQ
               </span>
             </div>

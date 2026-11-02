@@ -5,9 +5,16 @@ import { useCallback, useEffect, useRef } from "react";
 import { useLenis } from "lenis/react";
 import { DUR, EASE, prefersReduced } from "@/app/utils/motion";
 import { lockPageScroll, unlockPageScroll } from "@/app/utils/scrollLock";
+import { useSectionScroll } from "@/app/utils/useSectionScroll";
 import Logo from "./Logo";
 
-const NAV_LINKS = ["Home", "Trainers", "Programs", "Experiences", "Pricing"];
+const NAV_LINKS = [
+  { label: "Home", id: "home" },
+  { label: "Trainers", id: "trainers" },
+  { label: "Programs", id: "programs" },
+  { label: "Experiences", id: "experiences" },
+  { label: "Pricing", id: "pricing" },
+];
 
 const MOBILE_NAV_CLOSED = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
 const MOBILE_NAV_OPEN = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
@@ -40,9 +47,22 @@ const Nav = () => {
   // read it through a ref rather than closing over the initial null.
   const lenisRef = useRef(null);
 
+  const scrollToSection = useSectionScroll();
+
+  /*
+   * A link inside the menu cannot scroll on the spot: the page is scroll-locked
+   * and Lenis is stopped while the panel is open. The destination is parked
+   * here and spent when the close timeline reports it has finished releasing
+   * the page - held in a ref for the same reason as the instance above, since
+   * the timeline that reads it is built once on mount.
+   */
+  const pendingSectionRef = useRef(null);
+  const scrollToRef = useRef(scrollToSection);
+
   useEffect(() => {
     lenisRef.current = lenis;
-  }, [lenis]);
+    scrollToRef.current = scrollToSection;
+  }, [lenis, scrollToSection]);
 
   /*
    * The panel is mounted from the first render and revealed by animating
@@ -111,6 +131,10 @@ const Nav = () => {
             unlockPageScroll();
             lenisRef.current?.start();
             setMenuOpenState(false);
+
+            const pending = pendingSectionRef.current;
+            pendingSectionRef.current = null;
+            if (pending) scrollToRef.current(pending);
           },
         });
 
@@ -240,6 +264,16 @@ const Nav = () => {
     };
   }, []);
 
+  /*
+   * Closing through the cross button rather than through the timeline directly:
+   * the panel's own close path is what restores the page, and a second way of
+   * dismissing it would leave the scroll lock behind on one of them.
+   */
+  const goToSectionFromMenu = (id) => {
+    pendingSectionRef.current = id;
+    crossRef.current?.click();
+  };
+
   return (
     <>
       <header
@@ -251,10 +285,11 @@ const Nav = () => {
           <ul className="hidden lg:flex items-center gap-9">
             {NAV_LINKS.map((link) => (
               <li
-                key={link}
+                key={link.label}
+                onClick={() => scrollToSection(link.id)}
                 className="group relative cursor-pointer text-xs font-semibold uppercase tracking-[0.18em] text-ink/70 hover:text-ink transition-colors duration-300"
               >
-                {link}
+                {link.label}
                 <span className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-lime origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </li>
             ))}
@@ -334,10 +369,11 @@ const Nav = () => {
         <div ref={mobileLinksRef} className="flex flex-col items-center gap-3">
           {NAV_LINKS.map((link) => (
             <span
-              key={link}
+              key={link.label}
+              onClick={() => goToSectionFromMenu(link.id)}
               className="font-bebas-neue text-5xl uppercase text-paper/90 cursor-pointer hover:text-lime transition-colors duration-300"
             >
-              {link}
+              {link.label}
             </span>
           ))}
         </div>
