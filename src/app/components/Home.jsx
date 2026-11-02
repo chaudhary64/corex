@@ -4,6 +4,7 @@ import Highlight from "@/app/components/Highlight";
 import Faq from "./Faq";
 import WhyUs from "./WhyUs";
 import Testimonial from "./Testimonial";
+import PricingCard from "./PricingCard";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import gsap from "gsap";
@@ -27,6 +28,7 @@ import {
   faqData,
   whyChooseUsData,
   testimonialsData,
+  pricingData,
   heroStats,
   tickerItems,
 } from "@/app/data/homeData";
@@ -46,6 +48,7 @@ const Home = () => {
   const heroSubRef = useRef(null);
   const heroCtaRef = useRef(null);
   const heroImgRef = useRef(null);
+  const heroPhotoRef = useRef(null);
   const heroStatsRef = useRef(null);
 
   const tickerRef = useRef(null);
@@ -69,6 +72,8 @@ const Home = () => {
 
   const testimonialHeadingRef = useRef(null);
   const testimonialMarqueeRef = useRef(null);
+
+  const pricingHeadingRef = useRef(null);
 
   const faqHeadingRef = useRef(null);
 
@@ -180,6 +185,34 @@ const Home = () => {
       }
 
       batchRise(tiles, DUR.quick);
+    };
+
+    /*
+     * The hero photograph drifts against the page as the hero scrolls past. It
+     * is scrubbed rather than triggered because the point is the relationship
+     * to the scroll position, not an arrival: the image is already in place by
+     * the time the curtain lifts. The extra scale is what keeps the edges of
+     * the frame covered while the photo travels inside it.
+     */
+    const animateHeroParallax = () => {
+      if (prefersReduced() || !heroPhotoRef.current) return;
+
+      gsap.set(heroPhotoRef.current, { scale: 1.14 });
+
+      gsap.fromTo(
+        heroPhotoRef.current,
+        { yPercent: -5 },
+        {
+          yPercent: 5,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroImgRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
     };
 
     const animateTicker = () => {
@@ -466,6 +499,49 @@ const Home = () => {
       };
     };
 
+    const animatePricing = () => {
+      // Reduced motion is left entirely alone: the heading and the tiers are
+      // visible as authored, so there is nothing to put back.
+      if (prefersReduced()) return;
+
+      /*
+       * Unlike the headings above it, this one splits itself. Line breaks are
+       * baked in at split time, so a heading split while the viewport was
+       * narrow keeps those breaks after it widens; `autoSplit` re-splits on box
+       * resize and when the web fonts land. Returning the reveal from `onSplit`
+       * is what lets GSAP carry its progress onto the fresh lines instead of
+       * replaying it.
+       */
+      SplitText.create(pricingHeadingRef.current, {
+        type: "lines",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) =>
+          gsap
+            .timeline({
+              scrollTrigger: { trigger: pricingHeadingRef.current, start: START.block },
+            })
+            .fromTo(
+              self.lines,
+              { autoAlpha: 0, y: RISE },
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: DUR.reveal,
+                stagger: 0.08,
+                ease: EASE.out,
+              },
+            ),
+      });
+
+      // The tiers do not ride the grid batch: each card runs its own entrance
+      // and counts its own price, so they read as three offers rather than one
+      // block of furniture.
+    };
+
+    // Created in page order: the photo sits above the stat tiles, so its trigger
+    // has to be measured before theirs for a refresh to land in the right order.
+    animateHeroParallax();
     animateStats();
     animateTicker();
     animateValues();
@@ -473,11 +549,26 @@ const Home = () => {
     animateSupportingHeading(whyChooseUsHeadingRef.current);
     animateJournal();
     animateSupportingHeading(testimonialHeadingRef.current);
+    animatePricing();
     animateSupportingHeading(faqHeadingRef.current);
+
+    /*
+     * Lazy images and the web font change row heights after these triggers have
+     * measured, which leaves every start position below them pointing at a
+     * place the element no longer occupies. One refresh once the page has fully
+     * loaded is enough; resizes are handled by ScrollTrigger itself.
+     */
+    const refreshOnLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refreshOnLoad);
 
     // The CTA is the one reveal that rebuilds itself, so its observers have to
     // be released along with the rest of the context.
-    return animateCta();
+    const cleanupCta = animateCta();
+
+    return () => {
+      window.removeEventListener("load", refreshOnLoad);
+      cleanupCta?.();
+    };
   }, []);
 
   return (
@@ -535,9 +626,10 @@ const Home = () => {
             ></div>
             <div className="relative overflow-hidden rounded-2xl lg:h-[32rem]">
               <Image
+                ref={heroPhotoRef}
                 src={HERO_IMAGE}
                 alt="CoreX training floor"
-                className="h-full w-full object-cover object-center"
+                className="h-full w-full object-cover object-center will-change-transform"
               />
             </div>
           </div>
@@ -739,10 +831,32 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Pricing */}
+        <section className="mt-24 lg:mt-40">
+          <div className="text-center mb-10 lg:mb-14">
+            <p className="eyebrow text-smoke">06 / Membership</p>
+            <h2
+              ref={pricingHeadingRef}
+              className="font-bebas-neue text-5xl lg:text-7xl mt-4 leading-[0.95]"
+            >
+              Choose Your Membership
+            </h2>
+            <p className="mt-4 text-ink/70">
+              No contracts, and you can pause for up to three months whenever
+              life gets in the way.
+            </p>
+          </div>
+          <div className="grid max-lg:grid-cols-1 lg:grid-cols-3 gap-5">
+            {pricingData.map((tier) => (
+              <PricingCard key={tier.id} {...tier} />
+            ))}
+          </div>
+        </section>
+
         {/* Faq */}
         <section className="mt-24 lg:mt-40 md:flex justify-between gap-12">
           <div className="md:w-1/3 h-fit">
-            <p className="eyebrow text-smoke">06 / FAQ</p>
+            <p className="eyebrow text-smoke">07 / FAQ</p>
             <h2
               ref={faqHeadingRef}
               className="font-bebas-neue text-5xl lg:text-7xl mt-4 leading-[0.95]"

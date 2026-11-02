@@ -214,3 +214,59 @@ export const testimonialsData = [
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1240&auto=format&fit=crop",
   },
 ];
+
+/*
+ * The tiers are sequenced so the middle one is the answer most people want,
+ * and their features stay inside what the rest of the page already promises:
+ * the all-access membership the FAQ describes, the dedicated Men/Women/Kids
+ * track from the programs section, and the in-house nutritionists.
+ */
+export const pricingData = [
+  {
+    id: 1,
+    name: "Open Gym",
+    price: 49,
+    cadence: "/ month",
+    blurb: "The whole floor, on your own schedule.",
+    features: [
+      "Unlimited open gym hours",
+      "Strength floor & cardio zone",
+      "Functional turf and yoga studio",
+      "Locker room, showers & steam room",
+    ],
+    cta: "Start Open Gym",
+    featured: false,
+  },
+  {
+    id: 2,
+    name: "All Access",
+    price: 89,
+    cadence: "/ month",
+    blurb: "Every class, every space, every hour — the full CoreX.",
+    features: [
+      "Everything in Open Gym",
+      "Unlimited group classes & cardio sessions",
+      "Your dedicated track — Men, Women or Kids",
+      "Nutrition guidance from our team",
+      "Recovery suite and personal locker",
+    ],
+    cta: "Join All Access",
+    featured: true,
+  },
+  {
+    id: 3,
+    name: "Elite Coaching",
+    price: 149,
+    cadence: "/ month",
+    blurb: "One-on-one programming with a coach who knows your numbers.",
+    features: [
+      "Everything in All Access",
+      "Four private sessions every month",
+      "A program built around your goals",
+      "Form reviews & monthly check-ins",
+      "Direct line to your coach",
+    ],
+    cta: "Apply for Coaching",
+    featured: false,
+  },
+];
