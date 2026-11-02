@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useRef, useState } from "react";
 import { useLoading } from "../context/LoadingProvider";
 import { DUR, EASE, prefersReduced } from "@/app/utils/motion";
+import Logo from "./ui/Logo";
 
 /**
  * Minimum run of the counter before it reaches its hold point. Kept short — the
@@ -134,9 +135,7 @@ const Loader = ({ onCurtainStart, onExitComplete }) => {
         <div ref={contentRef} className="flex flex-col">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <p className="font-bebas-neue text-3xl tracking-widest text-paper">
-                COREX<span className="text-lime">.</span>
-              </p>
+              <Logo className="text-3xl tracking-[0.02em] text-paper" />
               <p className="eyebrow text-paper/40 mt-3">Preparing the floor</p>
             </div>
             <p className="font-bebas-neue text-7xl md:text-9xl text-paper leading-none">

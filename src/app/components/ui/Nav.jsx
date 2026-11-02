@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useLenis } from "lenis/react";
 import { DUR, EASE, prefersReduced } from "@/app/utils/motion";
 import { lockPageScroll, unlockPageScroll } from "@/app/utils/scrollLock";
+import Logo from "./Logo";
 
 const NAV_LINKS = ["Home", "Trainers", "Programs", "Experiences", "Pricing"];
 
@@ -245,9 +246,7 @@ const Nav = () => {
         className={`sticky top-0 ${Z_HEADER} bg-paper/85 backdrop-blur-md border-b border-hairline`}
       >
         <nav className="w-[90%] max-w-360 mx-auto h-16 lg:h-20 flex items-center justify-between">
-          <span className="font-bebas-neue text-3xl tracking-widest cursor-pointer select-none">
-            COREX<span className="text-lime">.</span>
-          </span>
+          <Logo className="text-3xl tracking-[0.02em] cursor-pointer" />
 
           <ul className="hidden lg:flex items-center gap-9">
             {NAV_LINKS.map((link) => (
@@ -311,9 +310,7 @@ const Nav = () => {
         className={`px-[5%] fixed inset-0 ${Z_MOBILE_NAV} w-full bg-ink flex flex-col justify-between py-8`}
       >
         <div className="flex items-center justify-between">
-          <span className="font-bebas-neue text-2xl tracking-widest text-paper select-none">
-            COREX<span className="text-lime">.</span>
-          </span>
+          <Logo className="text-2xl tracking-[0.02em] text-paper" />
           <button
             ref={crossRef}
             className="cursor-pointer lg:hidden flex items-center gap-2"
