@@ -623,14 +623,14 @@ const Home = () => {
             </div>
           </div>
           <p className="eyebrow text-smoke">01 / Our Philosophy</p>
-          <h3
+          <h2
             ref={valuesHeadingRef}
             className="font-bebas-neue text-5xl lg:text-7xl leading-[0.95]"
           >
             Fitness should be
             <br />
             accessible to everyone
-          </h3>
+          </h2>
           <p ref={valuesDescRef} className="max-w-xl text-ink/70 leading-relaxed">
             CoreX is a premium training club built on a single belief:
             world-class coaching, equipment, and community should be within
@@ -652,12 +652,12 @@ const Home = () => {
 
           <div ref={ourClassesLeftRef} className="lg:w-1/2">
             <p className="eyebrow text-smoke">02 / Training Programs</p>
-            <h5
+            <h2
               ref={ourClassesHeadingRef}
               className="font-bebas-neue text-5xl lg:text-7xl mt-4"
             >
               Choose Your Track
-            </h5>
+            </h2>
             <p
               ref={ourClassesDescRef}
               className="mt-5 max-w-md text-ink/70 leading-relaxed"
@@ -704,12 +704,12 @@ const Home = () => {
 
         <section id="trainers" className="mt-24 lg:mt-40">
           <p className="eyebrow text-smoke text-center">03 / Why CoreX</p>
-          <h1
+          <h2
             ref={whyChooseUsHeadingRef}
             className="font-bebas-neue text-5xl lg:text-7xl text-center mt-4 mb-16 lg:mb-24 leading-[0.95]"
           >
             Why Choose CoreX?
-          </h1>
+          </h2>
           <div className="flex flex-col max-lg:gap-14 lg:gap-24">
             {whyChooseUsData.map((item) => (
               <WhyUs key={item.id} {...item} />
@@ -721,14 +721,14 @@ const Home = () => {
           <div className="flex max-lg:flex-col max-lg:gap-3 justify-between items-end mb-10">
             <div>
               <p className="eyebrow text-smoke">04 / The Journal</p>
-              <h1
+              <h2
                 ref={journalHeadingRef}
                 className="font-bebas-neue text-5xl lg:text-7xl mt-4 leading-[0.95]"
               >
                 Stories, tips & insights
                 <br className="hidden lg:block" />
                 straight from the floor.
-              </h1>
+              </h2>
             </div>
             <span
               ref={journalLinkRef}

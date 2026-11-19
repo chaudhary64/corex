@@ -110,12 +110,12 @@ const WhyUs = ({ src, heading, description, btnTxt, layout, label }) => {
       >
         <span className="eyebrow text-smoke">{label}</span>
 
-        <h2
+        <h3
           ref={headingRef}
           className="font-bebas-neue text-4xl lg:text-6xl mt-4 leading-[0.95]"
         >
           {heading}
-        </h2>
+        </h3>
 
         <div ref={descRef} className="my-6 text-ink/70 max-w-lg">
           <p className="leading-relaxed">{description}</p>

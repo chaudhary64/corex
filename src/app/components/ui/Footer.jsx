@@ -234,12 +234,12 @@ const Footer = () => {
                 <br />
                 THAN YESTERDAY
               </h2>
-              <h1
+              <div
+                aria-hidden="true"
                 className="text-[18vw] lg:text-[11rem] font-bebas-neue text-outline-light leading-[0.85] mt-6"
-                aria-label="CoreX"
               >
                 COREX
-              </h1>
+              </div>
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <span className="eyebrow text-lime mb-2">Explore</span>
@@ -259,15 +259,9 @@ const Footer = () => {
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <span className="eyebrow text-lime mb-2">Legal</span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
-                Privacy Policy
-              </span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
-                Terms of Service
-              </span>
-              <span className="cursor-pointer hover:text-lime transition-colors duration-300">
-                Cookie Policy
-              </span>
+              <span>Privacy Policy</span>
+              <span>Terms of Service</span>
+              <span>Cookie Policy</span>
               <a
                 href="#faq"
                 onClick={(event) => {
@@ -290,16 +284,28 @@ const Footer = () => {
               <div className="mt-2">
                 <span className="eyebrow text-paper/40">Follow Us</span>
                 <div className="mt-3 flex gap-3 text-base">
-                  <span className="w-9 h-9 rounded-full border border-paper/20 flex items-center justify-center cursor-pointer hover:bg-lime hover:text-ink hover:border-lime transition-colors duration-300">
+                  <span
+                    aria-hidden="true"
+                    className="w-9 h-9 rounded-full border border-paper/20 flex items-center justify-center"
+                  >
                     <FaInstagram />
                   </span>
-                  <span className="w-9 h-9 rounded-full border border-paper/20 flex items-center justify-center cursor-pointer hover:bg-lime hover:text-ink hover:border-lime transition-colors duration-300">
+                  <span
+                    aria-hidden="true"
+                    className="w-9 h-9 rounded-full border border-paper/20 flex items-center justify-center"
+                  >
                     <FiFacebook />
                   </span>
-                  <span className="w-9 h-9 rounded-full border border-paper/20 flex items-center justify-center cursor-pointer hover:bg-lime hover:text-ink hover:border-lime transition-colors duration-300">
+                  <span
+                    aria-hidden="true"
+                    className="w-9 h-9 rounded-full border border-paper/20 flex items-center justify-center"
+                  >
                     <FiTwitter />
                   </span>
-                  <span className="w-9 h-9 rounded-full border border-paper/20 flex items-center justify-center cursor-pointer hover:bg-lime hover:text-ink hover:border-lime transition-colors duration-300">
+                  <span
+                    aria-hidden="true"
+                    className="w-9 h-9 rounded-full border border-paper/20 flex items-center justify-center"
+                  >
                     <LuLinkedin />
                   </span>
                 </div>
