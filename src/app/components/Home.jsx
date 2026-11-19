@@ -11,7 +11,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Nav from "./ui/Nav";
 import Footer from "./ui/Footer";
-import Image from "./Image";
+import Image, { unsplashSrcSet } from "./Image";
 import { useLoading } from "@/app/context/LoadingProvider";
 import {
   DUR,
@@ -30,13 +30,10 @@ import {
   testimonialsData,
   pricingData,
   heroStats,
+  heroImage,
   tickerItems,
 } from "@/app/data/homeData";
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-
-/** Lets the section beneath the curtain settle for a beat before the hero runs. */
 const HERO_LEAD_IN = 0.25;
 
 const Home = () => {
@@ -82,12 +79,9 @@ const Home = () => {
   const ctaParaRef = useRef(null);
   const ctaBtnRef = useRef(null);
 
-  // The two decorative loops only run while they are actually on screen.
   useOffscreenPause(tickerRef);
   useOffscreenPause(testimonialMarqueeRef);
 
-  // The hero is the second half of the preloader's handoff: it stays put until
-  // the curtain starts to lift, then plays into the space that opens up.
   useGSAP(
     () => {
       if (!loading.revealed || !heroTextRef.current) return;
@@ -132,8 +126,7 @@ const Home = () => {
           },
           0.1,
         )
-        // The outlined word is the page's signature move: it rises out from
-        // behind its mask a beat after the type above it.
+
         .to(
           heroOutlineRef.current,
           { yPercent: 0, duration: DUR.reveal, ease: EASE.outStrong },
@@ -153,8 +146,6 @@ const Home = () => {
     { dependencies: [loading.revealed] },
   );
 
-  // Stat tiles and journal cards arrive in batches, so items that enter together
-  // stagger together and items that enter alone do not wait on their neighbours.
   useGSAP(() => {
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -187,13 +178,6 @@ const Home = () => {
       batchRise(tiles, DUR.quick);
     };
 
-    /*
-     * The hero photograph drifts against the page as the hero scrolls past. It
-     * is scrubbed rather than triggered because the point is the relationship
-     * to the scroll position, not an arrival: the image is already in place by
-     * the time the curtain lifts. The extra scale is what keeps the edges of
-     * the frame covered while the photo travels inside it.
-     */
     const animateHeroParallax = () => {
       if (prefersReduced() || !heroPhotoRef.current) return;
 
@@ -218,8 +202,6 @@ const Home = () => {
     const animateTicker = () => {
       if (prefersReduced()) return;
 
-      // The ribbon is placed rather than slid in, so the page's wipes stay the
-      // family of reveals reserved for passing between states.
       gsap.set(tickerRef.current, { clipPath: "inset(50% 0% 50% 0%)" });
       gsap.to(tickerRef.current, {
         clipPath: "inset(0% 0% 0% 0%)",
@@ -276,8 +258,7 @@ const Home = () => {
           },
           0,
         )
-        // Body copy moves by the line. Staggering a paragraph character by
-        // character turns reading into a three second shimmer.
+
         .to(
           descSplit.lines,
           {
@@ -302,17 +283,20 @@ const Home = () => {
         mask: "lines",
       });
 
-      const rows = [...ourClassesRightRef.current.childNodes];
+      const rows = [...
+        ourClassesRightRef.current.querySelectorAll("[data-track-row]")].map(
+        (row) => ({
+          labels: [...row.querySelectorAll("[data-track-label]")],
+          rule: row.querySelector("[data-track-rule]"),
+        }),
+      );
 
       if (prefersReduced()) {
         gsap.set(
           [
             headingSplit.chars,
             descSplit.lines,
-            ...rows.flatMap((row) => [
-              ...row.childNodes[0].childNodes,
-              row.childNodes[1],
-            ]),
+            ...rows.flatMap((row) => [...row.labels, row.rule]),
           ],
           SHOWN,
         );
@@ -343,11 +327,8 @@ const Home = () => {
           "-=0.6",
         );
 
-      rows.forEach((row) => {
-        const label = row.childNodes[0];
-        const rule = row.childNodes[1];
-
-        gsap.set(label.childNodes, {
+      rows.forEach(({ labels, rule }) => {
+        gsap.set(labels, {
           autoAlpha: 0,
           x: (index) => (index === 0 ? -50 : 50),
         });
@@ -355,13 +336,13 @@ const Home = () => {
 
         const rowTl = gsap
           .timeline({ defaults: { ease: EASE.out } })
-          .to(label.childNodes, {
+          .to(labels, {
             autoAlpha: 1,
             x: 0,
             duration: DUR.reveal,
             stagger: 0.1,
           })
-          // The rule draws in behind the labels once they have settled.
+
           .to(rule, { scaleX: 1, duration: DUR.state }, "<+=0.35");
 
         classesTl.add(rowTl, "<+=0.2");
@@ -412,16 +393,8 @@ const Home = () => {
       let paraSplit;
       let reveal;
 
-      /*
-       * Line breaks are baked in when text is split, so a split taken at
-       * another width - or before the web font lands, when the fallback face
-       * wraps differently - leaves the CTA showing stale breaks ("on us."
-       * stranded on its own line on desktop). Rebuilding is what keeps them
-       * honest, so the reveal is re-created whenever the text would re-wrap.
-       */
       const buildCta = () => {
-        // The reveal plays once, so a rebuild after it has run settles the
-        // fresh elements into their final state rather than replaying it.
+
         const settled = !!reveal && reveal.progress() > 0;
 
         reveal?.scrollTrigger?.kill();
@@ -431,9 +404,6 @@ const Home = () => {
         paraSplit?.revert();
 
         headingSplit = new SplitText(ctaHeadingRef.current, {
-          // `words` is what keeps the heading from breaking inside a word: chars
-          // are inline-block, so without a word wrapper around them the browser
-          // will happily wrap between any two letters ("YO / UR JOURNEY?").
           type: "lines, words, chars",
           mask: "lines",
         });
@@ -476,12 +446,6 @@ const Home = () => {
 
       buildCta();
 
-      /*
-       * A rebuild replaces DOM, so it is debounced - a window drag would
-       * otherwise thrash. The paragraph is the fluid box, so watching it catches
-       * every width the card takes, and the font event catches the swap of the
-       * fallback face, which changes the glyphs without changing the box.
-       */
       let timer;
       const resettle = () => {
         clearTimeout(timer);
@@ -500,18 +464,9 @@ const Home = () => {
     };
 
     const animatePricing = () => {
-      // Reduced motion is left entirely alone: the heading and the tiers are
-      // visible as authored, so there is nothing to put back.
+
       if (prefersReduced()) return;
 
-      /*
-       * Unlike the headings above it, this one splits itself. Line breaks are
-       * baked in at split time, so a heading split while the viewport was
-       * narrow keeps those breaks after it widens; `autoSplit` re-splits on box
-       * resize and when the web fonts land. Returning the reveal from `onSplit`
-       * is what lets GSAP carry its progress onto the fresh lines instead of
-       * replaying it.
-       */
       SplitText.create(pricingHeadingRef.current, {
         type: "lines",
         mask: "lines",
@@ -534,13 +489,8 @@ const Home = () => {
             ),
       });
 
-      // The tiers do not ride the grid batch: each card runs its own entrance
-      // and counts its own price, so they read as three offers rather than one
-      // block of furniture.
     };
 
-    // Created in page order: the photo sits above the stat tiles, so its trigger
-    // has to be measured before theirs for a refresh to land in the right order.
     animateHeroParallax();
     animateStats();
     animateTicker();
@@ -552,17 +502,9 @@ const Home = () => {
     animatePricing();
     animateSupportingHeading(faqHeadingRef.current);
 
-    /*
-     * Lazy images and the web font change row heights after these triggers have
-     * measured, which leaves every start position below them pointing at a
-     * place the element no longer occupies. One refresh once the page has fully
-     * loaded is enough; resizes are handled by ScrollTrigger itself.
-     */
     const refreshOnLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", refreshOnLoad);
 
-    // The CTA is the one reveal that rebuilds itself, so its observers have to
-    // be released along with the rest of the context.
     const cleanupCta = animateCta();
 
     return () => {
@@ -575,7 +517,7 @@ const Home = () => {
     <>
       <Nav />
       <main className="w-[90%] max-w-360 mx-auto">
-        {/* Hero Section */}
+
         <section id="home" className="mt-10 lg:mt-16">
           <div className="mx-auto max-w-6xl text-center">
             <p
@@ -626,7 +568,10 @@ const Home = () => {
             <div className="relative overflow-hidden rounded-2xl lg:h-[32rem]">
               <Image
                 ref={heroPhotoRef}
-                src={HERO_IMAGE}
+                src={heroImage}
+                srcSet={unsplashSrcSet(heroImage, [640, 960, 1170])}
+                sizes="(min-width: 1152px) 1152px, 100vw"
+                loading="eager"
                 alt="CoreX training floor"
                 className="h-full w-full object-cover object-center will-change-transform"
               />
@@ -648,7 +593,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Ticker Ribbon */}
         <div
           ref={tickerRef}
           className="mt-20 lg:mt-28 w-screen relative left-1/2 -translate-x-1/2 bg-lime py-4 border-y border-ink -rotate-1 overflow-hidden"
@@ -669,7 +613,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Values Section */}
         <section
           ref={valuesSectionRef}
           className="mt-24 lg:mt-40 lg:w-3/5 mx-auto flex flex-col items-center text-center gap-7"
@@ -702,12 +645,11 @@ const Home = () => {
           </button>
         </section>
 
-        {/* Our Classes */}
         <section
           id="programs"
           className="mt-24 lg:mt-40 flex max-lg:flex-wrap justify-between items-start gap-10 lg:gap-16"
         >
-          {/* Left Part */}
+
           <div ref={ourClassesLeftRef} className="lg:w-1/2">
             <p className="eyebrow text-smoke">02 / Training Programs</p>
             <h5
@@ -724,16 +666,26 @@ const Home = () => {
               rep to your final set. Your coach, your pace, your standard.
             </p>
           </div>
-          {/* Right Part */}
+
           <div ref={ourClassesRightRef} className="w-full lg:w-1/2">
             {["Men", "Women", "Kids"].map((category) => (
-              <div key={category} className="group pt-8 cursor-pointer">
+              <div
+                key={category}
+                data-track-row
+                className="group pt-8 cursor-pointer"
+              >
                 <div className="flex justify-between items-center">
                   <div className="flex items-baseline gap-4">
-                    <span className="font-bebas-neue text-5xl lg:text-6xl tracking-wide group-hover:text-lime transition-colors duration-300">
+                    <span
+                      data-track-label
+                      className="font-bebas-neue text-5xl lg:text-6xl tracking-wide group-hover:text-lime transition-colors duration-300"
+                    >
                       {category}
                     </span>
-                    <span className="eyebrow text-smoke group-hover:text-ink transition-colors duration-300">
+                    <span
+                      data-track-label
+                      className="eyebrow text-smoke group-hover:text-ink transition-colors duration-300"
+                    >
                       Dedicated Track
                     </span>
                   </div>
@@ -741,13 +693,15 @@ const Home = () => {
                     <FiArrowUpRight />
                   </span>
                 </div>
-                <div className="w-full mt-5 h-px bg-ink/40"></div>
+                <div
+                  data-track-rule
+                  className="w-full mt-5 h-px bg-ink/40"
+                ></div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Why Choose Us */}
         <section id="trainers" className="mt-24 lg:mt-40">
           <p className="eyebrow text-smoke text-center">03 / Why CoreX</p>
           <h1
@@ -763,7 +717,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Journal */}
         <section className="mt-24 lg:mt-40">
           <div className="flex max-lg:flex-col max-lg:gap-3 justify-between items-end mb-10">
             <div>
@@ -794,7 +747,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Testimonials Section */}
         <section id="experiences" className="mt-24 lg:mt-40">
           <div className="text-center mb-10">
             <p className="eyebrow text-smoke">05 / Member Stories</p>
@@ -833,7 +785,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Pricing */}
         <section id="pricing" className="mt-24 lg:mt-40">
           <div className="text-center mb-10 lg:mb-14">
             <p className="eyebrow text-smoke">06 / Membership</p>
@@ -855,7 +806,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Faq */}
         <section
           id="faq"
           className="mt-24 lg:mt-40 md:flex justify-between gap-12"
@@ -879,7 +829,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Call to Action Section */}
         <section className="mt-24 lg:mt-40">
           <div className="bg-ink text-paper rounded-3xl px-6 py-20 lg:py-28 text-center relative overflow-hidden">
             <div

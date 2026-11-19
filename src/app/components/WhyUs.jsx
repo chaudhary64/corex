@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { FiArrowUpRight } from "react-icons/fi";
 
-import Image from "./Image";
+import Image, { unsplashSrcSet } from "./Image";
 import {
   DUR,
   EASE,
@@ -17,11 +17,6 @@ import {
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-/**
- * A Why CoreX row: the image is wiped in from the edge nearest the copy, then
- * the text arrives over it. The wipe is the section's reveal, so the text is
- * timed to land while the image is still settling rather than after it.
- */
 const WhyUs = ({ src, heading, description, btnTxt, layout, label }) => {
   const sectionRef = useRef(null);
   const asideRef = useRef(null);
@@ -56,7 +51,6 @@ const WhyUs = ({ src, heading, description, btnTxt, layout, label }) => {
       };
     }
 
-    // The panel over the image retracts towards the copy.
     gsap.set(asideRef.current, {
       transformOrigin: layout === "l-r" ? "right center" : "left center",
     });
@@ -95,16 +89,13 @@ const WhyUs = ({ src, heading, description, btnTxt, layout, label }) => {
       <div
         className={`max-lg:w-full lg:w-1/2 relative overflow-hidden rounded-2xl ${layout === "r-l" ? "lg:order-2" : ""}`}
       >
-        {/*
-          The panel deliberately outranks the badge below it. Left the other way
-          round the badge is painted above the wipe and spends the whole 1.2s
-          floating on the blank panel with no reveal of its own, because the
-          panel retracts on its own layer.
-        */}
+
         <aside ref={asideRef} className="absolute inset-0 z-10 bg-paper" />
 
         <Image
           src={src}
+          srcSet={unsplashSrcSet(src, [640, 960, 1170])}
+          sizes="(min-width: 1024px) 50vw, 100vw"
           alt={heading}
           className="h-full w-full object-cover object-center"
         />

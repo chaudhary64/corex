@@ -19,17 +19,9 @@ const NAV_LINKS = [
 const MOBILE_NAV_CLOSED = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
 const MOBILE_NAV_OPEN = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
 
-/*
- * Page layers, lowest first: the page (up to z-10), the sticky header, the
- * full-screen menu, the preloader.
- */
 const Z_HEADER = "z-40";
 const Z_MOBILE_NAV = "z-50";
 
-/*
- * Everything the Tab key can land on. The menu "links" are spans, so they are
- * deliberately absent: a trap should only cycle what a keyboard can reach.
- */
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -43,19 +35,10 @@ const Nav = () => {
 
   const lenis = useLenis();
 
-  // The instance arrives after the first render, so the open/close handlers
-  // read it through a ref rather than closing over the initial null.
   const lenisRef = useRef(null);
 
   const scrollToSection = useSectionScroll();
 
-  /*
-   * A link inside the menu cannot scroll on the spot: the page is scroll-locked
-   * and Lenis is stopped while the panel is open. The destination is parked
-   * here and spent when the close timeline reports it has finished releasing
-   * the page - held in a ref for the same reason as the instance above, since
-   * the timeline that reads it is built once on mount.
-   */
   const pendingSectionRef = useRef(null);
   const scrollToRef = useRef(scrollToSection);
 
@@ -64,21 +47,13 @@ const Nav = () => {
     scrollToRef.current = scrollToSection;
   }, [lenis, scrollToSection]);
 
-  /*
-   * The panel is mounted from the first render and revealed by animating
-   * `clipPath`, which hides it visually but leaves its buttons in the tab
-   * order. `inert` takes the whole subtree out of the tab order and the
-   * accessibility tree both. It is driven through the DOM rather than rendered
-   * as a prop because the open state lives in the GSAP timeline, not in React,
-   * and a re-render must not clobber it.
-   */
   const setMenuOpenState = useCallback((isOpen) => {
     if (mobileNavRef.current) mobileNavRef.current.inert = !isOpen;
     hamburgerRef.current?.setAttribute("aria-expanded", String(isOpen));
   }, []);
 
   useEffect(() => {
-    // Closed on load, at every breakpoint.
+
     setMenuOpenState(false);
   }, [setMenuOpenState]);
 
@@ -94,8 +69,6 @@ const Nav = () => {
         const { isMobile, reduce } = context.conditions;
         if (!isMobile) return;
 
-        // `reduce` is a live condition, so `prefersReduced()` here tracks the
-        // setting rather than being frozen at first render.
         const reduced = reduce || prefersReduced();
 
         const mobileSpans = [...mobileLinksRef.current.children];
@@ -111,7 +84,7 @@ const Nav = () => {
         });
 
         if (reduced) {
-          // No wipe to travel with, so the panel cross-fades instead.
+
           gsap.set(mobileNavRef.current, { clipPath: "none", autoAlpha: 0 });
         } else {
           gsap.set(mobileNavRef.current, { clipPath: MOBILE_NAV_CLOSED });
@@ -125,8 +98,6 @@ const Nav = () => {
         const showMobileNav = gsap.timeline({
           paused: true,
           defaults: { ease: EASE.out },
-          // Released only once the panel has gone, so the page never scrolls
-          // out from under a menu that is still on screen.
           onReverseComplete: () => {
             unlockPageScroll();
             lenisRef.current?.start();
@@ -134,7 +105,11 @@ const Nav = () => {
 
             const pending = pendingSectionRef.current;
             pendingSectionRef.current = null;
-            if (pending) scrollToRef.current(pending);
+            if (pending) {
+
+              hamburgerRef.current?.focus({ preventScroll: true });
+              scrollToRef.current(pending);
+            }
           },
         });
 
@@ -173,35 +148,26 @@ const Nav = () => {
         }
 
         context.add("open", () => {
-          // Stopping Lenis blocks wheel and touch; the lock covers the keyboard
-          // and the scrollbar, which Lenis leaves alone.
+
           lockPageScroll();
           lenisRef.current?.stop();
           setMenuOpenState(true);
           showMobileNav.timeScale(1).play();
         });
 
-        // The panel closes faster than it opens.
         context.add("close", () => {
           showMobileNav.timeScale(1.6).reverse();
         });
 
-        // Fully closed (progress 0) leaves nothing to close or to trap.
         const isMenuOpen = () => showMobileNav.progress() > 0;
 
-        /*
-         * Listened for on the document rather than on the panel: a mouse click
-         * on the hamburger leaves focus outside the menu, where a keydown on
-         * the panel itself would never arrive.
-         */
         const onKeyDown = (event) => {
           if (!isMenuOpen()) return;
 
           if (event.key === "Escape") {
             event.preventDefault();
             context.close();
-            // Escape is a keyboard exit, so the visitor is handed back the
-            // control they came in through.
+
             hamburgerRef.current?.focus();
             return;
           }
@@ -211,8 +177,6 @@ const Nav = () => {
           const panel = mobileNavRef.current;
           if (!panel) return;
 
-          // Zero-sized controls (the `lg:hidden` close button on a wide screen)
-          // are not reachable, so they are not trap stops either.
           const items = [...panel.querySelectorAll(FOCUSABLE)].filter(
             (el) => el.getClientRects().length > 0,
           );
@@ -234,7 +198,6 @@ const Nav = () => {
           }
         };
 
-        // Held in locals so the cleanup can unbind the exact same wrappers.
         const openMenu = context.open;
         const closeMenu = context.close;
 
@@ -244,14 +207,10 @@ const Nav = () => {
 
         return () => {
           document.removeEventListener("keydown", onKeyDown);
-          // The panel is a shared DOM node and this branch is re-created on
-          // every breakpoint crossing, so listeners left behind here would
-          // stack up and fire the menu once per crossing.
+
           hamburgerRef.current?.removeEventListener("click", openMenu);
           crossRef.current?.removeEventListener("click", closeMenu);
 
-          // Cross the breakpoint with the menu open and the page must neither
-          // stay frozen behind it nor leave the panel holding focus.
           setMenuOpenState(false);
           unlockPageScroll();
           lenisRef.current?.start();
@@ -264,11 +223,6 @@ const Nav = () => {
     };
   }, []);
 
-  /*
-   * Closing through the cross button rather than through the timeline directly:
-   * the panel's own close path is what restores the page, and a second way of
-   * dismissing it would leave the scroll lock behind on one of them.
-   */
   const goToSectionFromMenu = (id) => {
     pendingSectionRef.current = id;
     crossRef.current?.click();
@@ -284,13 +238,18 @@ const Nav = () => {
 
           <ul className="hidden lg:flex items-center gap-9">
             {NAV_LINKS.map((link) => (
-              <li
-                key={link.label}
-                onClick={() => scrollToSection(link.id)}
-                className="group relative cursor-pointer text-xs font-semibold uppercase tracking-[0.18em] text-ink/70 hover:text-ink transition-colors duration-300"
-              >
-                {link.label}
-                <span className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-lime origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+              <li key={link.label}>
+                <a
+                  href={`#${link.id}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    scrollToSection(link.id);
+                  }}
+                  className="group relative inline-block text-xs font-semibold uppercase tracking-[0.18em] text-ink/70 hover:text-ink transition-colors duration-300"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-lime origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
               </li>
             ))}
           </ul>
@@ -302,13 +261,11 @@ const Nav = () => {
             </button>
           </div>
 
-          {/* Toggle Mobile Navigation */}
           <button
             ref={hamburgerRef}
             className="cursor-pointer lg:hidden text-ink p-1"
             aria-label="Open menu"
             aria-controls="mobile-menu"
-            aria-expanded="false"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -328,13 +285,6 @@ const Nav = () => {
         </nav>
       </header>
 
-      {/*
-        Deliberately a sibling of <header>, not a child. The header's
-        backdrop-blur makes it the containing block for `position: fixed`
-        descendants, so nesting this panel there sized it to the header bar
-        instead of the viewport, and trapped its z-index in the header's
-        stacking context.
-      */}
       <div
         ref={mobileNavRef}
         id="mobile-menu"
@@ -368,13 +318,17 @@ const Nav = () => {
 
         <div ref={mobileLinksRef} className="flex flex-col items-center gap-3">
           {NAV_LINKS.map((link) => (
-            <span
+            <a
               key={link.label}
-              onClick={() => goToSectionFromMenu(link.id)}
-              className="font-bebas-neue text-5xl uppercase text-paper/90 cursor-pointer hover:text-lime transition-colors duration-300"
+              href={`#${link.id}`}
+              onClick={(event) => {
+                event.preventDefault();
+                goToSectionFromMenu(link.id);
+              }}
+              className="font-bebas-neue text-5xl uppercase text-paper/90 hover:text-lime transition-colors duration-300"
             >
               {link.label}
-            </span>
+            </a>
           ))}
         </div>
 

@@ -1,5 +1,5 @@
 import { FiArrowUpRight } from "react-icons/fi";
-import Image from "./Image";
+import Image, { unsplashSrcSet } from "./Image";
 
 const Highlight = ({ index, imgSrc, description, link }) => {
   return (
@@ -7,6 +7,8 @@ const Highlight = ({ index, imgSrc, description, link }) => {
       <div className="relative h-44 lg:h-52 overflow-hidden">
         <Image
           src={imgSrc}
+          srcSet={unsplashSrcSet(imgSrc, [400, 800])}
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
           alt={link}
           loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"

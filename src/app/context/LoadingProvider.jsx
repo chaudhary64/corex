@@ -1,22 +1,14 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { heroImage, whyChooseUsData } from "@/app/data/homeData";
 
 const LoadingContext = createContext();
 
-const IMAGE_URLS = [
-  "https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1642267165393-951c20e0a8b8?q=80&w=1154&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1534368270820-9de3d8053204?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1585892478726-d26363dbf9e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1685633224306-2a2b37050713?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-];
+const IMAGE_URLS = [heroImage, ...whyChooseUsData.map((item) => item.src)];
 
 export function LoadingProvider({ children }) {
   const [loading, setLoading] = useState({
-    /** Assets are still arriving. */
     state: true,
-    /** The preloader curtain has started to lift; the page mounts behind it. */
     revealed: false,
-    /** The preloader has finished and can be removed from the DOM. */
     animated: false,
   });
   const [assetsCounted, setAssetsCounted] = useState(0);
@@ -70,9 +62,6 @@ export function LoadingProvider({ children }) {
 
     loadAssets();
 
-    // Failsafe only. The normal path hands over at roughly assets + 1.8s, and
-    // assets are capped at 5s above, so this sits clear of it — a backstop for
-    // a broken preloader, not a second way to release the page.
     const maxTimeout = setTimeout(() => {
       if (!isCancelled) {
         isCancelled = true;

@@ -67,8 +67,7 @@ const Footer = () => {
         });
 
         if (reduced) {
-          // Everything simply arrives: the sine wave is drawn, the circle sits
-          // at rest, and the type is already in place.
+
           gsap.set(
             [
               ...upperLeftTextSplit.lines,
@@ -134,7 +133,7 @@ const Footer = () => {
             },
             0,
           )
-          // The wave is drawn last, trailing the type that labels it.
+
           .to(
             pathRef.current,
             { drawSVG: "100%", duration: DUR.wipe, ease: EASE.out },
@@ -147,10 +146,10 @@ const Footer = () => {
           );
       },
     );
+
+    return () => mm.revert();
   }, []);
 
-  // The lower half used to arrive all at once with no motion at all; the
-  // columns now settle in together, batched so they only run when seen.
   useGSAP(() => {
     const items = [...lowerContentRef.current.children, footerBarRef.current];
 
@@ -179,7 +178,7 @@ const Footer = () => {
   return (
     <footer className="mt-24 lg:mt-40">
       <div>
-        {/* Upper Part */}
+
         <div className="hidden lg:flex w-[90%] max-w-360 mx-auto pb-20 justify-between items-center">
           <div
             ref={upperLeftRef}
@@ -199,7 +198,7 @@ const Footer = () => {
             <h2 ref={upperCenterRef} className="text-7xl font-bebas-neue">
               Contact Us
             </h2>
-            {/* Sine Wave */}
+
             <svg
               width="214"
               height="12"
@@ -223,7 +222,6 @@ const Footer = () => {
           </span>
         </div>
 
-        {/* Lower Part */}
         <div className="py-16 lg:py-20 bg-ink text-paper">
           <div
             ref={lowerContentRef}
@@ -246,13 +244,17 @@ const Footer = () => {
             <div className="flex flex-col gap-2 text-sm">
               <span className="eyebrow text-lime mb-2">Explore</span>
               {EXPLORE_LINKS.map((link) => (
-                <span
+                <a
                   key={link.id}
-                  onClick={() => scrollToSection(link.id)}
+                  href={`#${link.id}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    scrollToSection(link.id);
+                  }}
                   className="cursor-pointer hover:text-lime transition-colors duration-300"
                 >
                   {link.label}
-                </span>
+                </a>
               ))}
             </div>
             <div className="flex flex-col gap-2 text-sm">
@@ -266,12 +268,16 @@ const Footer = () => {
               <span className="cursor-pointer hover:text-lime transition-colors duration-300">
                 Cookie Policy
               </span>
-              <span
-                onClick={() => scrollToSection("faq")}
+              <a
+                href="#faq"
+                onClick={(event) => {
+                  event.preventDefault();
+                  scrollToSection("faq");
+                }}
                 className="cursor-pointer hover:text-lime transition-colors duration-300"
               >
                 FAQ
-              </span>
+              </a>
             </div>
             <div className="text-sm flex flex-col gap-3">
               <span className="eyebrow text-lime">Get Started</span>

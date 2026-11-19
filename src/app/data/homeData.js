@@ -1,3 +1,6 @@
+export const heroImage =
+  "https://images.unsplash.com/photo-1584863231364-2edc166de576?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
 export const heroStats = [
   {
     value: "12+",
@@ -215,12 +218,6 @@ export const testimonialsData = [
   },
 ];
 
-/*
- * The tiers are sequenced so the middle one is the answer most people want,
- * and their features stay inside what the rest of the page already promises:
- * the all-access membership the FAQ describes, the dedicated Men/Women/Kids
- * track from the programs section, and the in-house nutritionists.
- */
 export const pricingData = [
   {
     id: 1,
